@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_color">#EB413D</color><!--主色调-->
+    <color name="white">#ffffff</color>
+    <color name="toolbar_subtitle">#D4D0C5</color>
+    <color name="toolbar_bg">#B8B5A6</color>
+    <color name="error">#ff4545</color>
+</resources>

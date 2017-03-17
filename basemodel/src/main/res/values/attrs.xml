@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形图片属性-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <!--自定义的TextView代替多个shape-->
+    <declare-styleable name="ShapeTextView">
+        <!--填充色-->
+        <attr name="solidColor" format="color"></attr>
+        <!--边框色-->
+        <attr name="strokeColor" format="color"></attr>
+        <!--按下填充色-->
+        <attr name="solidTouchColor" format="color"></attr>
+        <!---按下边框色-->
+        <attr name="strokeTouchColor" format="color"></attr>
+        <!--文字按下颜色 -->
+        <attr name="textTouchColor" format="color"></attr>
+        <attr name="strokeWith" format="integer"></attr>
+        <attr name="radius" format="dimension"></attr>
+        <attr name="topLeftRadius" format="dimension"></attr>
+        <attr name="topRightRadius" format="dimension"></attr>
+        <attr name="bottomLeftRadius" format="dimension"></attr>
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="shapeTpe" format="enum">
+            <enum name="rectangle" value="0"></enum>
+            <enum name="oval" value="1"></enum>
+        </attr>
+    </declare-styleable>
+
+    <!--下拉筛选-->
+    <declare-styleable name="DropDownMenu">
+        <attr name="ddunderlineColor" format="color"/>
+        <attr name="dddividerColor" format="color"/>
+        <attr name="ddtextSelectedColor" format="color"/>
+        <attr name="ddtextUnselectedColor" format="color"/>
+        <attr name="ddmenuBackgroundColor" format="color"/>
+        <attr name="ddmaskColor" format="color"/>
+        <attr name="ddmenuTextSize" format="dimension"/>
+        <attr name="ddmenuSelectedIcon" format="reference"/>
+        <attr name="ddmenuUnselectedIcon" format="reference"/>
+    </declare-styleable>
+
+    <!--通用的头部-->
+    <declare-styleable name="NormalTitleBar">
+        <attr name="content" format="string"/>
+        <attr name="rightContent" format="string"/>
+        <attr name="leftState" format="boolean"/>
+        <attr name="backgroudColor" format="color"/>
+    </declare-styleable>
+</resources>

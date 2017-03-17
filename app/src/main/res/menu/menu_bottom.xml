@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/news"
+        android:icon="@drawable/ic_book_black_24dp"
+        android:title="新闻" />
+    <item
+        android:id="@+id/video"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        android:title="视频" />
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_chat_bubble_black_24dp"
+        android:title="勾搭" />
+
+    <item
+        android:id="@+id/me"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:title="我"/>
+</menu>

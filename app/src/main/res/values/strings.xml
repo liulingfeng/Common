@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Common</string>
+    <string name="welcome">Welcome%s来到这里</string>
+</resources>

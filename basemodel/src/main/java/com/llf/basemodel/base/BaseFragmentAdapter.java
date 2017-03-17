@@ -1,0 +1,65 @@
+package com.llf.basemodel.base;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
+import java.util.List;
+
+/**
+ * Created by llf on 2017/3/1.
+ * 通用的FragmentAdapter
+ */
+
+public class BaseFragmentAdapter extends FragmentPagerAdapter {
+    private FragmentManager fm;
+    List<Fragment> fragmentList;
+    private List<String> mTitles;
+
+    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+        super(fm);
+        this.fm = fm;
+        this.fragmentList = fragmentList;
+    }
+
+    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> mTitles) {
+        super(fm);
+        this.fm = fm;
+        this.fragmentList = fragmentList;
+        this.mTitles = mTitles;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles == null ? "" : mTitles.get(position);
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        return fragmentList.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return fragmentList.size();
+    }
+
+    /**
+     * 这边并没有创建销毁过程，只创建一次
+     * @param container
+     * @param position
+     * @return
+     */
+    @Override
+    public Fragment instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        fm.beginTransaction().show(fragment).commit();
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        Fragment fragment = fragmentList.get(position);
+        fm.beginTransaction().hide(fragment).commit();
+    }
+}

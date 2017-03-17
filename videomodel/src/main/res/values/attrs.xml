@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VideoPlayer">
+        <!--是否自动播放-->
+        <attr name="autoPlay" format="boolean" />
+    </declare-styleable>
+
+</resources>

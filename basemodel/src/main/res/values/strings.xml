@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">BaseModel</string>
+    <string name="back">返回</string>
+    <string name="again">点击重试</string>
+    <string name="loading">请稍后...</string>
+</resources>

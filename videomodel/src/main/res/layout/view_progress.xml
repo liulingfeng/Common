@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gesture_progress_layout"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="#bb000000"
+                android:gravity="center"
+    >
+
+    <ImageView
+        android:id="@+id/gesture_player_progress"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/player_forward"/>
+
+    <TextView
+        android:id="@+id/gesture_progress_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gesture_player_progress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:text="80%"
+        android:textColor="#ffececec"
+        android:textSize="12sp"/>
+
+</RelativeLayout>

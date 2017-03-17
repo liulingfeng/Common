@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EnterBottom">
+        <item name="android:windowEnterAnimation">@anim/enter_bottom</item>
+    </style>
+
+    <style name="PickAppThemeBottom" parent="BaseTheme">
+        <item name="android:windowAnimationStyle">@style/EnterBottom</item>
+    </style>
+</resources>

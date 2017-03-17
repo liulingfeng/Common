@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="editor_name">
+        <item>富文本</item>
+        <item>Markdown</item>
+    </string-array>
+    <string-array name="editor_value">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+</resources>
