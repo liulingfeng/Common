@@ -16,16 +16,21 @@ import com.llf.basemodel.dialog.LodingDialog;
 import com.llf.basemodel.utils.AppManager;
 import com.llf.basemodel.utils.ToastUtil;
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by llf on 2017/3/1.
  * 基础的Activity
  */
 
-public abstract class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity {
+    private CompositeSubscription mSubscriptions;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         //透明状态栏
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
@@ -56,10 +61,19 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //当模式为singleTop和SingleInstance会回调到这里
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         AppManager.instance.removeActivity(this);
         ButterKnife.unbind(this);
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
         BaseApplication.getRefWatcher(this).watch(this);
     }
 
@@ -71,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity{
      * 含有Bundle通过Class跳转界面
      **/
     public void startActivity(Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent(this,cls);
+        Intent intent = new Intent(this, cls);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
@@ -82,13 +96,14 @@ public abstract class BaseActivity extends AppCompatActivity{
         startActivityForResult(cls, null, requestCode);
     }
 
-    public void startActivityForResult(Class<?> cls, Bundle bundle,int requestCode) {
+    public void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
         Intent intent = new Intent(this, cls);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
         startActivityForResult(intent, requestCode);
     }
+
     /**
      * 跳转界面并关闭当前界面
      *
@@ -122,6 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity{
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
+
     /**
      * 开启加载效果
      */
@@ -140,21 +156,37 @@ public abstract class BaseActivity extends AppCompatActivity{
      * 显示错误的dialog
      */
     public void showErrorTip(String errorContent) {
-        View errorView = LayoutInflater.from(this).inflate(R.layout.app_error_tip,null);
-        TextView tvContent = (TextView)errorView.findViewById(R.id.content);
+        View errorView = LayoutInflater.from(this).inflate(R.layout.app_error_tip, null);
+        TextView tvContent = (TextView) errorView.findViewById(R.id.content);
         tvContent.setText(errorContent);
         new ToastUtil(errorView);
     }
 
     /**
      * 显示普通的toast
+     *
      * @return
      */
-    public void showToast(String str){
-        ToastUtil.sToastUtil.shortDuration(str).setToastBackground(Color.WHITE,R.drawable.toast_radius).show();
+    public void showToast(String str) {
+        ToastUtil.sToastUtil.shortDuration(str).setToastBackground(Color.WHITE, R.drawable.toast_radius).show();
     }
+
+    /**
+     * Rxjava相关
+     *
+     * @return
+     */
+    protected void addSubscription(Subscription subscription) {
+        if (subscription == null) return;
+        if (mSubscriptions == null) {
+            mSubscriptions = new CompositeSubscription();
+        }
+        mSubscriptions.add(subscription);
+    }
+
     //获取布局
     protected abstract int getLayoutId();
+
     //初始化布局和监听
     protected abstract void initView();
 }

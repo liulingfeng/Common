@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.llf.basemodel.R;
 import com.llf.basemodel.dialog.LodingDialog;
 import com.llf.basemodel.utils.ToastUtil;
-
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by llf on 2017/3/1.
@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
+    private CompositeSubscription mSubscriptions;
 
     @Override
     public void onAttach(Context context) {
@@ -97,6 +98,9 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.unbind(this);
         hasFetchData = false;
         isViewPrepared = false;
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
         BaseApplication.getRefWatcher(getActivity()).watch(this);
     }
 
@@ -180,6 +184,14 @@ public abstract class BaseFragment extends Fragment {
         TextView tvContent = (TextView)errorView.findViewById(R.id.content);
         tvContent.setText(errorContent);
         new ToastUtil(errorView);
+    }
+
+    protected void addSubscription(Subscription subscription) {
+        if (subscription == null) return;
+        if (mSubscriptions == null) {
+            mSubscriptions = new CompositeSubscription();
+        }
+        mSubscriptions.add(subscription);
     }
 
     protected abstract int getLayoutId();

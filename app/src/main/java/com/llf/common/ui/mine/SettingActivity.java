@@ -1,8 +1,10 @@
-package com.llf.common;
+package com.llf.common.ui.mine;
 
 import android.support.v7.widget.Toolbar;
 
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.common.R;
+
 import butterknife.Bind;
 
 /**

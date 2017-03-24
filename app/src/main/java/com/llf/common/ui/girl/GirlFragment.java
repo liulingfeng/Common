@@ -9,6 +9,10 @@ import com.llf.common.R;
  */
 
 public class GirlFragment extends BaseFragment{
+    public static GirlFragment getInstance() {
+        GirlFragment girlFragment = new GirlFragment();
+        return girlFragment;
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_girl;

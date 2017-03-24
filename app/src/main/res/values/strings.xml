@@ -1,4 +1,18 @@
 <resources>
-    <string name="app_name">Common</string>
+    <string name="app_name">秀趣</string>
     <string name="welcome">Welcome%s来到这里</string>
+
+    <string-array name="main_titles">
+        <item>@string/fragment_news</item>
+        <item>@string/fragment_video</item>
+        <item>@string/fragment_girl</item>
+        <item>@string/fragment_mine</item>
+    </string-array>
+
+    <string name="fragment_news">新闻</string>
+    <string name="fragment_video">视频</string>
+    <string name="fragment_girl">音乐</string>
+    <string name="fragment_mine">我</string>
+    <string name="fragment_picture">列表</string>
+    <string name="fragment_music">音乐</string>
 </resources>

@@ -34,14 +34,11 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import llf.videomodel.utils.LightUtil;
 import llf.videomodel.utils.PlayerUtil;
-
 import static llf.videomodel.utils.PlayerUtil.dip2px;
 
 /**
@@ -233,7 +230,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
     }
 
     /**
-     * 下面菜单的显示和隐藏
+     * 上下菜单的显示和隐藏
      */
     private void initBottomMenuState() {
         tvSystemTime.setText(PlayerUtil.getCurrentHHmmTime());
@@ -446,42 +443,6 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
     }
 
     /**
-     * 手势相关
-     */
-    private static final float STEP_PROGRESS = 2f;// 设定进度滑动时的步长，避免每次滑动都改变，导致改变过快
-    private static final float STEP_VOLUME = 2f;// 协调音量滑动时的步长，避免每次滑动都改变，导致改变过快
-    private static final float STEP_LIGHT = 2f;// 协调亮度滑动时的步长，避免每次滑动都改变，导致改变过快
-    private int GESTURE_FLAG = 0;// 1,调节进度，2，调节音量
-    private static final int GESTURE_MODIFY_PROGRESS = 1;
-    private static final int GESTURE_MODIFY_VOLUME = 2;
-    private static final int GESTURE_MODIFY_BRIGHTNESS = 3;
-
-    private void initGesture() {
-        gesture_volume_layout = (RelativeLayout) findViewById(R.id.gesture_voice_layout);
-        geture_tv_volume_percentage = (TextView) findViewById(R.id.gesture_voice_percentage);
-        gesture_iv_player_volume = (ImageView) findViewById(R.id.gesture_player_voice);
-
-        gesture_progress_layout = (RelativeLayout) findViewById(R.id.gesture_progress_layout);
-        geture_tv_progress_time = (TextView) findViewById(R.id.gesture_progress_percentage);
-        gesture_iv_progress = (ImageView) findViewById(R.id.gesture_player_progress);
-
-        //亮度的布局
-        gesture_light_layout = (RelativeLayout) findViewById(R.id.gesture_light_layout);
-        geture_tv_light_percentage = (TextView) findViewById(R.id.gesture_light_percentage);
-
-        gesture_volume_layout.setVisibility(View.GONE);
-        gesture_progress_layout.setVisibility(View.GONE);
-        gesture_light_layout.setVisibility(View.GONE);
-
-        gestureDetector = new GestureDetector(getContext(), this);
-        setLongClickable(true);
-        gestureDetector.setIsLongpressEnabled(true);
-        audiomanager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        maxVolume = audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC); // 获取系统最大音量
-        currentVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
-    }
-
-    /**
      * 系统设置改变触发,如屏幕方向改变
      *
      * @param newConfig
@@ -628,18 +589,55 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
         pauseVideo();
     }
 
+    /**
+     * 手势相关
+     */
+    private static final float STEP_PROGRESS = 2f;// 设定进度滑动时的步长，避免每次滑动都改变，导致改变过快
+    private static final float STEP_VOLUME = 2f;// 协调音量滑动时的步长，避免每次滑动都改变，导致改变过快
+    private static final float STEP_LIGHT = 2f;// 协调亮度滑动时的步长，避免每次滑动都改变，导致改变过快
+    private int GESTURE_FLAG = 0;// 1,调节进度，2，调节音量
+    private static final int GESTURE_MODIFY_PROGRESS = 1;
+    private static final int GESTURE_MODIFY_VOLUME = 2;
+    private static final int GESTURE_MODIFY_BRIGHTNESS = 3;
+
+    private void initGesture() {
+        gesture_volume_layout = (RelativeLayout) findViewById(R.id.gesture_voice_layout);
+        geture_tv_volume_percentage = (TextView) findViewById(R.id.gesture_voice_percentage);
+        gesture_iv_player_volume = (ImageView) findViewById(R.id.gesture_player_voice);
+
+        gesture_progress_layout = (RelativeLayout) findViewById(R.id.gesture_progress_layout);
+        geture_tv_progress_time = (TextView) findViewById(R.id.gesture_progress_percentage);
+        gesture_iv_progress = (ImageView) findViewById(R.id.gesture_player_progress);
+
+        //亮度的布局
+        gesture_light_layout = (RelativeLayout) findViewById(R.id.gesture_light_layout);
+        geture_tv_light_percentage = (TextView) findViewById(R.id.gesture_light_percentage);
+
+        gesture_volume_layout.setVisibility(View.GONE);
+        gesture_progress_layout.setVisibility(View.GONE);
+        gesture_light_layout.setVisibility(View.GONE);
+
+        gestureDetector = new GestureDetector(getContext(), this);
+        setLongClickable(true);
+        gestureDetector.setIsLongpressEnabled(true);//是否允许长点击，长按默认允许
+        audiomanager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        maxVolume = audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC); // 获取系统最大音量
+        currentVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
+    }
     @Override
     public boolean onDown(MotionEvent e) {
+        // 刚刚手指接触到触摸屏的那一刹那，就是触的那一下
         return true;
     }
 
     @Override
     public void onShowPress(MotionEvent e) {
-
+        //手指按在触摸屏上，它的时间范围在按下起效，在长按之前。
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
+        //手指离开触摸屏的那一刹那。
         if (!isPrepare || isLockScreen) {
             return false;
         }
@@ -649,13 +647,14 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        //手指在触摸屏上滑动。
         if (!isPrepare || isLockScreen) {
             return false;
         }
 
         int FLAG = 0;
 
-        // 横向的距离变化大则调整进度，纵向的变化大则调整音量
+        // 横向的距离变化大则调整进度，纵向的变化大则调整音量或亮度
         if (Math.abs(distanceX) >= Math.abs(distanceY)) {
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 FLAG = GESTURE_MODIFY_PROGRESS;
@@ -686,8 +685,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     if (Math.abs(distanceX) > Math.abs(distanceY)) {// 横向移动大于纵向移动
                         if (distanceX >= dip2px(context, STEP_PROGRESS)) {// 快退，用步长控制改变速度，可微调
-                            gesture_iv_progress
-                                    .setImageResource(R.drawable.player_backward);
+                            gesture_iv_progress.setImageResource(R.drawable.player_backward);
                             if (mediaPlayer.getCurrentPosition() > 3 * 1000) {// 避免为负
                                 int cpos = mediaPlayer.getCurrentPosition();
                                 mediaPlayer.seekTo(cpos - 3000);
@@ -697,8 +695,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
                                 mediaPlayer.seekTo(3000);
                             }
                         } else if (distanceX <= -dip2px(context, STEP_PROGRESS)) {// 快进
-                            gesture_iv_progress
-                                    .setImageResource(R.drawable.player_forward);
+                            gesture_iv_progress.setImageResource(R.drawable.player_forward);
                             if (mediaPlayer.getCurrentPosition() < mediaPlayer.getDuration() - 5 * 1000) {// 避免超过总时长
                                 int cpos = mediaPlayer.getCurrentPosition();
                                 mediaPlayer.seekTo(cpos + 3000);
@@ -721,8 +718,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
             gesture_volume_layout.setVisibility(View.VISIBLE);
             gesture_light_layout.setVisibility(View.GONE);
             gesture_progress_layout.setVisibility(View.GONE);
-            currentVolume = audiomanager
-                    .getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
+            currentVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
             if (Math.abs(distanceY) > Math.abs(distanceX)) {// 纵向移动大于横向移动
                 if (currentVolume == 0) {// 静音，设定静音独有的图片
                     gesture_iv_player_volume.setImageResource(R.drawable.player_volume_close);
@@ -750,8 +746,6 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
             gesture_volume_layout.setVisibility(View.GONE);
             gesture_light_layout.setVisibility(View.VISIBLE);
             gesture_progress_layout.setVisibility(View.GONE);
-            currentVolume = audiomanager
-                    .getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
             if (Math.abs(distanceY) > Math.abs(distanceX)) {// 纵向移动大于横向移动
                 // 亮度调大,注意横屏时的坐标体系,尽管左上角是原点，但横向向上滑动时distanceY为正
                 int mLight = LightUtil.GetLightness((Activity) context);
@@ -785,11 +779,12 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
 
     @Override
     public void onLongPress(MotionEvent e) {
-
+        //手指按在持续一段时间，并且没有松开。
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        //手指在触摸屏上迅速移动，并松开的动作。
         return false;
     }
 

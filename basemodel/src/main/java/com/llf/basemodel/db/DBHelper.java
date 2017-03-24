@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 修改表需要更新数据库版本
  */
 
-public class MySqliteOpenHelp extends SQLiteOpenHelper{
+public class DBHelper extends SQLiteOpenHelper{
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "common.db";
 
@@ -21,7 +21,7 @@ public class MySqliteOpenHelp extends SQLiteOpenHelper{
     private String DROP_TEMP = "drop table temp_news";
     private String ADD_ROW = "alter table broadcast add column category varchar(50)";
 
-    public MySqliteOpenHelp(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -34,9 +34,6 @@ public class MySqliteOpenHelp extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         switch (newVersion){
             case 2:
-
-                break;
-            case 3:
                 /**
                  * 增加字段
                  * 1.将表名改为临时表
@@ -48,6 +45,8 @@ public class MySqliteOpenHelp extends SQLiteOpenHelper{
                 db.execSQL(CREATE_NEW_TABLE);
                 db.execSQL(LEAD_IN);
                 db.execSQL(DROP_TEMP);
+                break;
+            case 3:
                 break;
             case 4:
                 break;

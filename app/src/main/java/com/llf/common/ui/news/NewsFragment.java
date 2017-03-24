@@ -14,6 +14,10 @@ public class NewsFragment extends BaseFragment{
     public static final int THREE=2;
     public static final int FOUR=3;
 
+    public static NewsFragment getInstance() {
+        NewsFragment newsFragment = new NewsFragment();
+        return newsFragment;
+    }
 
     @Override
     protected int getLayoutId() {

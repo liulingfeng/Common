@@ -1,28 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.llf.common.MainActivity"
     >
-    <android.support.design.widget.BottomNavigationView
+
+    <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_bottom"
-        app:itemIconTint="@color/main_color"
-        app:itemTextColor="@color/main_color"
-        app:itemBackground="@color/background"
+        android:background="@color/background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/news"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_news"
+            android:paddingBottom="2dp"
+            android:paddingTop="7dp"
+            android:text="@string/fragment_news"
+            android:textColor="@color/main_text"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/video"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_video"
+            android:paddingBottom="2dp"
+            android:paddingTop="7dp"
+            android:text="@string/fragment_video"
+            android:textColor="@color/main_text"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/girl"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_girl"
+            android:paddingBottom="2dp"
+            android:paddingTop="7dp"
+            android:text="@string/fragment_girl"
+            android:textColor="@color/main_text"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/mine"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_mine"
+            android:paddingBottom="2dp"
+            android:paddingTop="7dp"
+            android:text="@string/fragment_mine"
+            android:textColor="@color/main_text"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@id/bottom"
+        android:background="#dcdcdc"
         />
-    <FrameLayout
-        android:id="@+id/content"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom"
+        android:layout_above="@id/divider"
         />
 </RelativeLayout>

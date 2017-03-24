@@ -3,6 +3,7 @@ package com.llf.basemodel.commonwidget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -41,6 +42,22 @@ public class NormalTitleBar extends RelativeLayout {
         tvRight.setText(rightTitle);
         ivBack.setVisibility(leftState == true?View.VISIBLE:View.INVISIBLE);
         headBg.setBackgroundColor(color);
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        return super.onSaveInstanceState();
+        //view有id才会保存状态
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     /**

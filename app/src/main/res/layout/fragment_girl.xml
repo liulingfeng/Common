@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#3C5F78"
+    >
 
-</LinearLayout>
+    <RadioGroup
+        android:id="@+id/SegmentedControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/btn_picture"
+            style="@style/SegmentedControl.Left"
+            android:text="@string/fragment_picture"
+            tools:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/btn_music"
+            style="@style/SegmentedControl.Right"
+            android:text="@string/fragment_music"
+            />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/SegmentedControl"
+        android:background="#dcdcdc"
+        />
+</RelativeLayout>

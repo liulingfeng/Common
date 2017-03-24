@@ -9,6 +9,11 @@ import com.llf.common.R;
  */
 
 public class VideoFragment extends BaseFragment{
+    public static VideoFragment getInstance() {
+        VideoFragment videoFragment = new VideoFragment();
+        return videoFragment;
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_video;

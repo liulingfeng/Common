@@ -12,22 +12,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".ToolbarActivity"/>
-        <activity android:name=".RecycleViewActivity"/>
-        <activity android:name=".CoordinatorLayoutActivity"/>
-        <activity android:name=".SettingActivity"/>
-        <activity
-            android:name=".ui.video.VideoDetailActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
-            android:screenOrientation="portrait"
-            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ToolbarActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".RecycleViewActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".CoordinatorLayoutActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.mine.SettingActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.video.VideoDetailActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".CircleTransfActivity"/>
+
+        <activity
+            android:name=".ui.news.detail.NewsDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

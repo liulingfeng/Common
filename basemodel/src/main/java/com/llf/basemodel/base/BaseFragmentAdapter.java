@@ -13,16 +13,16 @@ import java.util.List;
 
 public class BaseFragmentAdapter extends FragmentPagerAdapter {
     private FragmentManager fm;
-    List<Fragment> fragmentList;
+    BaseFragment[] fragmentList;
     private List<String> mTitles;
 
-    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public BaseFragmentAdapter(FragmentManager fm,BaseFragment[] fragmentList) {
         super(fm);
         this.fm = fm;
         this.fragmentList = fragmentList;
     }
 
-    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> mTitles) {
+    public BaseFragmentAdapter(FragmentManager fm, BaseFragment[] fragmentList, List<String> mTitles) {
         super(fm);
         this.fm = fm;
         this.fragmentList = fragmentList;
@@ -36,12 +36,13 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
+        return fragmentList[position];
     }
 
     @Override
     public int getCount() {
-        return fragmentList.size();
+        if(fragmentList == null) return 0;
+        return fragmentList.length;
     }
 
     /**
@@ -59,7 +60,7 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Fragment fragment = fragmentList.get(position);
+        Fragment fragment = fragmentList[position];
         fm.beginTransaction().hide(fragment).commit();
     }
 }

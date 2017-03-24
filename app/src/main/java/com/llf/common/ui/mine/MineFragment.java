@@ -9,6 +9,11 @@ import com.llf.common.R;
  */
 
 public class MineFragment extends BaseFragment{
+
+    public static MineFragment getInstance() {
+        MineFragment mineFragment = new MineFragment();
+        return mineFragment;
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
