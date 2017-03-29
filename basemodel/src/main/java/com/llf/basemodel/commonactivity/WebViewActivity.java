@@ -139,7 +139,6 @@ public class WebViewActivity extends BaseActivity {
             mWebView.destroy();
             mWebView = null;
         }
-        android.os.Process.killProcess(android.os.Process.myPid());
         super.onDestroy();
     }
 }

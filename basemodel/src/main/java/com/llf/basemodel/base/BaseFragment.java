@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.llf.basemodel.R;
-import com.llf.basemodel.dialog.LodingDialog;
+import com.llf.basemodel.dialog.LoadingDialog;
 import com.llf.basemodel.utils.ToastUtil;
+
 import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -166,14 +168,14 @@ public abstract class BaseFragment extends Fragment {
      * 开启加载效果
      */
     public void startProgressDialog() {
-        LodingDialog.showWaittingDialog(getActivity());
+        LoadingDialog.showWaittingDialog(getActivity());
     }
 
     /**
      * 关闭加载
      */
     public void stopProgressDialog() {
-        LodingDialog.closeWaittingDialog();
+        LoadingDialog.closeWaittingDialog();
     }
 
     /**

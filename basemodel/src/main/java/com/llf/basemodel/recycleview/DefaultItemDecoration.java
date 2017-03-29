@@ -2,11 +2,12 @@ package com.llf.basemodel.recycleview;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.llf.basemodel.R;
+
 import com.llf.basemodel.utils.SettingUtil;
 
 /**
@@ -15,15 +16,16 @@ import com.llf.basemodel.utils.SettingUtil;
  * http://www.jianshu.com/p/b46a4ff7c10a
  */
 
-public class DefaultItemDecoration extends RecyclerView.ItemDecoration{
+public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private int dividerHeight;
 
     public DefaultItemDecoration(Context context) {
-        dividerHeight =SettingUtil.dip2px(context,1);
+        dividerHeight = SettingUtil.dip2px(context, 4);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setColor(context.getResources().getColor(R.color.main_color));
+        mPaint.setColor(Color.parseColor("#F2F2F2"));
     }
+
     /**
      * 可以实现类似绘制背景的效果，内容在上面
      */

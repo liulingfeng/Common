@@ -1,10 +1,13 @@
 package com.llf.common;
 
+import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
@@ -13,6 +16,7 @@ import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.video.VideoFragment;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -29,7 +33,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Bind(R.id.viewPager)
     ViewPager mViewPager;
 
-    private long exitTime = 0;
     private String[] mTitles;
     private BaseFragment[] fragments;
 
@@ -68,12 +71,17 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                showToast("再按一次退出程序");
-                exitTime = System.currentTimeMillis();
-            } else {
-                finish();
-            }
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("退出");
+                builder.setMessage("你确定要离开我吗?");
+                builder.setNegativeButton("依依不舍", null);
+                builder.setPositiveButton("狠心离开", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.show();
             return true;
         }
         return super.onKeyDown(keyCode, event);

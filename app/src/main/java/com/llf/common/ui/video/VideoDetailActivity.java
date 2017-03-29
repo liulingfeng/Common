@@ -32,7 +32,7 @@ public class VideoDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mViewPager.playVideo("http://video.shuihulu.com/TiaoQuVideo/2f84e67a817c4282beb0c7540dcd72d5_1L.mp4", "德玛西亚");
+        mViewPager.playVideo("http://ic_main_video_selector.shuihulu.com/TiaoQuVideo/2f84e67a817c4282beb0c7540dcd72d5_1L.mp4", "德玛西亚");
 
         mNewsDao = new NewsDao(this);
 

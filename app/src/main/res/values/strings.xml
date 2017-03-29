@@ -11,8 +11,8 @@
 
     <string name="fragment_news">新闻</string>
     <string name="fragment_video">视频</string>
-    <string name="fragment_girl">音乐</string>
-    <string name="fragment_mine">我</string>
+    <string name="fragment_girl">发现</string>
+    <string name="fragment_mine">我的</string>
     <string name="fragment_picture">列表</string>
     <string name="fragment_music">音乐</string>
 </resources>

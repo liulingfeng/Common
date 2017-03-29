@@ -12,7 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import com.llf.basemodel.R;
-import com.llf.basemodel.dialog.LodingDialog;
+import com.llf.basemodel.dialog.LoadingDialog;
 import com.llf.basemodel.utils.AppManager;
 import com.llf.basemodel.utils.ToastUtil;
 import butterknife.ButterKnife;
@@ -142,14 +142,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 开启加载效果
      */
     public void startProgressDialog() {
-        LodingDialog.showWaittingDialog(this);
+        LoadingDialog.showWaittingDialog(this);
     }
 
     /**
      * 关闭加载
      */
     public void stopProgressDialog() {
-        LodingDialog.closeWaittingDialog();
+        LoadingDialog.closeWaittingDialog();
     }
 
     /**
