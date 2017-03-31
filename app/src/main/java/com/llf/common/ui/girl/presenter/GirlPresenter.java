@@ -1,8 +1,9 @@
-package com.llf.common.ui.girl;
+package com.llf.common.ui.girl.presenter;
 
-import com.llf.basemodel.utils.LogUtil;
+import android.content.Context;
+import com.llf.common.db.JcodeDao;
 import com.llf.common.entity.JcodeEntity;
-
+import com.llf.common.ui.girl.contract.GirlContract;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -19,11 +21,13 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by llf on 2017/3/28.
+ *
  */
 
 public class GirlPresenter implements GirlContract.Presenter {
     private GirlContract.View view;
     private  List<JcodeEntity> jcodes = new ArrayList<>();
+    private JcodeDao mJcodeDao;
 
     public GirlPresenter(GirlContract.View view) {
         this.view = view;
@@ -61,6 +65,36 @@ public class GirlPresenter implements GirlContract.Presenter {
                 });
     }
 
+    @Override
+    public void addRecord(Context context, final JcodeEntity entity) {
+        mJcodeDao = new JcodeDao(context);
+        Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(mJcodeDao.insertRecord(entity) == 0 ? false : true);
+                subscriber.onCompleted();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showErrorTip("添加发现出错");
+                    }
+
+                    @Override
+                    public void onNext(Boolean result) {
+
+                    }
+                });
+    }
+
     private List<JcodeEntity> getJcodes(String url) {
         jcodes.clear();
         try {
@@ -82,7 +116,7 @@ public class GirlPresenter implements GirlContract.Presenter {
                 jcodes.add(entity);
             }
         } catch (IOException e) {
-            LogUtil.e("出错了");
+            view.showErrorTip("jsoup解析出错");
         }
         return jcodes;
     }

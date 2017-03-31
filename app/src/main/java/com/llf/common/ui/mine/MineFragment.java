@@ -44,6 +44,7 @@ public class MineFragment extends BaseFragment {
             case R.id.attention:
                 break;
             case R.id.track:
+                startActivity(TrackActivity.class);
                 break;
             case R.id.share:
                 ShareDialog.show(getActivity());

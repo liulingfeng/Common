@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonactivity.WebViewActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
@@ -17,10 +16,10 @@ import com.llf.basemodel.recycleview.EndLessOnScrollListener;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.entity.JcodeEntity;
-
+import com.llf.common.ui.girl.contract.GirlContract;
+import com.llf.common.ui.girl.presenter.GirlPresenter;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -80,6 +79,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                mPresenter.addRecord(getActivity(),jcodes.get(position));
                 WebViewActivity.lanuch(getActivity(), HOST + jcodes.get(position).getDetailUrl());
             }
 

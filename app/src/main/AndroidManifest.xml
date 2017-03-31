@@ -23,10 +23,6 @@
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".RecycleViewActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity
             android:name=".CoordinatorLayoutActivity"
             android:screenOrientation="portrait"
             />
