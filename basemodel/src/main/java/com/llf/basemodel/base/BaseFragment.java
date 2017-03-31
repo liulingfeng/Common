@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.llf.basemodel.R;
-import com.llf.basemodel.dialog.LoadingDialog;
+import com.llf.basemodel.dialog.DialogTools;
 import com.llf.basemodel.utils.ToastUtil;
 
 import butterknife.ButterKnife;
@@ -168,14 +168,14 @@ public abstract class BaseFragment extends Fragment {
      * 开启加载效果
      */
     public void startProgressDialog() {
-        LoadingDialog.showWaittingDialog(getActivity());
+        DialogTools.showWaittingDialog(getActivity());
     }
 
     /**
      * 关闭加载
      */
     public void stopProgressDialog() {
-        LoadingDialog.closeWaittingDialog();
+        DialogTools.closeWaittingDialog();
     }
 
     /**

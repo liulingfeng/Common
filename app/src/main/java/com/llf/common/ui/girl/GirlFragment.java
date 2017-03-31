@@ -26,7 +26,7 @@ import butterknife.OnClick;
 
 /**
  * Created by llf on 2017/3/15.
- * 妹妹
+ * 发现
  */
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, GirlContract.View {
@@ -59,6 +59,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(getActivity()));
         mAdapter = new BaseAdapter<JcodeEntity>(getActivity(), R.layout.item_jcode, jcodes) {
@@ -97,15 +98,15 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         });
     }
 
+    @OnClick(R.id.floatBtn)
+    public void onViewClicked() {
+        mRecyclerView.smoothScrollToPosition(0);
+    }
+
     @Override
     protected void lazyFetchData() {
         mRefreshLayout.setRefreshing(true);
         mPresenter.loadData("http://www.jcodecraeer.com/plus/list.php?tid=18&TotalResult=1801&PageNo=" + pageIndex);
-    }
-
-    @OnClick(R.id.floatBtn)
-    public void onViewClicked() {
-        mRecyclerView.smoothScrollToPosition(0);
     }
 
     @Override

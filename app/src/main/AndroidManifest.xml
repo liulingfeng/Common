@@ -46,5 +46,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.mine.TrackActivity"
+                  android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         toolbar:title="设置"
         toolbar:titleTextColor="@android:color/white"
-        android:background="@color/toolbar_bg"
+        android:background="@color/colorPrimary"
         toolbar:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         />
     <fragment

@@ -2,7 +2,10 @@ package com.llf.common.api;
 /**
  * 网易
  * http://c.m.163.com/nc/article/list/T1467284926140/0-20.html 要闻
- * /api/dataBox/app_sports_api.json NBA比赛公告
+ * T1399700447917 足球
+ * T1348648517839 娱乐
+ * T1348649079062 体育
+ * T1350383429665 笑话
  */
 
 /**

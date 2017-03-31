@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -42,7 +43,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/item_jcode"
                 />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
@@ -56,6 +57,7 @@
         android:src="@drawable/ic_arrow_upward"
         app:backgroundTint="@color/colorPrimary"
         app:rippleColor="@color/colorAccent"
-        app:layout_behavior="com.llf.common.widget.FBBehavior"
+        app:fabSize="mini"
+        app:layout_behavior="com.llf.common.widget.HideBehavior"
         />
 </android.support.design.widget.CoordinatorLayout>

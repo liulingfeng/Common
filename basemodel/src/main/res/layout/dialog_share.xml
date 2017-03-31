@@ -16,6 +16,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
             >
             <ImageView
                 android:layout_width="32dp"
@@ -45,6 +46,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
             >
             <ImageView
                 android:layout_width="32dp"
@@ -74,6 +76,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
             >
             <ImageView
                 android:layout_width="32dp"
@@ -103,6 +106,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
             >
             <ImageView
                 android:layout_width="32dp"
@@ -132,6 +136,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
             >
             <ImageView
                 android:layout_width="32dp"

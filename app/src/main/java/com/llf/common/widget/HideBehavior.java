@@ -12,8 +12,8 @@ import android.view.View;
  * FloatingActionButton与RecyclerView联动
  */
 
-public class FBBehavior extends FloatingActionButton.Behavior {
-    public FBBehavior(Context context, AttributeSet attrs) {
+public class HideBehavior extends FloatingActionButton.Behavior {
+    public HideBehavior(Context context, AttributeSet attrs) {
         super();
     }
 

@@ -27,6 +27,7 @@
         android:textColor="#333333"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:maxLines="3"
         tools:text="标题"
         />
 

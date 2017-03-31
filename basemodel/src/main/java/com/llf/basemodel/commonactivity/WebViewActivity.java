@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -13,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-
 import com.llf.basemodel.R;
 import com.llf.basemodel.base.BaseActivity;
 
@@ -23,7 +24,7 @@ import com.llf.basemodel.base.BaseActivity;
  * http://www.jianshu.com/p/d2f5ae6b4927
  */
 
-public class WebViewActivity extends BaseActivity {
+public class WebViewActivity extends BaseActivity implements View.OnClickListener{
     public static void lanuch(Context context, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("url", url);
@@ -31,6 +32,7 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private WebView mWebView;
+    private Toolbar mToolbar;
     private String url;
 
     @Override
@@ -42,6 +44,8 @@ public class WebViewActivity extends BaseActivity {
     public void initView() {
         url = getIntent().getStringExtra("url");
         mWebView = (WebView) findViewById(R.id.webView);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar.setNavigationOnClickListener(this);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//支持js
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//允许js弹出alert
@@ -86,6 +90,14 @@ public class WebViewActivity extends BaseActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                if(url!=null && url.contains("http://www.jcodecraeer.com")){
+                    String fun="javascript:function getClass(parent,sClass) { var aEle=parent.getElementsByTagName('div'); var aResult=[]; var i=0; for(i<0;i<aEle.length;i++) { if(aEle[i].className==sClass) { aResult.push(aEle[i]); } }; return aResult; } ";
+                    view.loadUrl(fun);
+                    String fun2="javascript:function hideOther() {getClass(document,'header')[0].style.display='none';getClass(document,'footer')[0].style.display='none'}";
+                    view.loadUrl(fun2);
+                    view.loadUrl("javascript:hideOther()");
+                }
+                mWebView.setVisibility(View.VISIBLE);
                 stopProgressDialog();
             }
 
@@ -140,5 +152,10 @@ public class WebViewActivity extends BaseActivity {
             mWebView = null;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.finish();
     }
 }

@@ -1,6 +1,7 @@
 package com.llf.common;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -21,7 +22,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    static final int DEFAULT_PAGE_INDEX = 0;
     @Bind(R.id.news)
     Button mNews;
     @Bind(R.id.video)
@@ -35,6 +35,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     private String[] mTitles;
     private BaseFragment[] fragments;
+    int currentTabPosition = 0;
+    public static final String CURRENT_TAB_POSITION="HOME_CURRENT_TAB_POSITION";
 
     static {
         //vector支持selector
@@ -58,7 +60,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageMargin(SettingUtil.dip2px(this, 16));
         mViewPager.addOnPageChangeListener(this);
-        mViewPager.setCurrentItem(DEFAULT_PAGE_INDEX);
+        mViewPager.setCurrentItem(currentTabPosition);
         mNews.setSelected(true);
     }
 
@@ -78,13 +80,26 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 builder.setPositiveButton("狠心离开", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        moveTaskToBack(true);
                     }
                 });
                 builder.show();
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //奔溃前保存位置
+        outState.putInt(CURRENT_TAB_POSITION, currentTabPosition);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
