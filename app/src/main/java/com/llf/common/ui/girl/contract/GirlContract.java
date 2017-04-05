@@ -1,11 +1,9 @@
 package com.llf.common.ui.girl.contract;
 
 import android.content.Context;
-
 import com.llf.basemodel.base.BasePresenter;
 import com.llf.basemodel.base.BaseView;
 import com.llf.common.entity.JcodeEntity;
-
 import java.util.List;
 
 /**

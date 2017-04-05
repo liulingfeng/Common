@@ -186,6 +186,8 @@ public class SearchView extends View {
                         // 从结束动画转变为无状态
                         mCurrentState = State.NONE;
                         break;
+                    default:
+                        break;
                 }
             }
         };

@@ -258,10 +258,10 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
             showCameraAction();
         } else {
             if (config.multiSelect) {
-                if (Constant.imageList.contains(imageList.get(position - 1).path)) {
-                    Constant.imageList.remove(imageList.get(position - 1).path);
+                if (Constant.imageList.contains(imageList.get(position).path)) {
+                    Constant.imageList.remove(imageList.get(position).path);
                     if (callback != null) {
-                        callback.onImageUnselected(imageList.get(position - 1).path);
+                        callback.onImageUnselected(imageList.get(position).path);
                     }
                 } else {
                     if (config.maxNum <= Constant.imageList.size()) {
@@ -269,15 +269,15 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
                         return;
                     }
 
-                    Constant.imageList.add(imageList.get(position - 1).path);
+                    Constant.imageList.add(imageList.get(position).path);
                     if (callback != null) {
-                        callback.onImageSelected(imageList.get(position - 1).path);
+                        callback.onImageSelected(imageList.get(position).path);
                     }
                 }
                 mImageListAdapter.select(imageList.get(position));
             } else {
                 if (callback != null) {
-                    callback.onSingleImageSelected(imageList.get(position - 1).path);
+                    callback.onSingleImageSelected(imageList.get(position).path);
                 }
             }
         }

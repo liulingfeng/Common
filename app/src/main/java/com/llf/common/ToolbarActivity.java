@@ -42,6 +42,8 @@ public class ToolbarActivity extends BaseActivity{
                     case R.id.report:
                         showToast("举报");
                         break;
+                    default:
+                        break;
                 }
                 return false;
             }

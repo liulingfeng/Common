@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private String[] mTitles;
     private BaseFragment[] fragments;
     int currentTabPosition = 0;
-    public static final String CURRENT_TAB_POSITION="HOME_CURRENT_TAB_POSITION";
+    public static final String CURRENT_TAB_POSITION = "HOME_CURRENT_TAB_POSITION";
 
     static {
         //vector支持selector
@@ -73,17 +73,17 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("退出");
-                builder.setMessage("你确定要离开我吗?");
-                builder.setNegativeButton("依依不舍", null);
-                builder.setPositiveButton("狠心离开", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        moveTaskToBack(true);
-                    }
-                });
-                builder.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("退出");
+            builder.setMessage("你确定要离开我吗?");
+            builder.setNegativeButton("依依不舍", null);
+            builder.setPositiveButton("狠心离开", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    moveTaskToBack(true);
+                }
+            });
+            builder.show();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void onPageSelected(int position) {
         resetTab();
-        switch (position){
+        switch (position) {
             case 0:
                 mNews.setSelected(true);
                 break;
@@ -123,33 +123,38 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             case 3:
                 mMine.setSelected(true);
                 break;
+            default:
+                //其他
+                break;
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-       //Empty
+        //Empty
     }
 
     @OnClick({R.id.news, R.id.video, R.id.girl, R.id.mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.news:
-                mViewPager.setCurrentItem(0,false);
+                mViewPager.setCurrentItem(0, false);
                 break;
             case R.id.video:
-                mViewPager.setCurrentItem(1,false);
+                mViewPager.setCurrentItem(1, false);
                 break;
             case R.id.girl:
-                mViewPager.setCurrentItem(2,false);
+                mViewPager.setCurrentItem(2, false);
                 break;
             case R.id.mine:
-                mViewPager.setCurrentItem(3,false);
+                mViewPager.setCurrentItem(3, false);
+                break;
+            default:
                 break;
         }
     }
 
-    private void resetTab(){
+    private void resetTab() {
         mNews.setSelected(false);
         mVideo.setSelected(false);
         mGirl.setSelected(false);

@@ -34,6 +34,8 @@ public class DBHelper extends SQLiteOpenHelper{
                 break;
             case 4:
                 break;
+            default:
+                break;
         }
     }
 }

@@ -14,8 +14,11 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.utils.FileUtil;
+import com.llf.basemodel.utils.LogUtil;
+
 import java.io.File;
 
 /**
@@ -65,9 +68,9 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
         /**
          * 6.0系统动态权限申请需要
          */
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     CAMERA_REQUEST_CODE);
         } else {
             getSupportFragmentManager().beginTransaction()
@@ -105,7 +108,6 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
         Intent intent = new Intent();
         intent.putStringArrayListExtra(INTENT_RESULT, Constant.imageList);
         setResult(RESULT_OK, intent);
-        Constant.imageList.clear();
         finish();
     }
 
@@ -126,6 +128,7 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onSingleImageSelected(String path) {
+        LogUtil.e(path);
         if (config.needCrop) {
             crop(path);
         } else {

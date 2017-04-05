@@ -54,6 +54,8 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
             case "download":
                 Toast.makeText(getActivity(), String.valueOf(newValue), Toast.LENGTH_SHORT).show();
                 break;
+            default:
+                break;
         }
         //返回true将值插入sharedPreference
         return true;
@@ -74,6 +76,8 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
                 break;
             case "update":
                 Toast.makeText(getActivity(), "版本更新", Toast.LENGTH_SHORT).show();
+                break;
+            default:
                 break;
         }
         return false;

@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
  */
 
 public class DownloadUtil {
-    public static  String DOWNLOAD_APK_ID_PREFS = "download_apk_id";
+    public static final String DOWNLOAD_APK_ID_PREFS = "download_apk_id";
 
     public static void downloadApk(Context context, String url,String name,String description, String storeApk) {
         if (!isDownloadManagerAvailable()||!sdAvailable()) {

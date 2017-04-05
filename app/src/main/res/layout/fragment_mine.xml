@@ -29,16 +29,18 @@
             android:orientation="vertical"
             >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.llf.basemodel.commonwidget.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_logo"
+                android:scaleType="centerCrop"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="点击登录"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

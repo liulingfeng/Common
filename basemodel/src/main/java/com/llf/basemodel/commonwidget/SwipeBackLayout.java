@@ -106,6 +106,8 @@ public class SwipeBackLayout extends LinearLayout {
                             }
                         }
                         break;
+                    default:
+                        break;
                 }
             }
         });

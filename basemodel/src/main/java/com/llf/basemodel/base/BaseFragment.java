@@ -2,6 +2,7 @@ package com.llf.basemodel.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -186,6 +187,15 @@ public abstract class BaseFragment extends Fragment {
         TextView tvContent = (TextView)errorView.findViewById(R.id.content);
         tvContent.setText(errorContent);
         new ToastUtil(errorView);
+    }
+
+    /**
+     * 显示普通的toast
+     *
+     * @return
+     */
+    public void showToast(String str) {
+        ToastUtil.sToastUtil.shortDuration(str).setToastBackground(Color.WHITE, R.drawable.toast_radius).show();
     }
 
     protected void addSubscription(Subscription subscription) {
