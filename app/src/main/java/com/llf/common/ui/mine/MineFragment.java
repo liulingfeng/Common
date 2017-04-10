@@ -52,6 +52,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(SettingActivity.class);
                 break;
             case R.id.attention:
+                startActivity(AttentionActivity.class);
                 break;
             case R.id.track:
                 startActivity(TrackActivity.class);
