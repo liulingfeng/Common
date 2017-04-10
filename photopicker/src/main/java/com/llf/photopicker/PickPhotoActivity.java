@@ -82,7 +82,7 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.out_bottom);
+        overridePendingTransition(0, R.anim.push_down_out);
     }
 
     @Override
