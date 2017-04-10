@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/white</item>
-    </style>
-
     <style name="CustomProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
