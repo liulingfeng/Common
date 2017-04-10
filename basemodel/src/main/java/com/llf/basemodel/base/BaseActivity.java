@@ -1,5 +1,6 @@
 package com.llf.basemodel.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -18,7 +19,6 @@ import com.llf.basemodel.utils.AppManager;
 import com.llf.basemodel.utils.ToastUtil;
 
 import butterknife.ButterKnife;
-import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -141,6 +141,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * 读取状态栏的高度
+     * @param context
+     * @return
+     */
+
+    protected int getStatusBarHeight(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            return resourceId > 0 ? context.getResources().getDimensionPixelSize(resourceId) : 0;
+        } else {
+            return 0;
+        }
+    }
+    /**
      * 开启加载效果
      */
     public void startProgressDialog() {
@@ -171,19 +185,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showToast(String str) {
         ToastUtil.sToastUtil.shortDuration(str).setToastBackground(Color.WHITE, R.drawable.toast_radius).show();
-    }
-
-    /**
-     * Rxjava相关
-     *
-     * @return
-     */
-    protected void addSubscription(Subscription subscription) {
-        if (subscription == null) return;
-        if (mSubscriptions == null) {
-            mSubscriptions = new CompositeSubscription();
-        }
-        mSubscriptions.add(subscription);
     }
 
     //获取布局
