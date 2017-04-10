@@ -18,14 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ToolbarActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".CoordinatorLayoutActivity"
-            android:screenOrientation="portrait"
-            />
+
         <activity
             android:name=".ui.mine.SettingActivity"
             android:screenOrientation="portrait"
@@ -35,8 +28,6 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".CircleTransfActivity"/>
-
         <activity
             android:name=".ui.news.detail.NewsDetailActivity"
             android:launchMode="singleTop"
@@ -44,6 +35,9 @@
             />
         <activity android:name=".ui.mine.TrackActivity"
                   android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.mine.AttentionActivity"
+            android:screenOrientation="portrait"
             />
     </application>
 </manifest>
