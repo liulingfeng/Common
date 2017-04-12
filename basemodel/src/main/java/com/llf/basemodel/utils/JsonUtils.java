@@ -3,8 +3,9 @@ package com.llf.basemodel.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Description : Json转换工具类
@@ -33,7 +34,17 @@ public class JsonUtils {
     public static <T> T deserialize(String json, Class<T> clz) throws JsonSyntaxException {
         return mGson.fromJson(json, clz);
     }
-
+    /**
+     * 将json字符串转换为List
+     * @param json
+     * @param clz
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> deserializeList(String json, Class<T[]> clz) throws JsonSyntaxException {
+        T[] array = mGson.fromJson(json, clz);
+        return Arrays.asList(array);
+    }
     /**
      * 将json对象转换为实体对象
      * @param json
@@ -56,10 +67,4 @@ public class JsonUtils {
     public static <T> T deserialize(String json, Type type) throws JsonSyntaxException {
         return mGson.fromJson(json, type);
     }
-
-
-
-
-
-
 }

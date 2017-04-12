@@ -29,6 +29,11 @@ import butterknife.OnClick;
  */
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, GirlContract.View {
+    public static GirlFragment getInstance() {
+        GirlFragment girlFragment = new GirlFragment();
+        return girlFragment;
+    }
+
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @Bind(R.id.refreshLayout)
@@ -38,12 +43,8 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private List<JcodeEntity> jcodes = new ArrayList<>();
     private GirlPresenter mPresenter;
     private int pageIndex = 1;
-    private static final String HOST = "http://www.jcodecraeer.com";
 
-    public static GirlFragment getInstance() {
-        GirlFragment girlFragment = new GirlFragment();
-        return girlFragment;
-    }
+    private static final String HOST = "http://www.jcodecraeer.com";
 
     @Override
     protected int getLayoutId() {

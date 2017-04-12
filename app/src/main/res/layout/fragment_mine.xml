@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="关注"
+                android:text="喜欢"
                 android:textColor="#676767"
                 android:textSize="14sp"
                 />

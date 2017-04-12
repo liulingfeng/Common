@@ -2,6 +2,7 @@ package com.llf.common.entity;
 
 /**
  * Created by llf on 2017/3/27.
+ * 发现实体类
  */
 
 public class JcodeEntity {

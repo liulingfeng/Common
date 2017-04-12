@@ -1,6 +1,10 @@
 package com.llf.common.ui.video;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 
 import butterknife.Bind;
@@ -15,6 +19,13 @@ public class VideoDetailActivity extends BaseActivity {
     @Bind(R.id.viewPager)
     VideoPlayer mViewPager;
 
+    public static void launch(Context context,String url, String title){
+        LogUtil.e(url+"");
+        Intent intent = new Intent(context,VideoDetailActivity.class);
+        intent.putExtra("url",url);
+        intent.putExtra("title",title);
+        context.startActivity(intent);
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.activity_video_detail;
@@ -22,7 +33,8 @@ public class VideoDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mViewPager.playVideo("http://ic_main_video_selector.shuihulu.com/TiaoQuVideo/2f84e67a817c4282beb0c7540dcd72d5_1L.mp4", "德玛西亚");
+        Intent intent = getIntent();
+        mViewPager.playVideo(intent.getStringExtra("url"), intent.getStringExtra("title"));
     }
 
     @Override

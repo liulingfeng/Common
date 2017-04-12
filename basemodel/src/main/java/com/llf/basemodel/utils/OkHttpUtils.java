@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Description : OkHttp网络连接封装工具类
-
  */
 public class OkHttpUtils {
 
@@ -48,7 +47,9 @@ public class OkHttpUtils {
     }
 
     private void getRequest(String url, final ResultCallback callback) {
-        final Request request = new Request.Builder().url(url).build();
+        Request.Builder builder = new Request.Builder().url(url);
+        builder.addHeader("User-Agent","Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)");
+        Request request = builder.build();
         deliveryResult(callback, request);
     }
 
