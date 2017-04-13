@@ -1,7 +1,10 @@
 package com.llf.common.ui.news.classfi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +18,12 @@ import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
 import com.llf.basemodel.utils.ImageLoaderUtils;
-import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.NewsEntity;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.news.contract.NewsContract;
+import com.llf.common.ui.news.detail.NewsDetailActivity;
 import com.llf.common.ui.news.presenter.NewsPresenter;
 
 import java.util.ArrayList;
@@ -88,8 +91,14 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         mAdapter.addFooterView(R.layout.layout_footer);
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-
+            public void onItemClick(int position,BaseViewHolder viewHolder) {
+                NewsEntity entity = newDatas.get(position);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("news", entity);
+                ActivityOptionsCompat options =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
+                ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
             }
 
             @Override
@@ -125,7 +134,6 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
 
     @Override
     public void returnData(List<NewsEntity> datas) {
-        LogUtil.e(datas.size() + "");
         if (pageIndex == 0) {
             mRefreshLayout.setRefreshing(false);
         } else {

@@ -5,12 +5,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.llf.basemodel.utils.JsonUtils;
+import com.llf.common.entity.NewsDetialEntity;
 import com.llf.common.entity.NewsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by llf on 2017/4/13.
+ *
  */
 
 public class NewsJsonUtils {
@@ -23,7 +25,7 @@ public class NewsJsonUtils {
      * @return
      */
     public static List<NewsEntity> readJsonDataBeans(String res, String value) {
-        List<NewsEntity> beans = new ArrayList<NewsEntity>();
+        List<NewsEntity> beans = new ArrayList<>();
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
@@ -47,8 +49,22 @@ public class NewsJsonUtils {
                 }
             }
         } catch (Exception e) {
-            //  LogUtils.e(TAG, "readJsonDataBeans error" , e);
         }
         return beans;
+    }
+
+    public static NewsDetialEntity readJsonNewsDetailBeans(String res, String docId) {
+        NewsDetialEntity newsDetailBean = null;
+        try {
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObj = parser.parse(res).getAsJsonObject();
+            JsonElement jsonElement = jsonObj.get(docId);
+            if(jsonElement == null) {
+                return null;
+            }
+            newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetialEntity.class);
+        } catch (Exception e) {
+        }
+        return newsDetailBean;
     }
 }

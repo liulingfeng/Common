@@ -45,9 +45,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         notifyItemInserted(getItemCount() - 1);
     }
 
-    public void setFooterVisible(int visible){
+    public void setFooterVisible(int visible) {
         footerView.setVisibility(visible);
     }
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_FOOTER) {
@@ -61,13 +62,13 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, final int position) {
+    public void onBindViewHolder(final BaseViewHolder holder, final int position) {
         if (!isHeaderView(position) && !isFooterView(position)) {
             if (mOnItemClickListener != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOnItemClickListener.onItemClick(viewHead == 0 ? position : position - 1);
+                        mOnItemClickListener.onItemClick(viewHead == 0 ? position : position - 1, holder);
                     }
                 });
 
@@ -155,7 +156,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     public abstract void convert(BaseViewHolder viewHolder, T item);
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, BaseViewHolder holder);
+
         void onItemLongClick(int position);
     }
 }

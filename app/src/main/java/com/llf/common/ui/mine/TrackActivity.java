@@ -103,7 +103,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
         };
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position,BaseViewHolder viewHolder) {
                 WebViewActivity.lanuch(TrackActivity.this, HOST + jcodes.get(position).getDetailUrl());
             }
 

@@ -12,7 +12,14 @@
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         >
-
+        <!--
+            NestedScrollView依赖于ActionBar决定执行动作
+            layout_scrollFlags设置执行动作
+            scroll:当指定的ScrollView发生滚动时，该View也跟随一起滚动，就好像这个View也是属于这个ScrollView一样
+            enterAlways:当ScrollView往下滚动时，该View会直接往下滚动。而不用考虑ScrollView是否在滚动
+            exitUntilCollapsed:当这个View要往上逐渐“消逝”时，会一直往上滑动，直到剩下的的高度达到它的最小高度后，再响应ScrollView的内部滑动事件
+            enterAlwaysCollapsed:首先是enterAlways效果，当View的高度达到最小高度时，View就暂时不去往下滚动，直到ScrollView滑动到顶部不再滑动时，View再继续往下滑动，直到滑到View的顶部结束
+        -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

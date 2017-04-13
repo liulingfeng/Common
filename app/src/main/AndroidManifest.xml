@@ -32,6 +32,7 @@
             android:name=".ui.news.detail.NewsDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoStatusBar"
             />
         <activity android:name=".ui.mine.TrackActivity"
                   android:screenOrientation="portrait"

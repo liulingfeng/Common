@@ -74,7 +74,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         mAdapter.addFooterView(R.layout.layout_footer);
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position, BaseViewHolder viewHolder) {
                 VideoDetailActivity.launch(getActivity(), videos.get(position).getMp4_url(), videos.get(position).getTitle());
             }
 
