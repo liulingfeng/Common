@@ -94,7 +94,7 @@ public class NewsEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "NewsEntity{" +
+        return "DataBean{" +
                 "docid='" + docid + '\'' +
                 ", title='" + title + '\'' +
                 ", digest='" + digest + '\'' +

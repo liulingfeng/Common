@@ -3,6 +3,7 @@ package com.llf.basemodel.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
@@ -67,4 +68,5 @@ public class JsonUtils {
     public static <T> T deserialize(String json, Type type) throws JsonSyntaxException {
         return mGson.fromJson(json, type);
     }
+
 }

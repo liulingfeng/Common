@@ -43,6 +43,10 @@
         <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
 
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="SegmentedControl">
         <item name="android:gravity">center</item>
         <item name="android:textSize">14sp</item>

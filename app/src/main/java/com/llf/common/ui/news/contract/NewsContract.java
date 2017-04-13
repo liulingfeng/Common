@@ -1,9 +1,10 @@
-package com.llf.common.ui.news;
+package com.llf.common.ui.news.contract;
 
 import com.llf.basemodel.base.BaseModel;
 import com.llf.basemodel.base.BasePresenter;
 import com.llf.basemodel.base.BaseView;
 import com.llf.common.entity.NewsEntity;
+import com.llf.common.ui.news.NewsModel;
 
 import java.util.List;
 

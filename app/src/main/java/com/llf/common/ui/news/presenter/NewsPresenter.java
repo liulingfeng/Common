@@ -1,7 +1,11 @@
-package com.llf.common.ui.news;
+package com.llf.common.ui.news.presenter;
 
 import com.llf.common.api.Apis;
 import com.llf.common.entity.NewsEntity;
+import com.llf.common.ui.news.NewsFragment;
+import com.llf.common.ui.news.NewsModel;
+import com.llf.common.ui.news.contract.NewsContract;
+
 import java.util.List;
 
 /**
@@ -26,19 +30,16 @@ public class NewsPresenter implements NewsContract.Presenter, NewsModel.OnLoadFi
     @Override
     public void loadData(int type, int page) {
         String url = getUrl(type, page);
-        view.showLoading();
         model.loadData(url, type, this);
     }
 
     @Override
     public void onSuccess(List<NewsEntity> list) {
-        view.stopLoading();
         view.returnData(list);
     }
 
     @Override
     public void onFailure(String str, Exception e) {
-        view.stopLoading();
         view.showErrorTip(str);
     }
 

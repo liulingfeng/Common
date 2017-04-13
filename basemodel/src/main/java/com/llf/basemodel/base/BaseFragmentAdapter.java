@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
-import java.util.List;
 
 /**
  * Created by llf on 2017/3/1.
@@ -14,7 +13,7 @@ import java.util.List;
 public class BaseFragmentAdapter extends FragmentPagerAdapter {
     private FragmentManager fm;
     BaseFragment[] fragmentList;
-    private List<String> mTitles;
+    private String[] mTitles;
 
     public BaseFragmentAdapter(FragmentManager fm,BaseFragment[] fragmentList) {
         super(fm);
@@ -22,7 +21,7 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
         this.fragmentList = fragmentList;
     }
 
-    public BaseFragmentAdapter(FragmentManager fm, BaseFragment[] fragmentList, List<String> mTitles) {
+    public BaseFragmentAdapter(FragmentManager fm, BaseFragment[] fragmentList, String[] mTitles) {
         super(fm);
         this.fm = fm;
         this.fragmentList = fragmentList;
@@ -31,7 +30,7 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitles == null ? "" : mTitles.get(position);
+        return mTitles == null ? "" : mTitles[position];
     }
 
     @Override

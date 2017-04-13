@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/background"
+        android:orientation="vertical"
         >
 
         <android.support.v7.widget.Toolbar
@@ -56,8 +55,8 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_arrow_upward"
         app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/colorAccent"
         app:fabSize="mini"
         app:layout_behavior="com.llf.common.widget.HideBehavior"
+        app:rippleColor="@color/colorAccent"
         />
 </android.support.design.widget.CoordinatorLayout>
