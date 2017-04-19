@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         //透明状态栏
+        //透明状态栏
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
@@ -142,6 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 读取状态栏的高度
+     *
      * @param context
      * @return
      */
@@ -154,6 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             return 0;
         }
     }
+
     /**
      * 开启加载效果
      */
