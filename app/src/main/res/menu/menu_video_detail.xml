@@ -4,16 +4,16 @@
     >
     <item android:id="@+id/search"
           android:icon="@drawable/ic_search_white_24dp"
-          android:title="搜索菜单内歌词"
+          android:title="搜索相关视频"
           app:showAsAction="ifRoom"
         />
 
-    <item android:id="@+id/rank"
+    <item android:id="@+id/love"
           android:icon="@drawable/ic_playlist_play_red_50_24dp"
           android:title="喜欢"
           app:showAsAction="never"
         />
-    <item android:id="@+id/clear"
+    <item android:id="@+id/share"
           android:icon="@drawable/ic_delete_red_50_24dp"
           android:title="分享"
           app:showAsAction="never"
