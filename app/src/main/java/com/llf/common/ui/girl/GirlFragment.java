@@ -5,24 +5,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonactivity.WebViewActivity;
-import com.llf.basemodel.commonwidget.CircleImageView;
-import com.llf.basemodel.recycleview.BaseAdapter;
-import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
-import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.entity.JcodeEntity;
+import com.llf.common.ui.girl.adapter.GirlAdapter;
 import com.llf.common.ui.girl.contract.GirlContract;
 import com.llf.common.ui.girl.presenter.GirlPresenter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -42,7 +35,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Bind(R.id.refreshLayout)
     SwipeRefreshLayout mRefreshLayout;
 
-    private BaseAdapter mAdapter;
+    private GirlAdapter mAdapter;
     private List<JcodeEntity> jcodes = new ArrayList<>();
     private GirlPresenter mPresenter;
     private int pageIndex = 1;
@@ -65,30 +58,13 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(getActivity()));
-        mAdapter = new BaseAdapter<JcodeEntity>(getActivity(), R.layout.item_jcode, jcodes) {
-            @Override
-            public void convert(BaseViewHolder viewHolder, JcodeEntity item) {
-                ImageView imageView = viewHolder.getView(R.id.cover);
-                viewHolder.setText(R.id.title, item.getTitle());
-                viewHolder.setText(R.id.content, item.getContent());
-                viewHolder.setText(R.id.author, item.getAuthor());
-                viewHolder.setText(R.id.seeNum, item.getWatch());
-                viewHolder.setText(R.id.commentNum, item.getComments());
-                viewHolder.setText(R.id.loveNum, item.getLike());
-                ImageLoaderUtils.loadingImg(getActivity(), imageView, HOST + item.getImgUrl());
-                ImageLoaderUtils.loadingImg(getActivity(), (CircleImageView) viewHolder.getView(R.id.avatar), HOST + item.getAuthorImg());
-            }
-        };
+        mAdapter = new GirlAdapter(jcodes,getActivity());
         mAdapter.addFooterView(R.layout.layout_footer);
-        mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickLitener(new GirlAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, BaseViewHolder viewHolder) {
+            public void onItemClick(int position) {
                 mPresenter.addRecord(getActivity(), jcodes.get(position));
                 WebViewActivity.lanuch(getActivity(), HOST + jcodes.get(position).getDetailUrl());
-            }
-
-            @Override
-            public void onItemLongClick(int position) {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
