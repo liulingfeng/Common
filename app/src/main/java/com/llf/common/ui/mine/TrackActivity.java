@@ -7,21 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.ImageView;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.commonactivity.WebViewActivity;
-import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.commonwidget.EmptyLayout;
-import com.llf.basemodel.recycleview.BaseAdapter;
-import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
-import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.entity.JcodeEntity;
+import com.llf.common.ui.girl.adapter.GirlAdapter;
 import com.llf.common.ui.mine.contact.TrackContract;
 import com.llf.common.ui.mine.presenter.TrackPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -40,7 +39,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
     @Bind(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
-    private BaseAdapter mAdapter;
+    private GirlAdapter mAdapter;
     private List<JcodeEntity> jcodes = new ArrayList<>();
     private ItemTouchHelper mItemTouchHelper;
     private TrackPresenter mPresenter;
@@ -87,32 +86,14 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(TrackActivity.this));
-        mAdapter = new BaseAdapter<JcodeEntity>(TrackActivity.this, R.layout.item_jcode, jcodes) {
+        mAdapter = new GirlAdapter(jcodes, this);
+        mAdapter.setOnItemClickLitener(new GirlAdapter.OnItemClickListener() {
             @Override
-            public void convert(BaseViewHolder viewHolder, JcodeEntity item) {
-                ImageView imageView = viewHolder.getView(R.id.cover);
-                viewHolder.setText(R.id.title, item.getTitle());
-                viewHolder.setText(R.id.content, item.getContent());
-                viewHolder.setText(R.id.author, item.getAuthor());
-                viewHolder.setText(R.id.seeNum, item.getWatch());
-                viewHolder.setText(R.id.commentNum, item.getComments());
-                viewHolder.setText(R.id.loveNum, item.getLike());
-                ImageLoaderUtils.loadingImg(TrackActivity.this, imageView, HOST + item.getImgUrl());
-                ImageLoaderUtils.loadingImg(TrackActivity.this, (CircleImageView) viewHolder.getView(R.id.avatar), HOST + item.getAuthorImg());
-            }
-        };
-        mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position,BaseViewHolder viewHolder) {
+            public void onItemClick(int position) {
                 WebViewActivity.lanuch(TrackActivity.this, HOST + jcodes.get(position).getDetailUrl());
-            }
-
-            @Override
-            public void onItemLongClick(int position) {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-
         mRefreshLayout.setRefreshing(true);
         mPresenter.loadData(this);
     }
@@ -140,7 +121,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
 
     @Override
     public void returnData(List<JcodeEntity> datas) {
-        if(datas.size() == 0){
+        if (datas.size() == 0) {
             mEmptyLayout.showEmpty();
         }
         mRefreshLayout.setRefreshing(false);
