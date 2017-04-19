@@ -3,12 +3,16 @@ package com.llf.common.ui.video;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.common.R;
+
+import java.lang.reflect.Method;
 
 import butterknife.Bind;
 import llf.videomodel.VideoPlayer;
@@ -52,7 +56,7 @@ public class VideoDetailActivity extends BaseActivity {
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.search:
                         showToast("搜索");
                         break;
@@ -71,6 +75,23 @@ public class VideoDetailActivity extends BaseActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod(
+                            "setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                    Log.e(getClass().getSimpleName(), "onMenuOpened...unable to set icons for overflow menu", e);
+                }
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
