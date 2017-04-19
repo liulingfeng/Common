@@ -157,7 +157,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
 
     public interface OnItemClickListener {
         void onItemClick(int position, BaseViewHolder holder);
-
         void onItemLongClick(int position);
     }
 }
