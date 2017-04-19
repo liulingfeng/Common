@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.llf.basemodel.base.BaseActivity;
-import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 
 import butterknife.Bind;
@@ -20,7 +19,6 @@ public class VideoDetailActivity extends BaseActivity {
     VideoPlayer mViewPager;
 
     public static void launch(Context context,String url, String title){
-        LogUtil.e(url+"");
         Intent intent = new Intent(context,VideoDetailActivity.class);
         intent.putExtra("url",url);
         intent.putExtra("title",title);

@@ -8,10 +8,4 @@
                 android:orientation="vertical"
     >
 
-    <Button
-        android:id="@+id/btn_show"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="显示"
-        />
 </RelativeLayout>

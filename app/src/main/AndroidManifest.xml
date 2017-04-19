@@ -27,6 +27,7 @@
             android:name=".ui.video.VideoDetailActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
             android:screenOrientation="portrait"
+            android:theme="@style/VideoDetailTheme"
             />
         <activity
             android:name=".ui.news.detail.NewsDetailActivity"

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:padding="8dp"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cover"
+        android:maxLines="3"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="标题"
+        />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="8dp"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        tools:text="内容"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <com.llf.basemodel.commonwidget.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_image_loading"
+            />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            tools:text="作者"
+            />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/ic_girl_see"
+            />
+
+        <TextView
+            android:id="@+id/seeNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="#666666"
+            android:textSize="15sp"
+            tools:text="255"
+            />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/ic_girl_comment"
+            />
+
+        <TextView
+            android:id="@+id/commentNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="#666666"
+            android:textSize="15sp"
+            tools:text="0"
+            />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/ic_girl_love"
+            />
+
+        <TextView
+            android:id="@+id/loveNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="#666666"
+            android:textSize="15sp"
+            tools:text="0"
+            />
+    </LinearLayout>
+</RelativeLayout>

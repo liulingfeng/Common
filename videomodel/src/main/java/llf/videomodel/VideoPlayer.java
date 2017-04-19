@@ -34,11 +34,14 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import llf.videomodel.utils.LightUtil;
 import llf.videomodel.utils.PlayerUtil;
+
 import static llf.videomodel.utils.PlayerUtil.dip2px;
 
 /**
@@ -60,7 +63,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
 
     private LinearLayout controlLL, playError, netError;
     private SurfaceView mSurfaceView;
-    private ImageView ivPlay, ivAdjust, ivBack, playerLock, ivBattery, ivPlayCenter, gesture_iv_player_volume, gesture_iv_progress;
+    private ImageView ivPlay, ivAdjust, playerLock, ivBattery, ivPlayCenter, gesture_iv_player_volume, gesture_iv_progress;
     private SeekBar mSeekBar;
     private TextView tvPlayTime, tvAllTime, tvTitle, tvSystemTime, geture_tv_volume_percentage, geture_tv_progress_time, geture_tv_light_percentage;
     private RelativeLayout topMenu, playerScreen, gesture_volume_layout, gesture_progress_layout, gesture_light_layout;
@@ -118,7 +121,6 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
         tvAllTime = (TextView) view.findViewById(R.id.tvAllTime);
         tvPlayTime = (TextView) view.findViewById(R.id.tvPlayTime);
         mSeekBar = (SeekBar) view.findViewById(R.id.progress);
-        ivBack = (ImageView) view.findViewById(R.id.iv_back);
         tvSystemTime = (TextView) view.findViewById(R.id.tv_system_time);
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
         topMenu = (RelativeLayout) view.findViewById(R.id.rl_top_menu);
@@ -133,7 +135,6 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
         mSeekBar.setOnSeekBarChangeListener(this);
         ivPlay.setOnClickListener(this);
         ivAdjust.setOnClickListener(this);
-        ivBack.setOnClickListener(this);
         playerLock.setOnClickListener(this);
         playError.setOnClickListener(this);
         netError.setOnClickListener(this);
@@ -497,8 +498,6 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
             } else {
                 setLandscape();
             }
-        } else if (i == R.id.iv_back) {
-            setProtrait();
         } else if (i == R.id.player_iv_lock) {
             if (isFullscreen) {
                 if (isLockScreen) {
@@ -624,6 +623,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
         maxVolume = audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC); // 获取系统最大音量
         currentVolume = audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC); // 获取当前值
     }
+
     @Override
     public boolean onDown(MotionEvent e) {
         // 刚刚手指接触到触摸屏的那一刹那，就是触的那一下
