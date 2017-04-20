@@ -35,11 +35,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoStatusBar"
             />
-        <activity android:name=".ui.mine.TrackActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.mine.AttentionActivity"
+        <activity
+            android:name=".ui.mine.TrackActivity"
             android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.mine.AttentionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentWindow"
             />
         <activity
             android:name="com.llf.basemodel.image.BigImagePagerActivity"

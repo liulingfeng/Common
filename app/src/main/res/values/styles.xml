@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.TransparentWindow">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="VideoDetailTheme" parent="AppTheme">
         <item name="colorPrimary">@color/Black</item>
         <item name="colorPrimaryDark">@color/Black</item>
@@ -26,6 +31,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="ToolbarSubTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#D4D0C5</item>
@@ -73,9 +79,11 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:button">@null</item>
     </style>
+
     <style name="SegmentedControl.Left">
         <item name="android:background">@drawable/selector_segmented_left</item>
     </style>
+
     <style name="SegmentedControl.Right">
         <item name="android:background">@drawable/selector_segmented_right</item>
     </style>

@@ -44,7 +44,7 @@ public class AttentionActivity extends AppCompatActivity {
     private void animateRevealShow() {
         GuiUtils.animateRevealShow(
                 this, mContainer,
-                0, R.color.toolbar_bg,
+                0, R.color.colorPrimary,
                 new GuiUtils.OnRevealAnimationListener() {
                     @Override
                     public void onRevealHide() {
@@ -62,7 +62,7 @@ public class AttentionActivity extends AppCompatActivity {
     public void onBackPressed() {
         GuiUtils.animateRevealHide(
                 this, mContainer,
-                0, R.color.toolbar_bg,
+                0, R.color.colorPrimary,
                 new GuiUtils.OnRevealAnimationListener() {
                     @Override
                     public void onRevealHide() {
