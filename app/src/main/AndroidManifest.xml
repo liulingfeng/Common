@@ -41,5 +41,10 @@
         <activity android:name=".ui.mine.AttentionActivity"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name="com.llf.basemodel.image.BigImagePagerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BigImageTheme"
+            />
     </application>
 </manifest>

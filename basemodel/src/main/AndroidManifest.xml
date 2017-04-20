@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <!--改变屏幕亮度-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!--网络变化-->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <supports-screens
         android:largeScreens="true"
@@ -44,6 +44,7 @@
 
         <!--下载完成之后自动安装-->
         <receiver android:name=".receiver.InstallReceiver"/>
+
         <activity android:name=".commonactivity.WebViewActivity"/>
     </application>
 

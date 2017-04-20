@@ -116,4 +116,11 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         jcodes.addAll(datas);
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        jcodes.clear();
+    }
 }

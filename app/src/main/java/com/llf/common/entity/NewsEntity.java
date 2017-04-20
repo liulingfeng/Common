@@ -1,6 +1,7 @@
 package com.llf.common.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by llf on 2017/3/15.
@@ -31,10 +32,20 @@ public class NewsEntity implements Serializable {
      * 时间
      */
     private String ptime;
+
     /**
-     * TAG
+     * 多张图片
+     * @return
      */
-    private String tag;
+    private List<Imgextra> imgextra;
+
+    public List<Imgextra> getImgextra() {
+        return imgextra;
+    }
+
+    public void setImgextra(List<Imgextra> imgextra) {
+        this.imgextra = imgextra;
+    }
 
     public String getDocid() {
         return docid;
@@ -84,24 +95,15 @@ public class NewsEntity implements Serializable {
         this.ptime = ptime;
     }
 
-    public String getTag() {
-        return tag;
-    }
+    public static class Imgextra{
+        private String imgsrc;
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+        public String getImgsrc() {
+            return imgsrc;
+        }
 
-    @Override
-    public String toString() {
-        return "DataBean{" +
-                "docid='" + docid + '\'' +
-                ", title='" + title + '\'' +
-                ", digest='" + digest + '\'' +
-                ", imgsrc='" + imgsrc + '\'' +
-                ", source='" + source + '\'' +
-                ", ptime='" + ptime + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
+        public void setImgsrc(String imgsrc) {
+            this.imgsrc = imgsrc;
+        }
     }
 }

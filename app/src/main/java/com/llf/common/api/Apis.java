@@ -16,7 +16,7 @@ package com.llf.common.api;
 public class Apis {
     //http://c.m.163.com/nc/article/headline/T1348647909107/0-5.html  头条
 
-    public static final int PAZE_SIZE = 20;
+    public static final int PAZE_SIZE = 10;
 
     public static final String HOST = "http://c.m.163.com/";
     public static final String END_URL = "-" + PAZE_SIZE + ".html";

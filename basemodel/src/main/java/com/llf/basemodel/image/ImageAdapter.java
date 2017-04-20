@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,6 +16,7 @@ import com.bumptech.glide.request.target.Target;
 import com.llf.basemodel.R;
 import java.util.ArrayList;
 import java.util.List;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by llf on 2016/10/20.
@@ -44,7 +44,7 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = inflater.inflate(R.layout.item_pager_image, container, false);
         if(view != null){
-            final ImageView imageView = (ImageView) view.findViewById(R.id.image);
+            final PhotoView imageView = (PhotoView) view.findViewById(R.id.image);
             final ProgressBar loading = new ProgressBar(context);
             FrameLayout.LayoutParams loadingLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);

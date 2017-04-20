@@ -131,4 +131,11 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         videos.addAll(datas);
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        videos.clear();
+    }
 }

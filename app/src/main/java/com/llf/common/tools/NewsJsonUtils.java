@@ -7,12 +7,12 @@ import com.google.gson.JsonParser;
 import com.llf.basemodel.utils.JsonUtils;
 import com.llf.common.entity.NewsDetialEntity;
 import com.llf.common.entity.NewsEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by llf on 2017/4/13.
- *
  */
 
 public class NewsJsonUtils {
@@ -20,6 +20,7 @@ public class NewsJsonUtils {
 
     /**
      * 将获取到的json转换为新闻列表对象
+     *
      * @param res
      * @param value
      * @return
@@ -30,7 +31,7 @@ public class NewsJsonUtils {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
             JsonElement jsonElement = jsonObj.get(value);
-            if(jsonElement == null) {
+            if (jsonElement == null) {
                 return null;
             }
             JsonArray jsonArray = jsonElement.getAsJsonArray();
@@ -43,10 +44,8 @@ public class NewsJsonUtils {
                     continue;
                 }
 
-                if (!jo.has("imgextra")) {
-                    NewsEntity news = JsonUtils.deserialize(jo, NewsEntity.class);
-                    beans.add(news);
-                }
+                NewsEntity news = JsonUtils.deserialize(jo, NewsEntity.class);
+                beans.add(news);
             }
         } catch (Exception e) {
         }
@@ -59,7 +58,7 @@ public class NewsJsonUtils {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();
             JsonElement jsonElement = jsonObj.get(docId);
-            if(jsonElement == null) {
+            if (jsonElement == null) {
                 return null;
             }
             newsDetailBean = JsonUtils.deserialize(jsonElement.getAsJsonObject(), NewsDetialEntity.class);

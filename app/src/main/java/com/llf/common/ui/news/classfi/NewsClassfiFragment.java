@@ -10,18 +10,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseFragment;
-import com.llf.basemodel.recycleview.BaseAdapter;
+import com.llf.basemodel.image.BigImagePagerActivity;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
-import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.NewsEntity;
 import com.llf.common.ui.news.NewsFragment;
+import com.llf.common.ui.news.adapter.NewsAdapter;
 import com.llf.common.ui.news.contract.NewsContract;
 import com.llf.common.ui.news.detail.NewsDetailActivity;
 import com.llf.common.ui.news.presenter.NewsPresenter;
@@ -50,11 +49,12 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     @Bind(R.id.refreshLayout)
     SwipeRefreshLayout mRefreshLayout;
 
-    private BaseAdapter mAdapter;
+    private NewsAdapter mAdapter;
     private NewsContract.Presenter mPresenter;
     private int pageIndex = 0;
     private int type = NewsFragment.ONE;
     private List<NewsEntity> newDatas = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -79,30 +79,26 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(getActivity()));
-        mAdapter = new BaseAdapter<NewsEntity>(getActivity(), R.layout.item_news, newDatas) {
-            @Override
-            public void convert(BaseViewHolder viewHolder, NewsEntity item) {
-                ImageView imageView = viewHolder.getView(R.id.ivNews);
-                viewHolder.setText(R.id.tvTitle, item.getTitle());
-                viewHolder.setText(R.id.tvDesc, item.getDigest());
-                ImageLoaderUtils.loadingImg(getActivity(), imageView, item.getImgsrc());
-            }
-        };
+        mAdapter = new NewsAdapter(newDatas, getActivity());
         mAdapter.addFooterView(R.layout.layout_footer);
-        mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickLitener(new NewsAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position,BaseViewHolder viewHolder) {
-                NewsEntity entity = newDatas.get(position);
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("news", entity);
-                ActivityOptionsCompat options =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                                viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
-                ActivityCompat.startActivity(getActivity(),intent,options.toBundle());
-            }
-
-            @Override
-            public void onItemLongClick(int position) {
+            public void onItemClick(int position, BaseViewHolder viewHolder) {
+                if (newDatas.get(position).getImgextra() == null) {
+                    NewsEntity entity = newDatas.get(position);
+                    Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    intent.putExtra("news", entity);
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                    viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
+                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                } else {
+                    images.clear();
+                    for (int i = 0; i < newDatas.get(position).getImgextra().size(); i++) {
+                        images.add(newDatas.get(position).getImgextra().get(i).getImgsrc());
+                    }
+                    BigImagePagerActivity.startImagePagerActivity(getActivity(), images, 0);
+                }
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -148,5 +144,13 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         pageIndex = 0;
         newDatas.clear();
         mPresenter.loadData(type, pageIndex);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        newDatas.clear();
+        images.clear();
     }
 }
