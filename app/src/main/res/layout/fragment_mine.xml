@@ -232,7 +232,7 @@
             />
 
         <LinearLayout
-            android:id="@+id/wallet"
+            android:id="@+id/update"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="?attr/selectableItemBackground"
@@ -244,7 +244,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/ic_mine_wallet"
+                android:src="@drawable/ic_mine_update"
                 />
 
             <TextView
@@ -252,7 +252,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
-                android:text="我的钱包"
+                android:text="应用更新"
                 android:textColor="#060606"
                 android:textSize="15sp"
                 />

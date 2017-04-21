@@ -3,14 +3,19 @@ package com.llf.common.ui.mine;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
+import com.llf.common.ui.mine.contact.MineContract;
+import com.llf.common.ui.mine.presenter.MinePresenter;
 import com.llf.photopicker.ImgSelConfig;
 import com.llf.photopicker.PickPhotoActivity;
+
 import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -19,11 +24,12 @@ import butterknife.OnClick;
  * 我的
  */
 
-public class MineFragment extends BaseFragment {
-    private static final int CHANGE_AVATAIR = 1;
-
+public class MineFragment extends BaseFragment implements MineContract.View {
     @Bind(R.id.avatar)
     CircleImageView mAvatar;
+
+    private static final int CHANGE_AVATAIR = 1;
+    private MineContract.Presenter mPresenter;
 
     public static MineFragment getInstance() {
         MineFragment mineFragment = new MineFragment();
@@ -37,7 +43,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        mPresenter = new MinePresenter(this);
     }
 
     @Override
@@ -45,7 +51,7 @@ public class MineFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.setting, R.id.attention, R.id.track, R.id.share, R.id.night, R.id.service, R.id.wallet, R.id.reply, R.id.avatar})
+    @OnClick({R.id.setting, R.id.attention, R.id.track, R.id.share, R.id.night, R.id.service, R.id.update, R.id.reply, R.id.avatar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -66,8 +72,8 @@ public class MineFragment extends BaseFragment {
             case R.id.service:
                 showToast("客服中心");
                 break;
-            case R.id.wallet:
-                showToast("我的钱包");
+            case R.id.update:
+                mPresenter.checkUpdate("http://api.fir.im/apps/latest/58f87d50959d6904280005a3?api_token=9f2408863ff25abccca986e5d4d9d6ba");
                 break;
             case R.id.reply:
                 showToast("反馈");
@@ -106,5 +112,20 @@ public class MineFragment extends BaseFragment {
 //                    }
 //                }).launch();    //启动压缩
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
+    }
+
+    @Override
+    public void retureResult(String result) {
+        showToast(result);
     }
 }
