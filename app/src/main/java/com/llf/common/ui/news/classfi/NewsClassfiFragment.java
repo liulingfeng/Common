@@ -3,8 +3,6 @@ package com.llf.common.ui.news.classfi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,10 +86,14 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
                     NewsEntity entity = newDatas.get(position);
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("news", entity);
-                    ActivityOptionsCompat options =
-                            ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                                    viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
-                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                    /**
+                     * 这边会有崩溃问题出现
+                     */
+//                    ActivityOptionsCompat options =
+//                            ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+//                                    viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
+//                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                    startActivity(intent);
                 } else {
                     images.clear();
                     for (int i = 0; i < newDatas.get(position).getImgextra().size(); i++) {
