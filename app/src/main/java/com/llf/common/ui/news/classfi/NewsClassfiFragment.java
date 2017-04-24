@@ -161,4 +161,8 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         newDatas.clear();
         images.clear();
     }
+
+    public void slideToTop(){
+        mRecyclerView.smoothScrollToPosition(0);
+    }
 }

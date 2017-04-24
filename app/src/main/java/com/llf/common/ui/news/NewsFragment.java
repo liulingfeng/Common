@@ -2,8 +2,6 @@ package com.llf.common.ui.news;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
@@ -12,13 +10,14 @@ import com.llf.common.ui.news.classfi.NewsClassfiFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by llf on 2017/3/15.
  * 新闻
  */
 
-public class NewsFragment extends BaseFragment {
+public class NewsFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
     public static final int ONE = 0;
     public static final int TWO = 1;
     public static final int THREE = 2;
@@ -28,12 +27,11 @@ public class NewsFragment extends BaseFragment {
     TabLayout mTabs;
     @Bind(R.id.viewPager)
     ViewPager mViewPager;
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
 
     private String[] titles = {"头条", "NBA", "汽车", "笑话"};
     private BaseFragment[] mFragments;
     private BaseFragmentAdapter mAdapter;
+    private int currentPosition = 0;
 
     public static NewsFragment getInstance() {
         NewsFragment newsFragment = new NewsFragment();
@@ -56,13 +54,7 @@ public class NewsFragment extends BaseFragment {
         mAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments, titles);
         mViewPager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewPager);
-
-        mToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("点击了");
-            }
-        });
+        mViewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -74,5 +66,25 @@ public class NewsFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        currentPosition = position;
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @OnClick(R.id.toolbar)
+    public void onViewClicked() {
+        ((NewsClassfiFragment)mFragments[currentPosition]).slideToTop();
     }
 }
