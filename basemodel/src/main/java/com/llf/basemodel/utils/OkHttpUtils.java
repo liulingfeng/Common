@@ -4,12 +4,15 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.gson.internal.$Gson$Types;
+import com.llf.basemodel.base.BaseApplication;
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -22,12 +25,12 @@ import java.util.concurrent.TimeUnit;
  * Description : OkHttp网络连接封装工具类
  */
 public class OkHttpUtils {
-
     private static final String TAG = "OkHttpUtils";
-
     private static OkHttpUtils mInstance;
     private OkHttpClient mOkHttpClient;
     private Handler mDelivery;
+    private long cacheSize = 1024 * 1024 * 20;//缓存文件最大限制大小20M
+    private Cache cache;
 
     private OkHttpUtils() {
         mOkHttpClient = new OkHttpClient();
@@ -36,6 +39,8 @@ public class OkHttpUtils {
         mOkHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
         //cookie enabled
         mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
+        cache = new Cache(BaseApplication.instance.getExternalCacheDir(), cacheSize);
+        mOkHttpClient.setCache(cache);
         mDelivery = new Handler(Looper.getMainLooper());
     }
 
@@ -48,7 +53,7 @@ public class OkHttpUtils {
 
     private void getRequest(String url, final ResultCallback callback) {
         Request.Builder builder = new Request.Builder().url(url);
-        builder.addHeader("User-Agent","Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)");
+        builder.addHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)");
         Request request = builder.build();
         deliveryResult(callback, request);
     }
@@ -121,8 +126,9 @@ public class OkHttpUtils {
 
     /**
      * get请求
-     * @param url  请求url
-     * @param callback  请求回调
+     *
+     * @param url      请求url
+     * @param callback 请求回调
      */
     public static void get(String url, ResultCallback callback) {
         getmInstance().getRequest(url, callback);
@@ -130,9 +136,10 @@ public class OkHttpUtils {
 
     /**
      * post请求
-     * @param url       请求url
-     * @param callback  请求回调
-     * @param params    请求参数
+     *
+     * @param url      请求url
+     * @param callback 请求回调
+     * @param params   请求参数
      */
     public static void post(String url, final ResultCallback callback, List<Param> params) {
         getmInstance().postRequest(url, callback, params);
@@ -140,13 +147,14 @@ public class OkHttpUtils {
 
     /**
      * http请求回调类,回调方法在UI线程中执行
+     *
      * @param <T>
      */
     public static abstract class ResultCallback<T> {
 
         Type mType;
 
-        public ResultCallback(){
+        public ResultCallback() {
             mType = getSuperclassTypeParameter(getClass());
         }
 
@@ -161,12 +169,14 @@ public class OkHttpUtils {
 
         /**
          * 请求成功回调
+         *
          * @param response
          */
         public abstract void onSuccess(T response);
 
         /**
          * 请求失败回调
+         *
          * @param e
          */
         public abstract void onFailure(Exception e);

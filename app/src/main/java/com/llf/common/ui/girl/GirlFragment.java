@@ -107,6 +107,12 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void returnData(List<JcodeEntity> datas) {
         if (pageIndex == 1) {
             mRefreshLayout.setRefreshing(false);

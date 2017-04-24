@@ -1,21 +1,24 @@
 package com.llf.common.ui.girl.presenter;
 
 import android.content.Context;
+
 import com.llf.common.db.JcodeDao;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.girl.contract.GirlContract;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -56,10 +59,19 @@ public class GirlPresenter implements GirlContract.Presenter {
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<JcodeEntity>>() {
+                .subscribe(new Subscriber<List<JcodeEntity>>() {
                     @Override
-                    public void call(List<JcodeEntity> jcodeEntities) {
-//                        view.stopLoading();
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.showErrorTip("您已进入没有网络的二次元");
+                    }
+
+                    @Override
+                    public void onNext(List<JcodeEntity> jcodeEntities) {
                         view.returnData(jcodeEntities);
                     }
                 });

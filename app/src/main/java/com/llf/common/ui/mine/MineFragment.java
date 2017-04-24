@@ -125,6 +125,11 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+    }
+
+    @Override
     public void retureResult(String result) {
         showToast(result);
     }

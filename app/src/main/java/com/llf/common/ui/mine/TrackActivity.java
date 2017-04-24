@@ -120,6 +120,12 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void returnData(List<JcodeEntity> datas) {
         if (datas.size() == 0) {
             mEmptyLayout.showEmpty();

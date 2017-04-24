@@ -182,7 +182,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 显示错误的dialog
      */
-    public void showErrorTip(String errorContent) {
+    public void showErrorHint(String errorContent) {
         View errorView = LayoutInflater.from(getActivity()).inflate(R.layout.app_error_tip,null);
         TextView tvContent = (TextView)errorView.findViewById(R.id.content);
         tvContent.setText(errorContent);

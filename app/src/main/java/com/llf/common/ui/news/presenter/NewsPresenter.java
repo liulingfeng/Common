@@ -40,7 +40,7 @@ public class NewsPresenter implements NewsContract.Presenter, NewsModel.OnLoadFi
 
     @Override
     public void onFailure(String str, Exception e) {
-        view.showErrorTip(str);
+        view.showErrorTip("您已进入没有网络的二次元");
     }
 
     private String getUrl(int type, int page) {

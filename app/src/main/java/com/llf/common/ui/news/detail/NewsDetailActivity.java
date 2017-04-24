@@ -77,6 +77,11 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+    }
+
+    @Override
     public void showContent(String s) {
         mHtNewsContent.setHtmlFromString(s, new HtmlTextView.LocalImageGetter());
     }

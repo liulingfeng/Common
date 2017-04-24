@@ -122,6 +122,12 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void returnData(List<VideoEntity.V9LG4CHORBean> datas) {
         if (pageIndex == 0) {
             mRefreshLayout.setRefreshing(false);

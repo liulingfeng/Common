@@ -129,6 +129,12 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     }
 
     @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void returnData(List<NewsEntity> datas) {
         if (pageIndex == 0) {
             mRefreshLayout.setRefreshing(false);
