@@ -7,7 +7,7 @@
                 android:drawable="@android:color/white"
                 android:state_pressed="false"/>
             <item
-                android:drawable="@color/colorPrimary"
+                android:drawable="@color/background"
                 android:state_pressed="true"/>
         </selector>
     </item>
