@@ -36,7 +36,7 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public NewsAdapter(List<NewsEntity> datas, Context context) {
         this.datas = datas;
         this.mContext = context;
-        itemWidth = (SettingUtil.getScreenWidth(context) - SettingUtil.dip2px(context, 24)) / 3;
+        itemWidth = (SettingUtil.getScreenWidth(context) - SettingUtil.dip2px(context, 32)) / 3;
     }
 
     @Override
@@ -77,6 +77,9 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 for (int i = 0; i < item.getImgextra().size(); i++) {
                     ImageView icon = new ImageView(mContext);
                     LinearLayout.LayoutParams paras = new LinearLayout.LayoutParams(itemWidth, itemWidth);
+                    if (i == 1) {
+                        paras.setMargins(SettingUtil.dip2px(mContext, 4), 0, SettingUtil.dip2px(mContext, 4), 0);
+                    }
                     icon.setLayoutParams(paras);
                     ImageLoaderUtils.loadingImg(mContext, icon, item.getImgextra().get(i).getImgsrc());
                     images.addView(icon);
