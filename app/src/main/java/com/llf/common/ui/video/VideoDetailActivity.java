@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
@@ -23,11 +22,9 @@ import com.llf.common.api.Apis;
 import com.llf.common.entity.VideoEntity;
 import com.llf.common.ui.video.contract.VideoContract;
 import com.llf.common.ui.video.presenter.VideoPresenter;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import llf.videomodel.VideoPlayer;
 

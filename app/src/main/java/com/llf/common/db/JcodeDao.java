@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.entity.JcodeEntity;
 
 import java.util.ArrayList;
@@ -85,18 +84,12 @@ public class JcodeDao {
     public JcodeEntity queryById(String title) {
         JcodeEntity entity = null;
         SQLiteDatabase readableDatabase = mSqliteOpenHelp.getReadableDatabase();
-        Cursor cursor = readableDatabase.query("jcode", new String[]{"imgUrl", "title", "detailUrl", "content"}, "title=?", new String[]{title}, null, null, null);
+        Cursor cursor = readableDatabase.query("jcode", new String[]{"title", "detailUrl", "content"}, "title=?", new String[]{title}, null, null, null);
         if (cursor.moveToNext()) {
             entity = new JcodeEntity();
-            entity.setImgUrl(cursor.getString(cursor.getColumnIndex("imgUrl")));
             entity.setTitle(cursor.getString(cursor.getColumnIndex("title")));
             entity.setDetailUrl(cursor.getString(cursor.getColumnIndex("detailUrl")));
             entity.setContent(cursor.getString(cursor.getColumnIndex("content")));
-            entity.setAuthor(cursor.getString(cursor.getColumnIndex("author")));
-            entity.setAuthorImg(cursor.getString(cursor.getColumnIndex("authorImg")));
-            entity.setWatch(cursor.getString(cursor.getColumnIndex("watch")));
-            entity.setComments(cursor.getString(cursor.getColumnIndex("comments")));
-            entity.setLike(cursor.getString(cursor.getColumnIndex("like")));
         }
         return entity;
     }
