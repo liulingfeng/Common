@@ -1,5 +1,6 @@
 package com.llf.common.ui.news.presenter;
 
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.basemodel.utils.OkHttpUtils;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.NewsDetialEntity;
@@ -30,6 +31,7 @@ public class NewsDetailPresenter implements NewsDetailContract.Presenter{
         OkHttpUtils.get(detailUrl, new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
+                LogUtil.d("新闻详情" + response);
                 mView.stopLoading();
                 NewsDetialEntity newsDetailBean = NewsJsonUtils.readJsonNewsDetailBeans(response, s);
                 mView.showContent(newsDetailBean.getBody());

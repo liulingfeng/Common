@@ -1,6 +1,7 @@
 package com.llf.common.ui.video.presenter;
 
 import com.llf.basemodel.utils.JsonUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.basemodel.utils.OkHttpUtils;
 import com.llf.common.entity.VideoEntity;
 import com.llf.common.ui.video.contract.VideoContract;
@@ -27,6 +28,7 @@ public class VideoPresenter implements VideoContract.Presenter{
         OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
             @Override
            public void onSuccess(String response) {
+                LogUtil.d("视频列表" + response);
                 VideoEntity entity = JsonUtils.deserialize(response,VideoEntity.class);
                 mView.returnData(entity.getTag());
             }

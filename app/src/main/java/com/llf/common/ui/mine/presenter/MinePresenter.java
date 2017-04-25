@@ -3,6 +3,7 @@ package com.llf.common.ui.mine.presenter;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.DownloadUtil;
 import com.llf.basemodel.utils.JsonUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.basemodel.utils.OkHttpUtils;
 import com.llf.common.App;
 import com.llf.common.entity.ApplicationEntity;
@@ -10,7 +11,6 @@ import com.llf.common.ui.mine.contact.MineContract;
 
 /**
  * Created by llf on 2017/4/21.
- *
  */
 
 public class MinePresenter implements MineContract.Presenter {
@@ -30,6 +30,7 @@ public class MinePresenter implements MineContract.Presenter {
         OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
+                LogUtil.d("版本更新" + response);
                 ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
                 if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
                     DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu");
