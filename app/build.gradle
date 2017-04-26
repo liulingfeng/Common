@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        xiuqu {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('E:/MyWorkSpace/llf.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
@@ -19,6 +27,11 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.xiuqu
+        }
+    }
+    productFlavors {
     }
 }
 
@@ -31,4 +44,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':photopicker')
     compile project(':videomodel')
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

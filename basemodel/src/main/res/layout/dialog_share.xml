@@ -14,148 +14,159 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_letter"
                 android:layout_marginLeft="8dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="私信分享"
-                android:textColor="#363636"
-                android:textSize="15sp"
-                android:layout_marginLeft="8dp"
-                />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#F2F2F2"
-            android:layout_marginLeft="48dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            >
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
                 android:src="@drawable/icon_weixin"
-                android:layout_marginLeft="8dp"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="微信分享"
                 android:textColor="#363636"
                 android:textSize="15sp"
-                android:layout_marginLeft="8dp"
                 />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#F2F2F2"
             android:layout_marginLeft="48dp"
+            android:background="#F2F2F2"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_yixin"
                 android:layout_marginLeft="8dp"
+                android:src="@drawable/icon_qq"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="QQ分享"
+                android:textColor="#363636"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="48dp"
+            android:background="#F2F2F2"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/icon_letter"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="私信分享"
+                android:textColor="#363636"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="48dp"
+            android:background="#F2F2F2"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/icon_yixin"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="易信分享"
                 android:textColor="#363636"
                 android:textSize="15sp"
-                android:layout_marginLeft="8dp"
                 />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#F2F2F2"
             android:layout_marginLeft="48dp"
+            android:background="#F2F2F2"
             />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_qq"
                 android:layout_marginLeft="8dp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QQ链接"
-                android:textColor="#363636"
-                android:textSize="15sp"
-                android:layout_marginLeft="8dp"
-                />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#F2F2F2"
-            android:layout_marginLeft="48dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            >
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
                 android:src="@drawable/icon_link"
-                android:layout_marginLeft="8dp"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="复制链接"
                 android:textColor="#363636"
                 android:textSize="15sp"
-                android:layout_marginLeft="8dp"
                 />
         </LinearLayout>
     </LinearLayout>
