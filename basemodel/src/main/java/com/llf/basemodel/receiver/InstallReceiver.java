@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+
 import com.llf.basemodel.utils.DownloadUtil;
+import com.llf.basemodel.utils.LogUtil;
 
 /**
  * Created by llf on 2016/10/21.
@@ -20,6 +22,7 @@ public class InstallReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+            LogUtil.e("收到下载完成的广播");
             //下载失败也会发送下载完成
             long downloadApkId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             installApk(context, downloadApkId);

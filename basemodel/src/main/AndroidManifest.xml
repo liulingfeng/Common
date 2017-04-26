@@ -43,7 +43,11 @@
             android:value="true"/>
 
         <!--下载完成之后自动安装-->
-        <receiver android:name=".receiver.InstallReceiver"/>
+        <receiver android:name=".receiver.InstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"></action>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".commonactivity.WebViewActivity"/>
     </application>
