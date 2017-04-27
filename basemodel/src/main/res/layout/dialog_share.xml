@@ -12,6 +12,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/weixin"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"
@@ -45,6 +46,7 @@
             />
 
         <LinearLayout
+            android:id="@+id/qq"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"

@@ -1,6 +1,7 @@
 package com.llf.common;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -100,6 +101,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //分发到fragment的onActivityResult，用于解决qq分享接收不到回调
+        BaseFragment fragment = fragments[3];
+        fragment.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

@@ -10,9 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
-import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.recycleview.BaseAdapter;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
@@ -22,9 +22,11 @@ import com.llf.common.api.Apis;
 import com.llf.common.entity.VideoEntity;
 import com.llf.common.ui.video.contract.VideoContract;
 import com.llf.common.ui.video.presenter.VideoPresenter;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import llf.videomodel.VideoPlayer;
 
@@ -84,7 +86,8 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
                         showToast("喜欢");
                         break;
                     case R.id.share:
-                        ShareDialog.show(VideoDetailActivity.this);
+                        showToast("分享");
+//                        ShareDialog.show(VideoDetailActivity.this);
                         break;
                     case R.id.report:
                         showToast("举报成功");

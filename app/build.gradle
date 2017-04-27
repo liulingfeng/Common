@@ -45,4 +45,6 @@ dependencies {
     compile project(':photopicker')
     compile project(':videomodel')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile files('libs/open_sdk_r5788.jar')
+    compile files('libs/libammsdk.jar')
 }
