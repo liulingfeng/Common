@@ -56,7 +56,7 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Translucent"
+            android:theme="@style/AppTheme.TransparentWindow"
             />
         <!--QQ声明的Activity-->
         <activity

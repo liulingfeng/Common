@@ -8,7 +8,7 @@ public class AppConfig {
     /**
      * 微信appid
      */
-    public static  final String APP_ID_WEIXIN = "wxd298b23025a818e9";
+    public static  final String APP_ID_WEIXIN = "wxcd112902bd859435";
 
     /**
      * QQ的appid

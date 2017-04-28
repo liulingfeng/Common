@@ -10,7 +10,6 @@ import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.ImageLoaderUtils;
-import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.ui.mine.contact.MineContract;
@@ -24,13 +23,13 @@ import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
-import com.tencent.mm.sdk.platformtools.Util;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.OnClick;
+import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 
 /**
  * Created by llf on 2017/3/15.
@@ -106,7 +105,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.e("回调");
         if (requestCode == CHANGE_AVATAIR && resultCode == Activity.RESULT_OK) {
             ArrayList<String> result = data.getStringArrayListExtra(PickPhotoActivity.INTENT_RESULT);
             ImageLoaderUtils.loadingImg(getActivity(), mAvatar, result.get(0));
@@ -174,19 +172,17 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     @Override
     public void weixinShare() {
-        showToast("微信分享");
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = "https://fir.im/6s7z";
-        WXMediaMessage msg = new WXMediaMessage();
+        WXMediaMessage msg = new WXMediaMessage(webpageObject);
         msg.title = "出大事了";
         msg.description = "这里有个好强大的app";
-        Bitmap thump = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        msg.thumbData = Util.bmpToByteArray(thump, true);
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
         req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneTimeline;
-        // 调用api接口发送数据到微信
+        req.scene = SendMessageToWX.Req.WXSceneSession;
         iwxapi.sendReq(req);
     }
 

@@ -32,7 +32,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        iwxapi.handleIntent(getIntent(), this);
+        iwxapi.handleIntent(intent, this);
     }
 
     @Override
