@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
@@ -26,9 +27,12 @@ import com.tencent.mm.sdk.openapi.WXWebpageObject;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+
 import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+
 import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 
 /**
@@ -107,7 +111,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHANGE_AVATAIR && resultCode == Activity.RESULT_OK) {
             ArrayList<String> result = data.getStringArrayListExtra(PickPhotoActivity.INTENT_RESULT);
-            ImageLoaderUtils.loadingImg(getActivity(), mAvatar, result.get(0));
+            if (result.size() != 0) {
+                ImageLoaderUtils.loadingImg(getActivity(), mAvatar, result.get(0));
+            }
         }
 
         if (requestCode == Constants.REQUEST_QQ_SHARE) {

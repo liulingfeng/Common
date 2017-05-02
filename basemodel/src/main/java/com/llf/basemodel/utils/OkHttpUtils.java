@@ -13,6 +13,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -39,7 +40,8 @@ public class OkHttpUtils {
         mOkHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
         //cookie enabled
         mOkHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
-        cache = new Cache(BaseApplication.instance.getExternalCacheDir(), cacheSize);
+        File httpCacheDirectory = new File(BaseApplication.instance.getExternalCacheDir(), "xiuqu");
+        cache = new Cache(httpCacheDirectory, cacheSize);
         mOkHttpClient.setCache(cache);
         mDelivery = new Handler(Looper.getMainLooper());
     }

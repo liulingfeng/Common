@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.utils.ImageLoaderUtils;
@@ -31,8 +30,6 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
     Toolbar mToolbar;
     @Bind(R.id.collapsing_toolbar)
     CollapsingToolbarLayout mCollapsingToolbar;
-    @Bind(R.id.progress)
-    ProgressBar mProgress;
     @Bind(R.id.htNewsContent)
     HtmlTextView mHtNewsContent;
 
@@ -68,12 +65,12 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
 
     @Override
     public void showLoading() {
-        mProgress.setVisibility(View.VISIBLE);
+        startProgressDialog();
     }
 
     @Override
     public void stopLoading() {
-        mProgress.setVisibility(View.INVISIBLE);
+        stopProgressDialog();
     }
 
     @Override
