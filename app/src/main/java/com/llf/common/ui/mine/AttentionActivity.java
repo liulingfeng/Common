@@ -32,7 +32,8 @@ public class AttentionActivity extends AppCompatActivity {
         mContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                animateRevealShow();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    animateRevealShow();
             }
         });
     }
@@ -77,7 +78,8 @@ public class AttentionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        animateRevealHide();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            animateRevealHide();
     }
 
     // 默认回退
