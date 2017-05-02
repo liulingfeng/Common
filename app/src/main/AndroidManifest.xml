@@ -11,6 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--Bugly-->
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="3c1e673ec2"/>
+        <!-- 配置APP版本号 -->
+        <meta-data
+            android:name="BUGLY_APP_VERSION"
+            android:value="1.2.1"/>
+        <!-- 配置APP渠道号 -->
+        <meta-data
+            android:name="BUGLY_APP_CHANNEL"
+            android:value="xiaomi"/>
+        <!-- 配置Bugly调试模式（true或者false）-->
+        <meta-data
+            android:name="BUGLY_ENABLE_DEBUG"
+            android:value="true"/>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -58,6 +75,7 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.TransparentWindow"
             />
+
         <!--QQ声明的Activity-->
         <activity
             android:name="com.tencent.connect.common.AssistActivity"

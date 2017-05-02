@@ -1,8 +1,10 @@
 package com.llf.common;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -19,10 +21,14 @@ import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.video.VideoFragment;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, EasyPermissions.PermissionCallbacks {
     @Bind(R.id.news)
     Button mNews;
     @Bind(R.id.video)
@@ -38,6 +44,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private BaseFragment[] fragments;
     int currentTabPosition = 0;
     public static final String CURRENT_TAB_POSITION = "HOME_CURRENT_TAB_POSITION";
+    private String[] params;
+    public static final int PERMITTION = 100;
 
     static {
         //vector支持selector
@@ -51,6 +59,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void initView() {
+        /**
+         * 6.0系统动态权限申请需要
+         */
+        params = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
+        if (EasyPermissions.hasPermissions(MainActivity.this, params)) {
+            initFragment();
+        } else {
+            EasyPermissions.requestPermissions(MainActivity.this, "应用需要权限才能安全运行", PERMITTION, params);
+        }
+    }
+
+    private void initFragment() {
         mTitles = getResources().getStringArray(R.array.main_titles);
         fragments = new BaseFragment[mTitles.length];
         fragments[0] = NewsFragment.getInstance();
@@ -107,8 +127,42 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //分发到fragment的onActivityResult，用于解决qq分享接收不到回调
-        BaseFragment fragment = fragments[3];
-        fragment.onActivityResult(requestCode, resultCode, data);
+        if(requestCode!=PERMITTION){
+            BaseFragment fragment = fragments[3];
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        initFragment();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        switch (requestCode) {
+            case PERMITTION:
+                //引导用户跳转到设置界面
+                new AppSettingsDialog.Builder(MainActivity.this, "希望您通过权限")
+                        .setTitle("权限设置")
+                        .setPositiveButton("设置")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setRequestCode(PERMITTION)
+                        .build()
+                        .show();
+                break;
+        }
     }
 
     @Override
