@@ -32,9 +32,7 @@ public class AttentionActivity extends AppCompatActivity {
         mContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    animateRevealShow();
-                }
+                animateRevealShow();
             }
         });
     }
@@ -58,8 +56,9 @@ public class AttentionActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    public void onBackPressed() {
+    //动画消失
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void animateRevealHide() {
         GuiUtils.animateRevealHide(
                 this, mContainer,
                 0, R.color.colorPrimary,
@@ -74,6 +73,11 @@ public class AttentionActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        animateRevealHide();
     }
 
     // 默认回退

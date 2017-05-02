@@ -75,7 +75,7 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
         } else {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content, PickPhotoFragment.instance(config), null)
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -168,7 +168,7 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
                 if(grantResults.length >= 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     getSupportFragmentManager().beginTransaction()
                             .add(R.id.content, PickPhotoFragment.instance(config), null)
-                            .commit();
+                            .commitAllowingStateLoss();
                 } else {
                    finish();
                 }
