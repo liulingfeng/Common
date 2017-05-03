@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.llf.basemodel.base.BaseFragment;
@@ -53,6 +54,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     private int type = NewsFragment.ONE;
     private List<NewsEntity> newDatas = new ArrayList<>();
     private ArrayList<String> images = new ArrayList<>();
+    private boolean mIsRefreshing = false;
 
     @Override
     protected int getLayoutId() {
@@ -86,13 +88,6 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
                     NewsEntity entity = newDatas.get(position);
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("news", entity);
-                    /**
-                     * 这边会有崩溃问题出现
-                     */
-//                    ActivityOptionsCompat options =
-//                            ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-//                                    viewHolder.getView(R.id.ivNews), getString(R.string.transition_news_img));
-//                    ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
                     startActivity(intent);
                 } else {
                     images.clear();
@@ -110,6 +105,16 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
                 pageIndex += Apis.PAZE_SIZE;
                 mAdapter.setFooterVisible(View.VISIBLE);
                 mPresenter.loadData(type, pageIndex);
+            }
+        });
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mIsRefreshing) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
     }
@@ -140,6 +145,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     public void returnData(List<NewsEntity> datas) {
         if (pageIndex == 0) {
             mRefreshLayout.setRefreshing(false);
+            mIsRefreshing = false;
         } else {
             mAdapter.setFooterVisible(View.GONE);
         }
@@ -149,6 +155,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
 
     @Override
     public void onRefresh() {
+        mIsRefreshing = true;
         pageIndex = 0;
         newDatas.clear();
         mPresenter.loadData(type, pageIndex);
@@ -162,7 +169,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         images.clear();
     }
 
-    public void slideToTop(){
+    public void slideToTop() {
         mRecyclerView.smoothScrollToPosition(0);
     }
 }
