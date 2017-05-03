@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.entity.NewsEntity;
 import com.llf.common.ui.news.contract.NewsDetailContract;
@@ -23,7 +24,7 @@ import butterknife.Bind;
  * 新闻详情
  */
 
-public class NewsDetailActivity extends BaseActivity implements NewsDetailContract.View{
+public class NewsDetailActivity extends BaseActivity implements NewsDetailContract.View {
     @Bind(R.id.ivImage)
     ImageView mIvImage;
     @Bind(R.id.toolbar)
@@ -35,6 +36,7 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
 
     private NewsEntity mEntity;//详情数据
     private NewsDetailContract.Presenter mPresenter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_news_detail;
@@ -80,7 +82,12 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
 
     @Override
     public void showContent(String s) {
-        mHtNewsContent.setHtmlFromString(s, new HtmlTextView.LocalImageGetter());
+        try {
+            mHtNewsContent.setHtmlFromString(s, new HtmlTextView.LocalImageGetter());
+        } catch (Exception e) {
+            LogUtil.d("数据为空");
+        }
+
     }
 
     @Override
