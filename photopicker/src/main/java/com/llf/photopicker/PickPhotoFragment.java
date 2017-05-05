@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
@@ -227,7 +229,12 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             tempFile = new File(FileUtil.createRootPath(getActivity()) + "/" + System.currentTimeMillis() + ".jpg");
             FileUtil.createFile(tempFile);
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+            if (Build.VERSION.SDK_INT >= 24) {
+                Uri contentUri = FileProvider.getUriForFile(getActivity(), "com.llf.common.provider666", tempFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            } else {
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+            }
             startActivityForResult(cameraIntent, REQUEST_CAMERA);
         } else {
             Toast.makeText(getActivity(), "打开相机失败", Toast.LENGTH_SHORT).show();

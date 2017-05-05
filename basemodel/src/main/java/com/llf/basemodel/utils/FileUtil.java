@@ -65,7 +65,7 @@ public class FileUtil {
     }
 
     /**
-     * 创建根缓存目录
+     * 返回根缓存目录
      *
      * @return
      */
