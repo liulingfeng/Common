@@ -4,11 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-
 import com.llf.basemodel.base.BaseActivity;
-
 import java.util.List;
-
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -41,9 +38,8 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
     private void skip() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                startActivity(MainActivity.class);
+                startThenKill(MainActivity.class);
                 WelcomeActivity.this.overridePendingTransition(R.anim.scale_in, R.anim.shrink_out);
-                WelcomeActivity.this.finish();
             }
         }, 1000 * 2);
     }
