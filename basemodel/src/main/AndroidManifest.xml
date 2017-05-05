@@ -1,15 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.llf.basemodel"
     >
-
+    <!--敏感权限-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!--改变屏幕亮度-->
+    <!--获得基站位置信息-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--允许程序读取或写入系统设置-->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!--网络变化-->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
@@ -26,14 +28,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         >
-
-        <!--下载完成之后自动安装-->
-        <receiver android:name=".receiver.InstallReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"></action>
-            </intent-filter>
-        </receiver>
-
         <activity android:name=".commonactivity.WebViewActivity"/>
     </application>
 

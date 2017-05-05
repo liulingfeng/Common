@@ -33,7 +33,7 @@ public class MinePresenter implements MineContract.Presenter {
                 LogUtil.d("版本更新" + response);
                 ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
                 if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
-                    DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu");
+                    DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu.apk");
                 } else {
                     mView.retureResult("当前已是最新版本");
                 }

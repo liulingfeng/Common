@@ -2,6 +2,7 @@ package com.llf.photopicker;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import java.io.File;
  * Created by llf on 2017/3/10
  */
 
-public class PickPhotoActivity extends BaseActivity implements View.OnClickListener,Callback {
+public class PickPhotoActivity extends BaseActivity implements View.OnClickListener, Callback {
     public static void startActivity(Activity activity, ImgSelConfig config, int RequestCode) {
         Intent intent = new Intent(activity, PickPhotoActivity.class);
         Bundle bundle = new Bundle();
@@ -68,10 +70,29 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
         /**
          * 6.0系统动态权限申请需要
          */
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    CAMERA_REQUEST_CODE);
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                AlertDialog.Builder build = new AlertDialog.Builder(PickPhotoActivity.this);
+                build.setTitle("权限申请");
+                build.setMessage("权限将影响app的运行");
+                build.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                build.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                build.show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                        CAMERA_REQUEST_CODE);
+            }
         } else {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.content, PickPhotoFragment.instance(config), null)
@@ -163,17 +184,18 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
+        switch (requestCode) {
             case CAMERA_REQUEST_CODE:
-                if(grantResults.length >= 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length >= 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getSupportFragmentManager().beginTransaction()
                             .add(R.id.content, PickPhotoFragment.instance(config), null)
                             .commitAllowingStateLoss();
                 } else {
-                   finish();
+                    finish();
                 }
                 break;
-            default:break;
+            default:
+                break;
         }
     }
 }

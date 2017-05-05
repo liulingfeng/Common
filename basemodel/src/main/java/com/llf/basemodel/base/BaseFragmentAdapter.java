@@ -53,13 +53,13 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        fm.beginTransaction().show(fragment).commit();
+        fm.beginTransaction().show(fragment).commitAllowingStateLoss();
         return fragment;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         Fragment fragment = fragmentList[position];
-        fm.beginTransaction().hide(fragment).commit();
+        fm.beginTransaction().hide(fragment).commitAllowingStateLoss();
     }
 }

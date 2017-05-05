@@ -27,10 +27,28 @@
         <meta-data
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true"/>
+        <!--下载完成之后自动安装-->
+        <receiver android:name=".receiver.InstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        <!--解决7.0隐私权限-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.llf.common.provider666"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--元数据-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".WelcomeActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,6 +56,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".ui.mine.SettingActivity"
