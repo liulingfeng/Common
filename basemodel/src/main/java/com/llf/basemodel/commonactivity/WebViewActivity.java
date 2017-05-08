@@ -51,6 +51,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//允许js弹出alert
         mWebView.requestFocus();//触摸焦点起作用
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//设置缓存模式
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);//屏幕自适应
         webSettings.setSupportZoom(false);  //不支持缩放

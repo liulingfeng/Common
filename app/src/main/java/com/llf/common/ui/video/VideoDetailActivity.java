@@ -2,6 +2,8 @@ package com.llf.common.ui.video;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,29 +15,36 @@ import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
+import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.recycleview.BaseAdapter;
 import com.llf.basemodel.recycleview.BaseViewHolder;
+import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.api.Apis;
+import com.llf.common.constant.AppConfig;
 import com.llf.common.entity.VideoEntity;
 import com.llf.common.ui.video.contract.VideoContract;
 import com.llf.common.ui.video.presenter.VideoPresenter;
-
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.openapi.WXVideoObject;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import llf.videomodel.VideoPlayer;
+import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 
 /**
  * Created by llf on 2017/3/17.
  * 视频播放
  */
 
-public class VideoDetailActivity extends BaseActivity implements VideoContract.View {
+public class VideoDetailActivity extends BaseActivity implements VideoContract.View, ShareDialog.OneShare {
     @Bind(R.id.viewPager)
     VideoPlayer mViewPager;
     @Bind(R.id.toolbar)
@@ -47,6 +56,8 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
     private BaseAdapter mAdapter;
     private List<VideoEntity.V9LG4CHORBean> videos = new ArrayList<>();
     private int pageIndex = 0;
+    private IWXAPI iwxapi;
+    private String url, title;
 
     public static void launch(Context context, String url, String title, int pageIndex) {
         Intent intent = new Intent(context, VideoDetailActivity.class);
@@ -65,8 +76,12 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
     protected void initView() {
         Intent intent = getIntent();
         pageIndex = intent.getIntExtra("pageIndex", 0);
-        mViewPager.playVideo(intent.getStringExtra("url"), intent.getStringExtra("title"));
+        url = intent.getStringExtra("url");
+        title = intent.getStringExtra("title");
+        mViewPager.playVideo(url, title);
 
+        iwxapi = WXAPIFactory.createWXAPI(this, AppConfig.APP_ID_WEIXIN, false);
+        iwxapi.registerApp(AppConfig.APP_ID_WEIXIN);
         mToolbar.setContentInsetStartWithNavigation(0);
         mToolbar.inflateMenu(R.menu.menu_video_detail);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -86,8 +101,7 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
                         showToast("喜欢");
                         break;
                     case R.id.share:
-                        showToast("分享");
-//                        ShareDialog.show(VideoDetailActivity.this);
+                        ShareDialog.show(VideoDetailActivity.this, VideoDetailActivity.this);
                         break;
                     case R.id.report:
                         showToast("举报成功");
@@ -191,5 +205,34 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
     public void returnData(List<VideoEntity.V9LG4CHORBean> datas) {
         videos.addAll(datas);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void weixinShare() {
+        if (!AppInfoUtil.isWeixinAvilible(this)) {
+            showToast("请先安装微信");
+            return;
+        }
+        WXVideoObject webpageObject = new WXVideoObject();
+        webpageObject.videoUrl = url;
+        WXMediaMessage msg = new WXMediaMessage(webpageObject);
+        msg.title = "最好的视频";
+        msg.description = title;
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        msg.thumbData = bmpToByteArray(thumb, true);
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("video");
+        req.message = msg;
+        req.scene = SendMessageToWX.Req.WXSceneSession;
+        iwxapi.sendReq(req);
+    }
+
+    @Override
+    public void qqShare() {
+
+    }
+
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 }

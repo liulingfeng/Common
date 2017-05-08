@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseFragment;
@@ -31,9 +29,7 @@ import com.tencent.mm.sdk.openapi.WXWebpageObject;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-
 import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -195,6 +191,10 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     @Override
     public void weixinShare() {
+        if(!AppInfoUtil.isWeixinAvilible(getActivity())){
+            showToast("请先安装微信");
+            return;
+        }
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = "https://fir.im/6s7z";
         WXMediaMessage msg = new WXMediaMessage(webpageObject);
@@ -224,14 +224,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override
