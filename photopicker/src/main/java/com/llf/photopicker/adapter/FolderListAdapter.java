@@ -59,7 +59,7 @@ public class FolderListAdapter extends BaseAdapter{
             holder.tvFolderName.setText("所有图片");
             holder.tvImageNum.setText("共" + getTotalImageSize() + "张");
             ImageView ivFolder = holder.ivFolder;
-            if (folderList.size() > 0) {
+            if (folderList.size() > 1) {
                 ImageLoaderUtils.loadingImg(context,ivFolder,folderList.get(position+1).cover.path);
             }
         } else {
