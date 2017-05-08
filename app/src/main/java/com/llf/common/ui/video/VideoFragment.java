@@ -77,7 +77,8 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, BaseViewHolder viewHolder) {
-                VideoDetailActivity.launch(getActivity(), videos.get(position).getMp4_url(), videos.get(position).getTitle(), pageIndex);
+                if (videos.size() > 0)
+                    VideoDetailActivity.launch(getActivity(), videos.get(position).getMp4_url(), videos.get(position).getTitle(), pageIndex);
             }
 
             @Override
