@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.llf.basemodel.base.BaseActivity;
@@ -45,6 +46,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
     private TrackPresenter mPresenter;
     private int position;
     private static final String HOST = "http://www.jcodecraeer.com";
+    private boolean mIsRefreshing = false;
 
     @Override
     protected int getLayoutId() {
@@ -93,6 +95,16 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
                 WebViewActivity.lanuch(TrackActivity.this, HOST + jcodes.get(position).getDetailUrl());
             }
         });
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mIsRefreshing) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setRefreshing(true);
         mPresenter.loadData(this);
@@ -105,6 +117,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
+        mIsRefreshing = true;
         jcodes.clear();
         mPresenter.loadData(this);
     }
@@ -131,6 +144,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
             mEmptyLayout.showEmpty();
         }
         mRefreshLayout.setRefreshing(false);
+        mIsRefreshing = false;
         jcodes.addAll(datas);
         mAdapter.notifyDataSetChanged();
     }

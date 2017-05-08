@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -45,6 +46,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
     private List<VideoEntity.V9LG4CHORBean> videos = new ArrayList<>();
     private int pageIndex = 0;
     private VideoContract.Presenter mPresenter;
+    private boolean mIsRefreshing = false;
 
     @Override
     protected int getLayoutId() {
@@ -91,6 +93,16 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
                 mPresenter.loadData(Apis.HOST + Apis.Video + Apis.VIDEO_HOT_ID + "/n/" + pageIndex * 10 + "-10.html");
             }
         });
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mIsRefreshing) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 
     @OnClick(R.id.floatBtn)
@@ -106,6 +118,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public void onRefresh() {
+        mIsRefreshing = true;
         pageIndex = 0;
         videos.clear();
         mPresenter.loadData(Apis.HOST + Apis.Video + Apis.VIDEO_HOT_ID + "/n/" + pageIndex + "-10.html");
@@ -130,6 +143,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     public void returnData(List<VideoEntity.V9LG4CHORBean> datas) {
         if (pageIndex == 0) {
+            mIsRefreshing = false;
             mRefreshLayout.setRefreshing(false);
         } else {
             mAdapter.setFooterVisible(View.GONE);
