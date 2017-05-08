@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.llf.basemodel.commonactivity.WebViewActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.entity.JcodeEntity;
+
 import java.util.List;
 
 /**
@@ -61,17 +64,25 @@ public class GirlAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             int type = getItemViewType(position);
-            JcodeEntity item = datas.get(position);
+            final JcodeEntity item = datas.get(position);
             if (type == ITEM_HASIMAGE) {
                 ImageLoaderUtils.loadingImg(mContext, (ImageView) holder.getView(R.id.cover), HOST + item.getImgUrl());
             }
+            CircleImageView avatar = holder.getView(R.id.avatar);
             holder.setText(R.id.title, item.getTitle());
             holder.setText(R.id.content, item.getContent());
             holder.setText(R.id.author, item.getAuthor());
             holder.setText(R.id.seeNum, item.getWatch());
             holder.setText(R.id.commentNum, item.getComments());
             holder.setText(R.id.loveNum, item.getLike());
-            ImageLoaderUtils.loadingImg(mContext, (CircleImageView) holder.getView(R.id.avatar), HOST + item.getAuthorImg());
+            ImageLoaderUtils.loadingImg(mContext, avatar, HOST + item.getAuthorImg());
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WebViewActivity.lanuch(mContext, HOST + "/member/index.php?uid" + item.getAuthor());
+                }
+            });
+
         }
     }
 

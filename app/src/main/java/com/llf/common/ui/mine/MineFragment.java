@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
+import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
@@ -31,6 +35,7 @@ import com.tencent.tauth.UiError;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
@@ -43,6 +48,12 @@ import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 public class MineFragment extends BaseFragment implements MineContract.View, IUiListener, ShareDialog.OneShare {
     @Bind(R.id.avatar)
     CircleImageView mAvatar;
+    @Bind(R.id.img_attention)
+    ImageView mImgAttention;
+    @Bind(R.id.img_track)
+    ImageView mImgTrack;
+    @Bind(R.id.img_share)
+    ImageView mImgShare;
 
     private static final int CHANGE_AVATAIR = 1;
     private MineContract.Presenter mPresenter;
@@ -62,6 +73,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
     @Override
     protected void initView() {
         mPresenter = new MinePresenter(this);
+        /**
+         * 推荐位，根据服务器传入的图标名字图标可动态配置
+         */
+        mImgAttention.setImageResource(getResources().getIdentifier("ic_mine_attention","drawable", AppInfoUtil.getPackageName(getActivity())));
+        mImgTrack.setImageResource(getResources().getIdentifier("ic_mine_track","drawable", AppInfoUtil.getPackageName(getActivity())));
+        mImgShare.setImageResource(getResources().getIdentifier("ic_mine_share","drawable", AppInfoUtil.getPackageName(getActivity())));
         mTencent = Tencent.createInstance(AppConfig.APP_ID_QQ, getActivity());
         iwxapi = WXAPIFactory.createWXAPI(getActivity(), AppConfig.APP_ID_WEIXIN, false);
         iwxapi.registerApp(AppConfig.APP_ID_WEIXIN);
@@ -207,5 +224,19 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     private String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

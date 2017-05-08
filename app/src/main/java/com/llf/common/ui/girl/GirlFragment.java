@@ -143,7 +143,6 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         jcodes.clear();
     }
 }
