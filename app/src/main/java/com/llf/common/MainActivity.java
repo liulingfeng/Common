@@ -3,7 +3,6 @@ package com.llf.common;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
-import com.llf.basemodel.utils.SettingUtil;
 import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
@@ -22,7 +20,6 @@ import com.llf.common.ui.video.VideoFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @Bind(R.id.news)
@@ -61,7 +58,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         fragments[3] = MineFragment.getInstance();
         BaseFragmentAdapter mAdapter = new BaseFragmentAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageMargin(SettingUtil.dip2px(this, 16));
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(currentTabPosition);
         mNews.setSelected(true);
@@ -111,12 +107,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         //分发到fragment的onActivityResult，用于解决qq分享接收不到回调
         BaseFragment fragment = fragments[3];
         fragment.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
