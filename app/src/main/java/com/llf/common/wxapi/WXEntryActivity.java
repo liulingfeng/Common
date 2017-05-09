@@ -48,7 +48,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 result = "微信分享成功";
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                result = "微信取消分享";
+                result = "微信分享取消";
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 result = "微信分享被拒绝";

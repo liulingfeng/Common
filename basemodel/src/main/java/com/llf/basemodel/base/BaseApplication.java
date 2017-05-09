@@ -1,7 +1,8 @@
 package com.llf.basemodel.base;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
+
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -11,7 +12,7 @@ import com.tencent.bugly.crashreport.CrashReport;
  * 基础的Application
  */
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
     public static RefWatcher getRefWatcher(Context context) {
         BaseApplication application = (BaseApplication) context.getApplicationContext();
         return application.refWatcher;
@@ -25,9 +26,6 @@ public class BaseApplication extends Application {
        super.onCreate();
         instance = this;
 
-        /**
-         * 第三个参数发布时设置为false
-         */
         CrashReport.initCrashReport(getApplicationContext());
         //检查内存泄漏
         refWatcher = LeakCanary.install(this);
