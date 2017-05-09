@@ -22,7 +22,9 @@
             android:id="@+id/ivNews"
             android:layout_width="86dp"
             android:layout_height="60dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:transitionName="@string/transition_news_img"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,21 +1,19 @@
-package com.llf.common.ui.mine.presenter;
+package com.llf.common;
 
-import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.DownloadUtil;
 import com.llf.basemodel.utils.JsonUtils;
 import com.llf.basemodel.utils.OkHttpUtils;
-import com.llf.common.App;
 import com.llf.common.entity.ApplicationEntity;
-import com.llf.common.ui.mine.contact.MineContract;
 
 /**
- * Created by llf on 2017/4/21.
+ * Created by llf on 2017/5/9.
+ *
  */
 
-public class MinePresenter implements MineContract.Presenter {
-    private MineContract.View mView;
+public class MainPresenter implements MainContract.Presenter {
+    private MainContract.View mView;
 
-    public MinePresenter(MineContract.View view) {
+    public MainPresenter(MainContract.View view) {
         this.mView = view;
     }
 
@@ -30,11 +28,7 @@ public class MinePresenter implements MineContract.Presenter {
             @Override
             public void onSuccess(String response) {
                 ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
-                if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
-                    DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu.apk");
-                } else {
-                    mView.retureResult("当前已是最新版本");
-                }
+                mView.retureUpdateResult(entity);
             }
 
             @Override
@@ -42,5 +36,10 @@ public class MinePresenter implements MineContract.Presenter {
                 mView.retureResult(e.getMessage());
             }
         });
+    }
+
+    @Override
+    public void update(ApplicationEntity entity) {
+        DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu.apk");
     }
 }

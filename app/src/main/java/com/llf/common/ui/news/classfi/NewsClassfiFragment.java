@@ -89,6 +89,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("news", entity);
                     startActivity(intent);
+//                    NewsDetailActivity.Launch(getActivity(),viewHolder,entity);
                 } else {
                     images.clear();
                     for (int i = 0; i < newDatas.get(position).getImgextra().size(); i++) {

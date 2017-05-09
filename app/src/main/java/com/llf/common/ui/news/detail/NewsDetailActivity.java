@@ -1,13 +1,18 @@
 package com.llf.common.ui.news.detail;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
@@ -25,6 +30,14 @@ import butterknife.Bind;
  */
 
 public class NewsDetailActivity extends BaseActivity implements NewsDetailContract.View {
+    public static void Launch(Activity mContext, BaseViewHolder holder, NewsEntity entity) {
+        Intent intent = new Intent(mContext, NewsDetailActivity.class);
+        intent.putExtra("news", entity);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                holder.getView(R.id.ivNews), mContext.getString(R.string.transition_news_img));
+        ActivityCompat.startActivity(mContext, intent, options.toBundle());
+    }
+
     @Bind(R.id.ivImage)
     ImageView mIvImage;
     @Bind(R.id.toolbar)

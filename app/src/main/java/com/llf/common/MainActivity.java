@@ -1,27 +1,26 @@
 package com.llf.common;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
+import com.llf.basemodel.dialog.UpdateDialog;
+import com.llf.basemodel.utils.AppInfoUtil;
+import com.llf.common.entity.ApplicationEntity;
 import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.video.VideoFragment;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener ,MainContract.View{
     @Bind(R.id.news)
     Button mNews;
     @Bind(R.id.video)
@@ -37,6 +36,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private BaseFragment[] fragments;
     int currentTabPosition = 0;
     public static final String CURRENT_TAB_POSITION = "HOME_CURRENT_TAB_POSITION";
+    private MainContract.Presenter mPresenter;
 
     static {
         //vector支持selector
@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void initView() {
+        mPresenter = new MainPresenter(this);
         mTitles = getResources().getStringArray(R.array.main_titles);
         fragments = new BaseFragment[mTitles.length];
         fragments[0] = NewsFragment.getInstance();
@@ -61,6 +62,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setCurrentItem(currentTabPosition);
         mNews.setSelected(true);
+        mPresenter.checkUpdate("http://api.fir.im/apps/latest/58f87d50959d6904280005a3?api_token=9f2408863ff25abccca986e5d4d9d6ba");
     }
 
     @Override
@@ -71,18 +73,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("退出");
-            builder.setMessage("你确定要离开我吗?");
-            builder.setNegativeButton("依依不舍", null);
-            builder.setPositiveButton("狠心离开", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    moveTaskToBack(true);
-                }
-            });
-            builder.show();
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            //仅当activity为task根才生效
+            moveTaskToBack(true);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -166,5 +159,43 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mVideo.setSelected(false);
         mGirl.setSelected(false);
         mMine.setSelected(false);
+    }
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        showErrorHint(msg);
+    }
+
+    @Override
+    public void retureResult(String result) {
+        showToast(result);
+    }
+
+    @Override
+    public void retureUpdateResult(final ApplicationEntity entity) {
+        if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
+            String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
+            UpdateDialog.show(MainActivity.this,content, new UpdateDialog.OnUpdate() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void ok() {
+                    mPresenter.update(entity);
+                }
+            });
+        }
     }
 }
