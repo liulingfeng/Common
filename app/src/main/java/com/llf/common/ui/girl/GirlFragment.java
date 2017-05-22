@@ -4,7 +4,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.llf.basemodel.base.BaseFragment;
@@ -43,7 +42,6 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private List<JcodeEntity> jcodes = new ArrayList<>();
     private GirlPresenter mPresenter;
     private int pageIndex = 1;
-    private boolean mIsRefreshing = false;
 
     private static final String HOST = "http://www.jcodecraeer.com";
 
@@ -81,16 +79,6 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 mPresenter.loadData("http://www.jcodecraeer.com/plus/list.php?tid=18&TotalResult=1801&PageNo=" + pageIndex);
             }
         });
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mIsRefreshing) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
     }
 
     @OnClick(R.id.floatBtn)
@@ -106,7 +94,6 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        mIsRefreshing = true;
         pageIndex = 1;
         jcodes.clear();
         mPresenter.loadData("http://www.jcodecraeer.com/plus/list.php?tid=18&TotalResult=1801&PageNo=" + pageIndex);
@@ -131,13 +118,12 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void returnData(List<JcodeEntity> datas) {
         if (pageIndex == 1) {
-            mIsRefreshing = false;
+            mAdapter.replaceAll(datas);
             mRefreshLayout.setRefreshing(false);
         } else {
+            mAdapter.addAll(datas);
             mAdapter.setFooterVisible(View.GONE);
         }
-        jcodes.addAll(datas);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

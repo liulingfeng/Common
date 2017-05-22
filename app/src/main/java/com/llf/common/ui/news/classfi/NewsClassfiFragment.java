@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.llf.basemodel.base.BaseFragment;
@@ -54,7 +53,6 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     private int type = NewsFragment.ONE;
     private List<NewsEntity> newDatas = new ArrayList<>();
     private ArrayList<String> images = new ArrayList<>();
-    private boolean mIsRefreshing = false;
 
     @Override
     protected int getLayoutId() {
@@ -108,16 +106,6 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
                 mPresenter.loadData(type, pageIndex);
             }
         });
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mIsRefreshing) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
     }
 
     @Override
@@ -145,20 +133,17 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     @Override
     public void returnData(List<NewsEntity> datas) {
         if (pageIndex == 0) {
+            mAdapter.replaceAll(datas);
             mRefreshLayout.setRefreshing(false);
-            mIsRefreshing = false;
         } else {
+            mAdapter.addAll(datas);
             mAdapter.setFooterVisible(View.GONE);
         }
-        newDatas.addAll(datas);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onRefresh() {
-        mIsRefreshing = true;
         pageIndex = 0;
-        newDatas.clear();
         mPresenter.loadData(type, pageIndex);
     }
 

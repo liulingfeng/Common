@@ -35,6 +35,19 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         this.datas = datas;
     }
 
+    public void replaceAll(List<T> elements) {
+        if (datas.size() > 0) {
+            datas.clear();
+        }
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<T> elements) {
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
+
     public void addHeaderView(int headerView) {
         this.viewHead = headerView;
         notifyItemInserted(0);

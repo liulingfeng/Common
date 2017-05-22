@@ -39,6 +39,18 @@ public class GirlAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.mContext = context;
     }
 
+    public void replaceAll(List<JcodeEntity> elements) {
+        if (datas.size() > 0) {
+            datas.clear();
+        }
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<JcodeEntity> elements) {
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_NOIMAGE) {

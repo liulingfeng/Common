@@ -39,6 +39,19 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         itemWidth = (SettingUtil.getScreenWidth(context) - SettingUtil.dip2px(context, 32)) / 3;
     }
 
+    public void replaceAll(List<NewsEntity> elements) {
+        if (datas.size() > 0) {
+            datas.clear();
+        }
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<NewsEntity> elements) {
+        datas.addAll(elements);
+        notifyDataSetChanged();
+    }
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_IMAGE) {

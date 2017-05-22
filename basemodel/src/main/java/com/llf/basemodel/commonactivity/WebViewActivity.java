@@ -8,6 +8,7 @@ import android.net.http.SslError;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -15,8 +16,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
 import com.llf.basemodel.R;
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.basemodel.utils.NetWorkUtil;
 
 /**
  * Created by llf on 2016/10/21.
@@ -24,7 +27,7 @@ import com.llf.basemodel.base.BaseActivity;
  * http://www.jianshu.com/p/d2f5ae6b4927
  */
 
-public class WebViewActivity extends BaseActivity implements View.OnClickListener{
+public class WebViewActivity extends BaseActivity implements View.OnClickListener {
     public static void lanuch(Context context, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("url", url);
@@ -44,19 +47,30 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     public void initView() {
         url = getIntent().getStringExtra("url");
         mWebView = (WebView) findViewById(R.id.webView);
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setNavigationOnClickListener(this);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//支持js
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//允许js弹出alert
-        mWebView.requestFocus();//触摸焦点起作用
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//设置缓存模式
+        mWebView.requestFocusFromTouch();//支持获取手势焦点，输入用户名、密码或其他
+        if (NetWorkUtil.isNetworkConnected(this)) {
+            webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//根据cache-control决定是否从网络上取数据
+        } else {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);//没网，则从本地获取，即离线加载
+        }
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);//屏幕自适应
+        webSettings.setUseWideViewPort(true);//将图片调整到适合webview的大小
+        webSettings.setLoadWithOverviewMode(true);// 缩放至屏幕的大小
         webSettings.setSupportZoom(false);  //不支持缩放
         webSettings.setAllowFileAccess(true);  //设置可以访问文件
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
+        webSettings.setDefaultTextEncodingName("utf-8");
+
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setAppCacheEnabled(true);
+        String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
+        webSettings.setAppCachePath(appCachePath);
         //辅助处理请求，点击链接在本browser中打开
         mWebView.setWebViewClient(new WebViewClient() {
             //处理https请求
@@ -91,10 +105,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if(url!=null && url.contains("http://www.jcodecraeer.com")){
-                    String fun="javascript:function getClass(parent,sClass) { var aEle=parent.getElementsByTagName('div'); var aResult=[]; var i=0; for(i<0;i<aEle.length;i++) { if(aEle[i].className==sClass) { aResult.push(aEle[i]); } }; return aResult; } ";
+                if (url != null && url.contains("http://www.jcodecraeer.com")) {
+                    String fun = "javascript:function getClass(parent,sClass) { var aEle=parent.getElementsByTagName('div'); var aResult=[]; var i=0; for(i<0;i<aEle.length;i++) { if(aEle[i].className==sClass) { aResult.push(aEle[i]); } }; return aResult; } ";
                     view.loadUrl(fun);
-                    String fun2="javascript:function hideOther() {getClass(document,'header')[0].style.display='none';getClass(document,'footer')[0].style.display='none'}";
+                    String fun2 = "javascript:function hideOther() {getClass(document,'header')[0].style.display='none';getClass(document,'footer')[0].style.display='none'}";
                     view.loadUrl(fun2);
                     view.loadUrl("javascript:hideOther()");
                 }
@@ -146,9 +160,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         if (mWebView != null) {
+            mWebView.clearHistory();
+            ((ViewGroup) mWebView.getParent()).removeView(mWebView);
             mWebView.removeAllViews();
             mWebView.clearCache(true);
-            mWebView.clearHistory();
+            mWebView.stopLoading();
+            mWebView.setWebChromeClient(null);
+            mWebView.setWebViewClient(null);
             mWebView.destroy();
             mWebView = null;
         }
