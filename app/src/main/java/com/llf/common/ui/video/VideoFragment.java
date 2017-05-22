@@ -71,7 +71,6 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
                 ImageLoaderUtils.loadingImg(getActivity(), circleImageView, item.getTopicImg());
             }
         };
-        mAdapter.addFooterView(R.layout.layout_footer);
         mAdapter.setOnItemClickLitener(new BaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, BaseViewHolder viewHolder) {
@@ -84,6 +83,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.addFooterView(R.layout.layout_footer);
         mRecyclerView.addOnScrollListener(new EndLessOnScrollListener(manager) {
             @Override
             public void onLoadMore() {

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.basemodel.utils.SettingUtil;
 import com.llf.common.R;
 import com.llf.common.entity.NewsEntity;
@@ -78,27 +79,30 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             NewsEntity item = datas.get(position);
-            if (type == ITEM_IMAGE) {
-                ImageView imageView = holder.getView(R.id.ivNews);
-                holder.setText(R.id.tvTitle, item.getTitle());
-                holder.setText(R.id.tvDesc, item.getDigest());
-                ImageLoaderUtils.loadingImg(mContext, imageView, item.getImgsrc());
-            } else {
-                holder.setText(R.id.tvTitle, item.getTitle());
-                LinearLayout images = holder.getView(R.id.images);
-                images.removeAllViews();
-                for (int i = 0; i < item.getImgextra().size(); i++) {
-                    ImageView icon = new ImageView(mContext);
-                    LinearLayout.LayoutParams paras = new LinearLayout.LayoutParams(itemWidth, itemWidth);
-                    if (i == 1) {
-                        paras.setMargins(SettingUtil.dip2px(mContext, 4), 0, SettingUtil.dip2px(mContext, 4), 0);
+            try {
+                if (type == ITEM_IMAGE) {
+                    ImageView imageView = holder.getView(R.id.ivNews);
+                    holder.setText(R.id.tvTitle, item.getTitle());
+                    holder.setText(R.id.tvDesc, item.getDigest());
+                    ImageLoaderUtils.loadingImg(mContext, imageView, item.getImgsrc());
+                } else {
+                    holder.setText(R.id.tvTitle, item.getTitle());
+                    LinearLayout images = holder.getView(R.id.images);
+                    images.removeAllViews();
+                    for (int i = 0; i < item.getImgextra().size(); i++) {
+                        ImageView icon = new ImageView(mContext);
+                        LinearLayout.LayoutParams paras = new LinearLayout.LayoutParams(itemWidth, itemWidth);
+                        if (i == 1) {
+                            paras.setMargins(SettingUtil.dip2px(mContext, 4), 0, SettingUtil.dip2px(mContext, 4), 0);
+                        }
+                        icon.setLayoutParams(paras);
+                        ImageLoaderUtils.loadingImg(mContext, icon, item.getImgextra().get(i).getImgsrc());
+                        images.addView(icon);
                     }
-                    icon.setLayoutParams(paras);
-                    ImageLoaderUtils.loadingImg(mContext, icon, item.getImgextra().get(i).getImgsrc());
-                    images.addView(icon);
                 }
+            } catch (Exception e) {
+                LogUtil.d("文字内容为空");
             }
-
         }
     }
 

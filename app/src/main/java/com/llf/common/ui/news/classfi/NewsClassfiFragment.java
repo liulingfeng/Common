@@ -78,7 +78,6 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(getActivity()));
         mAdapter = new NewsAdapter(newDatas, getActivity());
-        mAdapter.addFooterView(R.layout.layout_footer);
         mAdapter.setOnItemClickLitener(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, BaseViewHolder viewHolder) {
@@ -98,6 +97,7 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.addFooterView(R.layout.layout_footer);
         mRecyclerView.addOnScrollListener(new EndLessOnScrollListener(manager) {
             @Override
             public void onLoadMore() {
