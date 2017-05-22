@@ -59,7 +59,4 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.2.1'
     //分包
     compile 'com.android.support:multidex:1.0.0'
-    compile ('com.android.support:support-v4:25.3.0'){
-        force = true;
-    }
 }
