@@ -60,7 +60,6 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
         mPresenter = new NewsDetailPresenter(this);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //通过 NavigationDrawer 打开关闭 抽屉---返回
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +70,6 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
                 }
             }
         });
-
         mEntity = (NewsEntity) getIntent().getSerializableExtra("news");
         mCollapsingToolbar.setTitle(mEntity.getTitle());
         ImageLoaderUtils.loadingImg(getApplicationContext(), mIvImage, mEntity.getImgsrc());
