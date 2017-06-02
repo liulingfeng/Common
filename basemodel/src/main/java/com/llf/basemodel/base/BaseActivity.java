@@ -19,7 +19,6 @@ import com.llf.basemodel.utils.AppManager;
 import com.llf.basemodel.utils.ToastUtil;
 
 import butterknife.ButterKnife;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by llf on 2017/3/1.
@@ -27,8 +26,6 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private CompositeSubscription mSubscriptions;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         AppManager.instance.removeActivity(this);
         ButterKnife.unbind(this);
-        if (mSubscriptions != null) {
-            mSubscriptions.clear();
-        }
         BaseApplication.getRefWatcher(this).watch(this);
     }
 

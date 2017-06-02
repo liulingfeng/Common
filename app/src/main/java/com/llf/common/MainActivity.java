@@ -2,11 +2,13 @@ package com.llf.common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
@@ -17,10 +19,11 @@ import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.video.VideoFragment;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener ,MainContract.View{
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, MainContract.View {
     @Bind(R.id.news)
     Button mNews;
     @Bind(R.id.video)
@@ -44,6 +47,16 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
+            mViewPager.setCurrentItem(currentTabPosition);
+        }
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
@@ -60,7 +73,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         BaseFragmentAdapter mAdapter = new BaseFragmentAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
-        mViewPager.setCurrentItem(currentTabPosition);
         mNews.setSelected(true);
         mPresenter.checkUpdate("http://api.fir.im/apps/latest/58f87d50959d6904280005a3?api_token=9f2408863ff25abccca986e5d4d9d6ba");
     }
@@ -88,9 +100,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * 这个方法在onStart()和onResume()之间执行
+     * @param savedInstanceState
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -185,7 +200,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void retureUpdateResult(final ApplicationEntity entity) {
         if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
             String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
-            UpdateDialog.show(MainActivity.this,content, new UpdateDialog.OnUpdate() {
+            UpdateDialog.show(MainActivity.this, content, new UpdateDialog.OnUpdate() {
                 @Override
                 public void cancel() {
 
