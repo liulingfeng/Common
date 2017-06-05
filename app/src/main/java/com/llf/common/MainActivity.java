@@ -77,6 +77,29 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mPresenter.checkUpdate("http://api.fir.im/apps/latest/58f87d50959d6904280005a3?api_token=9f2408863ff25abccca986e5d4d9d6ba");
     }
 
+
+    /**
+     * 存储瞬间的UI状态
+     *
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //奔溃前保存位置
+        outState.putInt(CURRENT_TAB_POSITION, currentTabPosition);
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 这个方法在onStart()和onResume()之间执行
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -94,27 +117,19 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //奔溃前保存位置
-        outState.putInt(CURRENT_TAB_POSITION, currentTabPosition);
-        super.onSaveInstanceState(outState);
-    }
-
-    /**
-     * 这个方法在onStart()和onResume()之间执行
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //分发到fragment的onActivityResult，用于解决qq分享接收不到回调
         BaseFragment fragment = fragments[3];
         fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 用于存储持久化数据
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

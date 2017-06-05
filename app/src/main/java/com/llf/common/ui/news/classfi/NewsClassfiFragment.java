@@ -152,7 +152,9 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
         super.onDestroy();
 
         newDatas.clear();
+        newDatas = null;
         images.clear();
+        images = null;
     }
 
     public void slideToTop() {

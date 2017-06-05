@@ -76,6 +76,15 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
         mPresenter.loadContent(mEntity.getDocid());
     }
 
+    /**
+     * 在singleTop模式下会回调
+     * @param intent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
     @Override
     public void showLoading() {
         startProgressDialog();

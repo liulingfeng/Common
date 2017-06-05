@@ -61,7 +61,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DefaultItemDecoration(getActivity()));
-        mAdapter = new GirlAdapter(jcodes,getActivity());
+        mAdapter = new GirlAdapter(jcodes, getActivity());
         mAdapter.setOnItemClickLitener(new GirlAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -130,5 +130,6 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onDestroy() {
         super.onDestroy();
         jcodes.clear();
+        jcodes = null;
     }
 }

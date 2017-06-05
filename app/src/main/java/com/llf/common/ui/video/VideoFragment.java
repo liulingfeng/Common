@@ -144,5 +144,6 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
         super.onDestroy();
 
         videos.clear();
+        videos = null;
     }
 }

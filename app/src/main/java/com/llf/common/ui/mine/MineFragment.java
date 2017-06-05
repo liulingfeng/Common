@@ -13,6 +13,7 @@ import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.common.LoginActivity;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.ui.mine.contact.MineContract;
@@ -29,7 +30,9 @@ import com.tencent.mm.sdk.openapi.WXWebpageObject;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+
 import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -72,9 +75,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
         /**
          * 推荐位，根据服务器传入的图标名字图标可动态配置
          */
-        mImgAttention.setImageResource(getResources().getIdentifier("ic_mine_attention","drawable", AppInfoUtil.getPackageName(getActivity())));
-        mImgTrack.setImageResource(getResources().getIdentifier("ic_mine_track","drawable", AppInfoUtil.getPackageName(getActivity())));
-        mImgShare.setImageResource(getResources().getIdentifier("ic_mine_share","drawable", AppInfoUtil.getPackageName(getActivity())));
+        mImgAttention.setImageResource(getResources().getIdentifier("ic_mine_attention", "drawable", AppInfoUtil.getPackageName(getActivity())));
+        mImgTrack.setImageResource(getResources().getIdentifier("ic_mine_track", "drawable", AppInfoUtil.getPackageName(getActivity())));
+        mImgShare.setImageResource(getResources().getIdentifier("ic_mine_share", "drawable", AppInfoUtil.getPackageName(getActivity())));
         mTencent = Tencent.createInstance(AppConfig.APP_ID_QQ, getActivity());
         iwxapi = WXAPIFactory.createWXAPI(getActivity(), AppConfig.APP_ID_WEIXIN, false);
         iwxapi.registerApp(AppConfig.APP_ID_WEIXIN);
@@ -85,7 +88,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     }
 
-    @OnClick({R.id.setting, R.id.attention, R.id.track, R.id.share, R.id.night, R.id.service, R.id.update, R.id.reply, R.id.avatar})
+    @OnClick({R.id.setting, R.id.attention, R.id.track, R.id.share, R.id.night, R.id.service, R.id.update, R.id.reply, R.id.avatar, R.id.rbt_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -114,6 +117,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
                 break;
             case R.id.avatar:
                 PickPhotoActivity.startActivity(this, new ImgSelConfig.Builder().multiSelect(false).build(), CHANGE_AVATAIR);
+                break;
+            case R.id.rbt_msg:
+                startActivity(LoginActivity.class);
                 break;
             default:
                 break;
@@ -191,7 +197,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     @Override
     public void weixinShare() {
-        if(!AppInfoUtil.isWeixinAvilible(getActivity())){
+        if (!AppInfoUtil.isWeixinAvilible(getActivity())) {
             showToast("请先安装微信");
             return;
         }

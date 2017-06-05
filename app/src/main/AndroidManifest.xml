@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--Bugly-->
+
+        <!-- Bugly -->
         <meta-data
             android:name="BUGLY_APPID"
             android:value="3c1e673ec2"/>
@@ -23,35 +24,36 @@
         <meta-data
             android:name="BUGLY_APP_CHANNEL"
             android:value="yinyongbao"/>
-        <!-- 配置Bugly调试模式（true或者false）-->
+        <!-- 配置Bugly调试模式（true或者false） -->
         <meta-data
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true"/>
-        <!--下载完成之后自动安装-->
+        <!-- 下载完成之后自动安装 -->
         <receiver android:name=".receiver.InstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
             </intent-filter>
         </receiver>
-        <!--安装完成删除安装包-->
+        <!-- 安装完成删除安装包 -->
         <receiver
             android:name=".receiver.InitApkBroadCastReceiver"
-            android:enabled="true"
-            >
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-        <!--解决7.0隐私权限-->
+        <!-- 解决7.0隐私权限 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.llf.common.provider666"
             android:exported="false"
             android:grantUriPermissions="true">
-            <!--元数据-->
+
+            <!-- 元数据 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
@@ -60,59 +62,51 @@
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoTitle"
-            >
+            android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            />
-
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.mine.SettingActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.video.VideoDetailActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/VideoDetailTheme"
-            />
+            android:theme="@style/VideoDetailTheme"/>
         <activity
             android:name=".ui.news.detail.NewsDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoStatusBar"
-            />
-
+            android:theme="@style/AppTheme.NoStatusBar"/>
         <activity
             android:name=".ui.mine.TrackActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.mine.AttentionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.TransparentWindow"
-            />
+            android:theme="@style/AppTheme.TransparentWindow"/>
         <activity
             android:name="com.llf.basemodel.image.BigImagePagerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BigImageTheme"
-            />
+            android:theme="@style/BigImageTheme"/>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.TransparentWindow"
-            />
+            android:theme="@style/AppTheme.TransparentWindow"/>
 
-        <!--QQ声明的Activity-->
+        <!-- QQ声明的Activity -->
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -131,4 +125,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

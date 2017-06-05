@@ -142,4 +142,12 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
             mAdapter.notifyItemRemoved(position);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        jcodes.clear();
+        jcodes = null;
+    }
 }
