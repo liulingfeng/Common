@@ -95,7 +95,7 @@ public class NewsEntity implements Serializable {
         this.ptime = ptime;
     }
 
-    public static class Imgextra{
+    public static class Imgextra implements Serializable{
         private String imgsrc;
 
         public String getImgsrc() {

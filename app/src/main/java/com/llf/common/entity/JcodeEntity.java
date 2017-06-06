@@ -1,11 +1,13 @@
 package com.llf.common.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by llf on 2017/3/27.
  * 发现实体类
  */
 
-public class JcodeEntity {
+public class JcodeEntity implements Serializable {
     private String imgUrl;
     private String title;
     private String detailUrl;

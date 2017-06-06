@@ -1,6 +1,8 @@
 package com.llf.photopicker.bean;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
 
     public String path;
     public String name;

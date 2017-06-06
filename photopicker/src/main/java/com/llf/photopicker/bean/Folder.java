@@ -1,8 +1,9 @@
 package com.llf.photopicker.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Folder {
+public class Folder implements Serializable {
 
     public String name;
     public String path;

@@ -1,12 +1,13 @@
 package com.llf.common.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by llf on 2017/4/13.
  */
 
-public class NewsDetialEntity {
+public class NewsDetialEntity implements Serializable {
     /**
      * docid
      */

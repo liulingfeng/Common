@@ -2,6 +2,7 @@ package com.llf.common.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * 视频实体类
  */
 
-public class VideoEntity {
+public class VideoEntity implements Serializable {
     @SerializedName("V9LG4B3A0")
     private List<V9LG4CHORBean> tag;
 
@@ -21,7 +22,7 @@ public class VideoEntity {
         this.tag = V9LG4B3A0;
     }
 
-    public static class V9LG4CHORBean {
+    public static class V9LG4CHORBean implements Serializable{
         /**
          * topicImg : http://vimg1.ws.126.net/image/snapshot/2012/4/S/4/V7TFMDFS4.jpg
          * videosource : 新媒体

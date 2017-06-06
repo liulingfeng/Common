@@ -1,10 +1,12 @@
 package com.llf.common.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by llf on 2017/4/21.
  */
 
-public class ApplicationEntity {
+public class ApplicationEntity implements Serializable{
 
     /**
      * name : 秀趣
@@ -120,7 +122,7 @@ public class ApplicationEntity {
         this.binary = binary;
     }
 
-    public static class BinaryBean {
+    public static class BinaryBean implements Serializable{
         /**
          * fsize : 3933914
          */
