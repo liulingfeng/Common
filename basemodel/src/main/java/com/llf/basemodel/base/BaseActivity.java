@@ -1,11 +1,16 @@
 package com.llf.basemodel.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +23,9 @@ import com.llf.basemodel.dialog.DialogTools;
 import com.llf.basemodel.utils.AppManager;
 import com.llf.basemodel.utils.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -26,6 +34,9 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+    private PermissionListener mPermissionListener;
+    private static final int CODE_REQUEST_PERMISSION = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +56,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //当模式为singleTop和SingleInstance会回调到这里
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -57,12 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        //当模式为singleTop和SingleInstance会回调到这里
     }
 
     @Override
@@ -188,4 +199,62 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //初始化布局和监听
     protected abstract void initView();
+
+    /**
+     * 申请权限
+     */
+    public interface PermissionListener {
+        void onGranted();
+        void onDenied(List<String> deniedPermissions);
+    }
+
+    public void requestPermissions(String[] permissions, PermissionListener listener) {
+        Activity activity = AppManager.instance.currentActivity();
+        if (null == activity) {
+            return;
+        }
+
+        mPermissionListener = listener;
+        List<String> permissionList = new ArrayList<>();
+        for (String permission : permissions) {
+            //权限没有授权
+            if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionList.add(permission);
+            }
+        }
+
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, permissionList.toArray(new String[permissionList.size()]), CODE_REQUEST_PERMISSION);
+        } else {
+            mPermissionListener.onGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case CODE_REQUEST_PERMISSION:
+                if (grantResults.length > 0) {
+                    List<String> deniedPermissions = new ArrayList<>();
+                    for (int i = 0; i < grantResults.length; i++) {
+                        int result = grantResults[i];
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            String permission = permissions[i];
+                            deniedPermissions.add(permission);
+                        }
+                    }
+
+                    if (deniedPermissions.isEmpty()) {
+                        mPermissionListener.onGranted();
+                    } else {
+                        mPermissionListener.onDenied(deniedPermissions);
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
 }

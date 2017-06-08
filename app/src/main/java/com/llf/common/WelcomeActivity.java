@@ -15,7 +15,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public class WelcomeActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
-    public static final int PERMITTION = 100;
+    public static final int PERMISSION = 100;
 
     @Override
     protected int getLayoutId() {
@@ -31,7 +31,7 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
         if (EasyPermissions.hasPermissions(WelcomeActivity.this, params)) {
             skip();
         } else {
-            EasyPermissions.requestPermissions(WelcomeActivity.this, "应用需要权限才能安全运行", PERMITTION, params);
+            EasyPermissions.requestPermissions(WelcomeActivity.this, "应用需要权限才能安全运行", PERMISSION, params);
         }
     }
 
@@ -52,7 +52,7 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         switch (requestCode) {
-            case PERMITTION:
+            case PERMISSION:
                 //引导用户跳转到设置界面
                 new AppSettingsDialog.Builder(WelcomeActivity.this, "希望您通过权限")
                         .setTitle("权限设置")
@@ -63,7 +63,7 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
                                 finish();
                             }
                         })
-                        .setRequestCode(PERMITTION)
+                        .setRequestCode(PERMISSION)
                         .build()
                         .show();
                 break;
