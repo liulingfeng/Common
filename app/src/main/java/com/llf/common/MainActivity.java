@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, MainContract.View {
-    @Bind(R.id.news)
+    @Bind(R.id.journalism)
     Button mNews;
     @Bind(R.id.video)
     Button mVideo;
@@ -174,10 +174,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         //Empty
     }
 
-    @OnClick({R.id.news, R.id.video, R.id.girl, R.id.mine})
+    @OnClick({R.id.journalism, R.id.video, R.id.girl, R.id.mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.news:
+            case R.id.journalism:
                 mViewPager.setCurrentItem(0, false);
                 break;
             case R.id.video:
