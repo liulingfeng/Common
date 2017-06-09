@@ -14,6 +14,7 @@ import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
 import com.llf.basemodel.dialog.UpdateDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.entity.ApplicationEntity;
 import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
@@ -136,7 +137,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
 
-        if(level == TRIM_MEMORY_UI_HIDDEN){
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
             //释放资源
         }
     }
@@ -222,19 +223,23 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void retureUpdateResult(final ApplicationEntity entity) {
-        if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
-            String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
-            UpdateDialog.show(MainActivity.this, content, new UpdateDialog.OnUpdate() {
-                @Override
-                public void cancel() {
+        try {
+            if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
+                String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
+                UpdateDialog.show(MainActivity.this, content, new UpdateDialog.OnUpdate() {
+                    @Override
+                    public void cancel() {
 
-                }
+                    }
 
-                @Override
-                public void ok() {
-                    mPresenter.update(entity);
-                }
-            });
+                    @Override
+                    public void ok() {
+                        mPresenter.update(entity);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            LogUtil.d("数字转化出错");
         }
     }
 }
