@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -227,7 +228,7 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
         }
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            tempFile = new File(FileUtil.createRootPath(getActivity()) + "/" + System.currentTimeMillis() + ".jpg");
+            tempFile = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator + System.currentTimeMillis() + ".jpg");
             FileUtil.createFile(tempFile);
             if (Build.VERSION.SDK_INT >= 24) {
                 Uri contentUri = FileProvider.getUriForFile(getActivity(), "com.llf.common.provider666", tempFile);
@@ -248,6 +249,9 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
                 if (tempFile != null) {
                     if (callback != null) {
                         callback.onCameraShot(tempFile);
+                        Intent storageUri = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                        storageUri.setData(Uri.fromFile(tempFile));
+                        getActivity().sendBroadcast(storageUri);
                     }
                 }
             } else {
