@@ -16,8 +16,6 @@ import com.llf.basemodel.dialog.DialogTools;
 import com.llf.basemodel.utils.ToastUtil;
 
 import butterknife.ButterKnife;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by llf on 2017/3/1.
@@ -27,7 +25,6 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseFragment extends Fragment {
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
-    private CompositeSubscription mSubscriptions;
 
     @Override
     public void onAttach(Context context) {
@@ -101,9 +98,6 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.unbind(this);
         hasFetchData = false;
         isViewPrepared = false;
-        if (mSubscriptions != null) {
-            mSubscriptions.clear();
-        }
         BaseApplication.getRefWatcher(getActivity()).watch(this);
     }
 
@@ -196,14 +190,6 @@ public abstract class BaseFragment extends Fragment {
      */
     public void showToast(String str) {
         ToastUtil.sToastUtil.shortDuration(str).setToastBackground(Color.WHITE, R.drawable.toast_radius).show();
-    }
-
-    protected void addSubscription(Subscription subscription) {
-        if (subscription == null) return;
-        if (mSubscriptions == null) {
-            mSubscriptions = new CompositeSubscription();
-        }
-        mSubscriptions.add(subscription);
     }
 
     protected abstract int getLayoutId();
