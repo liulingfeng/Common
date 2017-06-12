@@ -1,5 +1,6 @@
 package com.llf.basemodel.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
@@ -58,13 +59,27 @@ public class SettingUtil {
      * 缓存相关
      */
     public static void setTagString(Context context, String tag, String value) {
-        SharedPreferences.Editor editor = context.getSharedPreferences("cache",Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = context.getSharedPreferences("cache", Context.MODE_PRIVATE).edit();
         editor.putString(tag, value);
         editor.commit();
     }
 
-    public static String getTagString(Context context,String tag) {
+    public static String getTagString(Context context, String tag) {
         SharedPreferences sp = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
+        return sp.getString(tag, "");
+    }
+
+    /**
+     * 默认的缓存文件
+     */
+    public static void setTagString(Activity activity, String tag, String value) {
+        SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
+        editor.putString(tag, value);
+        editor.commit();
+    }
+
+    public static String getTagString(Activity activity, String tag) {
+        SharedPreferences sp = activity.getPreferences(Context.MODE_PRIVATE);
         return sp.getString(tag, "");
     }
 }

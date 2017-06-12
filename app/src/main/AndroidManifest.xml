@@ -49,6 +49,11 @@
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
+        <service android:name=".service.UploadImgService">
+            <intent-filter>
+                <action android:name="com.llf.xiuqu.intentservice.action.UPLOAD_IMAGE"/>
+            </intent-filter>
+        </service>
         <!-- 解决7.0隐私权限 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -73,7 +78,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.register.LoginActivity"
             android:screenOrientation="portrait"
             />
         <activity

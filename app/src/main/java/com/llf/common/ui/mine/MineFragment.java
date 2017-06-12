@@ -13,7 +13,7 @@ import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
-import com.llf.common.LoginActivity;
+import com.llf.common.ui.register.LoginActivity;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.ui.mine.contact.MineContract;

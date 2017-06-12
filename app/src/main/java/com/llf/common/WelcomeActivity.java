@@ -4,8 +4,12 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.basemodel.utils.LogUtil;
+
 import java.util.List;
+
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -38,6 +42,8 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
     private void skip() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
+                int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+                LogUtil.d("最高可用内存:" + maxMemory);
                 startThenKill(MainActivity.class);
                 WelcomeActivity.this.overridePendingTransition(R.anim.scale_in, R.anim.shrink_out);
             }

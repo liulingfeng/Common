@@ -1,7 +1,9 @@
-package com.llf.common;
+package com.llf.common.ui.register;
 
 import android.widget.EditText;
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.common.R;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
