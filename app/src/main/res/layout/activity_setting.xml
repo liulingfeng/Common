@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.llf.common.MainActivity"
+    tools:context="com.llf.common.ui.mine.SettingActivity"
     >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
