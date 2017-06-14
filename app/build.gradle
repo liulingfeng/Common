@@ -67,11 +67,13 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
     compile project(':photopicker')
     compile project(':videomodel')
     compile files('libs/open_sdk_r5788.jar')
     compile files('libs/libammsdk.jar')
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    testCompile 'junit:junit:4.12'
+    //前置检查
+    compile "com.google.guava:guava:18.0"
 }

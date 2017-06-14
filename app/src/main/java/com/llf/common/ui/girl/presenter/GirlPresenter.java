@@ -2,7 +2,7 @@ package com.llf.common.ui.girl.presenter;
 
 import android.content.Context;
 
-import com.llf.common.db.JcodeDao;
+import com.llf.common.data.local.JcodeDao;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.girl.contract.GirlContract;
 
@@ -24,12 +24,12 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by llf on 2017/3/28.
- *
+ * 发现Presenter页
  */
 
 public class GirlPresenter implements GirlContract.Presenter {
     private GirlContract.View view;
-    private  List<JcodeEntity> jcodes = new ArrayList<>();
+    private List<JcodeEntity> jcodes = new ArrayList<>();
     private JcodeDao mJcodeDao;
 
     public GirlPresenter(GirlContract.View view) {
@@ -47,7 +47,7 @@ public class GirlPresenter implements GirlContract.Presenter {
                 .map(new Func1<String, List<JcodeEntity>>() {
                     @Override
                     public List<JcodeEntity> call(String s) {
-                        return  getJcodes(s);
+                        return getJcodes(s);
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -79,11 +79,11 @@ public class GirlPresenter implements GirlContract.Presenter {
 
     @Override
     public void addRecord(Context context, final JcodeEntity entity) {
-        mJcodeDao = new JcodeDao(context);
+        mJcodeDao = JcodeDao.getInstance(context);
         Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(mJcodeDao.insertRecord(entity) == 0 ? false : true);
+                subscriber.onNext(mJcodeDao.saveJcode(entity) == 0 ? false : true);
                 subscriber.onCompleted();
             }
         })

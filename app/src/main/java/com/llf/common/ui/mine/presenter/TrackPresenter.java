@@ -1,7 +1,9 @@
 package com.llf.common.ui.mine.presenter;
 
 import android.content.Context;
-import com.llf.common.db.JcodeDao;
+
+import com.llf.common.data.JcodeDataSource;
+import com.llf.common.data.local.JcodeDao;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.mine.contact.TrackContract;
 import java.util.List;
@@ -30,11 +32,21 @@ public class TrackPresenter implements TrackContract.Presenter {
 
     @Override
     public void loadData(Context context) {
-        mJcodeDao = new JcodeDao(context);
+        mJcodeDao = JcodeDao.getInstance(context);
         Observable.create(new Observable.OnSubscribe<List<JcodeEntity>>() {
             @Override
-            public void call(Subscriber<? super List<JcodeEntity>> subscriber) {
-                subscriber.onNext(mJcodeDao.queryRecords());
+            public void call(final Subscriber<? super List<JcodeEntity>> subscriber) {
+                mJcodeDao.getJcodes(new JcodeDataSource.LoadJcodesCallback() {
+                    @Override
+                    public void onTasksLoaded(List<JcodeEntity> datas) {
+                        subscriber.onNext(datas);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+
+                    }
+                });
                 subscriber.onCompleted();
             }
         })
@@ -60,11 +72,11 @@ public class TrackPresenter implements TrackContract.Presenter {
 
     @Override
     public void deleteData(Context context, final String title) {
-        mJcodeDao = new JcodeDao(context);
+        mJcodeDao = JcodeDao.getInstance(context);
         Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(mJcodeDao.deleteRecord(title) == -1 ? false : true);
+                subscriber.onNext(mJcodeDao.deleteJcode(title) == -1 ? false : true);
                 subscriber.onCompleted();
             }
         })

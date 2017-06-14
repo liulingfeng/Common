@@ -3,7 +3,6 @@ package com.llf.basemodel.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 /**
  * Created by llf on 2017/3/1.
  * 数据库创建工具类
