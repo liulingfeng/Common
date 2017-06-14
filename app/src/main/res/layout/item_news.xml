@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
@@ -24,6 +25,7 @@
             android:layout_height="60dp"
             android:scaleType="centerCrop"
             android:transitionName="@string/transition_news_img"
+            tools:src="@drawable/ic_image_loading"
             />
 
         <LinearLayout
@@ -39,7 +41,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="#212121"
                 android:textSize="16sp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                tools:text="标题"
+                />
 
             <TextView
                 android:id="@+id/tvDesc"
@@ -48,7 +52,9 @@
                 android:layout_marginTop="6dp"
                 android:textColor="#727272"
                 android:maxLines="2"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:text="简介"
+                />
         </LinearLayout>
 
     </LinearLayout>

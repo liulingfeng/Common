@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackground"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="8dp"
     >
 
     <ImageView
         android:id="@+id/cover"
         android:layout_width="120dp"
         android:layout_height="64dp"
-        android:src="@drawable/ic_image_loading"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        tools:src="@drawable/ic_image_loading"
         />
 
     <TextView
@@ -24,10 +25,10 @@
         android:layout_alignTop="@id/cover"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/cover"
+        android:maxLines="3"
         android:textColor="#333333"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:maxLines="3"
         tools:text="标题"
         />
 
@@ -46,9 +47,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/content"
         android:layout_marginTop="12dp"
-        android:layout_alignParentRight="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         >
@@ -57,8 +58,8 @@
             android:id="@+id/avatar"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_image_loading"
             android:descendantFocusability="beforeDescendants"
+            tools:src="@drawable/ic_image_loading"
             />
 
         <TextView

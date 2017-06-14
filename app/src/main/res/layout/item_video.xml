@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="230dp"
     android:layout_margin="5dp"
@@ -20,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:scaleType="centerCrop"
+            tools:src="@drawable/ic_image_loading"
             />
 
         <TextView
@@ -31,6 +33,7 @@
             android:textColor="@color/text_strong"
             android:textSize="14sp"
             android:layout_marginLeft="4dp"
+            tools:text="标题"
             />
 
         <com.llf.basemodel.commonwidget.CircleImageView
@@ -40,6 +43,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="4dp"
+            tools:src="@drawable/ic_image_loading"
             />
 
         <TextView
@@ -52,6 +56,7 @@
             android:textColor="@color/text_nomal"
             android:textSize="12sp"
             android:layout_marginBottom="4dp"
+            tools:text="来源"
             />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
