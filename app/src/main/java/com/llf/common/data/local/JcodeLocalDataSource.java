@@ -20,18 +20,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * 发现数据库操作工具类
  */
 
-public class JcodeDao implements JcodeDataSource {
+public class JcodeLocalDataSource implements JcodeDataSource {
     private DbHelper mSqliteOpenHelp;
-    private static JcodeDao INSTANCE;
+    private static JcodeLocalDataSource INSTANCE;
 
-    private JcodeDao(@NonNull Context context) {
+    private JcodeLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
         mSqliteOpenHelp = new DbHelper(context);
     }
 
-    public static JcodeDao getInstance(@NonNull Context context) {
+    public static JcodeLocalDataSource getInstance(@NonNull Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new JcodeDao(context);
+            INSTANCE = new JcodeLocalDataSource(context);
         }
         return INSTANCE;
     }

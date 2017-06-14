@@ -2,7 +2,7 @@ package com.llf.common.ui.girl.presenter;
 
 import android.content.Context;
 
-import com.llf.common.data.local.JcodeDao;
+import com.llf.common.data.local.JcodeLocalDataSource;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.girl.contract.GirlContract;
 
@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 public class GirlPresenter implements GirlContract.Presenter {
     private GirlContract.View view;
     private List<JcodeEntity> jcodes = new ArrayList<>();
-    private JcodeDao mJcodeDao;
+    private JcodeLocalDataSource mJcodeLocalDataSource;
 
     public GirlPresenter(GirlContract.View view) {
         this.view = view;
@@ -79,11 +79,11 @@ public class GirlPresenter implements GirlContract.Presenter {
 
     @Override
     public void addRecord(Context context, final JcodeEntity entity) {
-        mJcodeDao = JcodeDao.getInstance(context);
+        mJcodeLocalDataSource = JcodeLocalDataSource.getInstance(context);
         Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(mJcodeDao.saveJcode(entity) == 0 ? false : true);
+                subscriber.onNext(mJcodeLocalDataSource.saveJcode(entity) == 0 ? false : true);
                 subscriber.onCompleted();
             }
         })

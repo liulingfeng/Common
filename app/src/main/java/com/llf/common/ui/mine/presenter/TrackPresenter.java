@@ -3,7 +3,7 @@ package com.llf.common.ui.mine.presenter;
 import android.content.Context;
 
 import com.llf.common.data.JcodeDataSource;
-import com.llf.common.data.local.JcodeDao;
+import com.llf.common.data.local.JcodeLocalDataSource;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.mine.contact.TrackContract;
 import java.util.List;
@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
 
 public class TrackPresenter implements TrackContract.Presenter {
     private TrackContract.View mView;
-    private JcodeDao mJcodeDao;
+    private JcodeLocalDataSource mJcodeLocalDataSource;
 
     public TrackPresenter(TrackContract.View view) {
         this.mView = view;
@@ -32,11 +32,11 @@ public class TrackPresenter implements TrackContract.Presenter {
 
     @Override
     public void loadData(Context context) {
-        mJcodeDao = JcodeDao.getInstance(context);
+        mJcodeLocalDataSource = JcodeLocalDataSource.getInstance(context);
         Observable.create(new Observable.OnSubscribe<List<JcodeEntity>>() {
             @Override
             public void call(final Subscriber<? super List<JcodeEntity>> subscriber) {
-                mJcodeDao.getJcodes(new JcodeDataSource.LoadJcodesCallback() {
+                mJcodeLocalDataSource.getJcodes(new JcodeDataSource.LoadJcodesCallback() {
                     @Override
                     public void onTasksLoaded(List<JcodeEntity> datas) {
                         subscriber.onNext(datas);
@@ -72,11 +72,11 @@ public class TrackPresenter implements TrackContract.Presenter {
 
     @Override
     public void deleteData(Context context, final String title) {
-        mJcodeDao = JcodeDao.getInstance(context);
+        mJcodeLocalDataSource = JcodeLocalDataSource.getInstance(context);
         Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(mJcodeDao.deleteJcode(title) == -1 ? false : true);
+                subscriber.onNext(mJcodeLocalDataSource.deleteJcode(title) == -1 ? false : true);
                 subscriber.onCompleted();
             }
         })
