@@ -38,11 +38,10 @@ public class AppInfoUtil {
      */
     public static String getAppName(Context context) {
         try {
-            PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            PackageInfo packageInfo = getPackageInfo(context);
             int labelRes = packageInfo.applicationInfo.labelRes;
             return context.getResources().getString(labelRes);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -132,6 +131,11 @@ public class AppInfoUtil {
         return cn.getPackageName();
     }
 
+    /**
+     * 判断微信是否安装
+     * @param context
+     * @return
+     */
     public static boolean isWeixinAvilible(Context context) {
         final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息

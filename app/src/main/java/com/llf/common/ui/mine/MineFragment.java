@@ -13,7 +13,6 @@ import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
-import com.llf.common.ui.register.LoginActivity;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.ui.mine.contact.MineContract;
@@ -119,7 +118,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
                 PickPhotoActivity.startActivity(this, new ImgSelConfig.Builder().multiSelect(false).build(), CHANGE_AVATAIR);
                 break;
             case R.id.rbt_msg:
-                startActivity(LoginActivity.class);
                 break;
             default:
                 break;
