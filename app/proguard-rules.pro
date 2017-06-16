@@ -68,7 +68,10 @@
 -keep class com.tencent.mm.** {*;}
 -keep class com.tencent.wxop.stat.**{*;}
 
-
+# For Guava:
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+-dontwarn sun.misc.Unsafe
 #-------------------------------------------------------------------------
 
 #---------------------------------3.与js互相调用的类------------------------
