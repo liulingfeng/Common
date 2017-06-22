@@ -12,12 +12,13 @@ import com.llf.common.ui.video.contract.VideoContract;
  * 浏览器能访问接口，客户端禁止访问是请求头的问题，需要加请求头
  */
 
-public class VideoPresenter implements VideoContract.Presenter{
+public class VideoPresenter implements VideoContract.Presenter {
     private VideoContract.View mView;
 
-    public VideoPresenter(VideoContract.View view){
+    public VideoPresenter(VideoContract.View view) {
         this.mView = view;
     }
+
     @Override
     public void start() {
 
@@ -27,10 +28,15 @@ public class VideoPresenter implements VideoContract.Presenter{
     public void loadData(String url) {
         OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<String>() {
             @Override
-           public void onSuccess(String response) {
+            public void onSuccess(String response) {
                 LogUtil.d("视频列表" + response);
-                VideoEntity entity = JsonUtils.deserialize(response,VideoEntity.class);
-                mView.returnData(entity.getTag());
+                try {
+                    VideoEntity entity = JsonUtils.deserialize(response, VideoEntity.class);
+                    mView.returnData(entity.getTag());
+                } catch (Exception e) {
+                    LogUtil.d("Gson解析出错");
+                }
+
             }
 
             @Override

@@ -14,6 +14,7 @@ import com.llf.basemodel.image.BigImagePagerActivity;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.NewsEntity;
@@ -133,7 +134,11 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
     @Override
     public void returnData(List<NewsEntity> datas) {
         if (pageIndex == 0) {
-            mAdapter.replaceAll(datas);
+            try {
+                mAdapter.replaceAll(datas);
+            } catch (Exception e) {
+                LogUtil.d("datas为null");
+            }
             mRefreshLayout.setRefreshing(false);
         } else {
             mAdapter.addAll(datas);
