@@ -3,6 +3,7 @@ package com.llf.common;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.amitshekhar.DebugDB;
 import com.llf.basemodel.base.BaseApplication;
 
 /**
@@ -21,6 +22,7 @@ public class App extends BaseApplication {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             builder.detectFileUriExposure();
         }
+        DebugDB.getAddressLog();
     }
 
     /**

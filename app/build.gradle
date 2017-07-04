@@ -76,4 +76,6 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     //前置检查
     compile "com.google.guava:guava:18.0"
+    //在网页上查看sp和数据库 adb forward tcp:8080 tcp:8080
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
 }
