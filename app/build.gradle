@@ -78,4 +78,6 @@ dependencies {
     compile "com.google.guava:guava:18.0"
     //在网页上查看sp和数据库 adb forward tcp:8080 tcp:8080
     debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    //检查过渡绘制
+    compile 'com.jakewharton.scalpel:scalpel:1.1.2'
 }

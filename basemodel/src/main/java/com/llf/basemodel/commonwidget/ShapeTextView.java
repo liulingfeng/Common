@@ -13,7 +13,7 @@ import android.view.MotionEvent;
 import com.llf.basemodel.R;
 
 /**
- * Created by guof on 2016/8/3.
+ * Created by llf on 2016/8/3.
  */
 
 public class ShapeTextView extends AppCompatTextView {

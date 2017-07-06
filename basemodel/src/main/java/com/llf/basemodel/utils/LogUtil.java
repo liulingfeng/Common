@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger;
  */
 
 public class LogUtil {
-    private static boolean isDebug = true;
+    private static boolean isDebug = true; //一次性关闭所有log
     private static final String TAG = "LogUtil";
 
     public static void init() {
@@ -39,6 +39,17 @@ public class LogUtil {
     }
 
     /**
+     * log.e
+     *
+     * @param msg
+     */
+    public static void e(String msg) {
+        if (isDebug) {
+            Logger.e(msg);
+        }
+    }
+
+    /**
      * log.w
      *
      * @param msg
@@ -50,13 +61,46 @@ public class LogUtil {
     }
 
     /**
-     * log.e
+     * log.v
      *
      * @param msg
      */
-    public static void e(String msg) {
+    public static void v(String msg) {
         if (isDebug) {
-            Logger.e(msg);
+            Logger.v(msg);
+        }
+    }
+
+    /**
+     * log.wtf
+     *
+     * @param msg
+     */
+    public static void wtf(String msg) {
+        if (isDebug) {
+            Logger.wtf(msg);
+        }
+    }
+
+    /**
+     * log.json
+     *
+     * @param msg
+     */
+    public static void json(String msg) {
+        if (isDebug) {
+            Logger.json(msg);
+        }
+    }
+
+    /**
+     * log.xml
+     *
+     * @param msg
+     */
+    public static void xml(String msg) {
+        if (isDebug) {
+            Logger.xml(msg);
         }
     }
 }

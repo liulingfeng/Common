@@ -16,16 +16,16 @@ public class InitApkBroadCastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_PACKAGE_ADDED.equals(intent.getAction())) {
-            LogUtil.e("监听到系统广播添加"+intent.getDataString());
+            LogUtil.d("监听到系统广播添加"+intent.getDataString());
 
         }
 
         if (Intent.ACTION_PACKAGE_REMOVED.equals(intent.getAction())) {
-            LogUtil.e("监听到系统广播移除"+intent.getDataString());
+            LogUtil.d("监听到系统广播移除"+intent.getDataString());
         }
 
         if (Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction())) {
-            LogUtil.e("监听到系统广播替换"+intent.getDataString());
+            LogUtil.d("监听到系统广播替换"+intent.getDataString());
         }
     }
 }

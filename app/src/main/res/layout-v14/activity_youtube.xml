@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.llf.common.widget.YouTubeVideoView
+    android:id="@+id/youtube_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:orientation="vertical"
+    >
+
+    <TextureView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_video"
+        android:background="@color/white"
+        />
+</com.llf.common.widget.YouTubeVideoView>

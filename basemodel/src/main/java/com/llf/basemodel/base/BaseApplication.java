@@ -3,6 +3,7 @@ package com.llf.basemodel.base;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.llf.basemodel.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -23,12 +24,13 @@ public class BaseApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
-       super.onCreate();
+        super.onCreate();
         instance = this;
 
         CrashReport.initCrashReport(getApplicationContext());
         //检查内存泄漏
         refWatcher = LeakCanary.install(this);
+        LogUtil.init();
     }
 
     @Override
