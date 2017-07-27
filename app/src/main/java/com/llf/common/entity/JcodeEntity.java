@@ -98,4 +98,9 @@ public class JcodeEntity implements Serializable {
     public void setLike(String like) {
         this.like = like;
     }
+
+    @Override
+    public String toString() {
+        return "图片地址" + imgUrl + "标题" + title + "内容" + content + "作者" + author + "跳转地址" + detailUrl;
+    }
 }

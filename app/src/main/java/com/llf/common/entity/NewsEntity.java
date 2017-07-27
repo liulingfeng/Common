@@ -3,6 +3,8 @@ package com.llf.common.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.llf.common.R.id.cover;
+
 /**
  * Created by llf on 2017/3/15.
  */
@@ -35,6 +37,7 @@ public class NewsEntity implements Serializable {
 
     /**
      * 多张图片
+     *
      * @return
      */
     private List<Imgextra> imgextra;
@@ -95,7 +98,7 @@ public class NewsEntity implements Serializable {
         this.ptime = ptime;
     }
 
-    public static class Imgextra implements Serializable{
+    public static class Imgextra implements Serializable {
         private String imgsrc;
 
         public String getImgsrc() {
@@ -105,5 +108,18 @@ public class NewsEntity implements Serializable {
         public void setImgsrc(String imgsrc) {
             this.imgsrc = imgsrc;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "NewsEntity{" +
+                "docid='" + docid + '\'' +
+                ", title='" + title + '\'' +
+                ", digest='" + digest + '\'' +
+                ", imgsrc='" + imgsrc + '\'' +
+                ", source='" + source + '\'' +
+                ", ptime='" + ptime + '\'' +
+                ", imgextra=" + imgextra +
+                '}';
     }
 }

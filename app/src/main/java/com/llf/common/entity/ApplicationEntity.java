@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by llf on 2017/4/21.
  */
 
-public class ApplicationEntity implements Serializable{
+public class ApplicationEntity implements Serializable {
 
     /**
      * name : 秀趣
@@ -122,7 +122,7 @@ public class ApplicationEntity implements Serializable{
         this.binary = binary;
     }
 
-    public static class BinaryBean implements Serializable{
+    public static class BinaryBean implements Serializable {
         /**
          * fsize : 3933914
          */
@@ -136,5 +136,11 @@ public class ApplicationEntity implements Serializable{
         public void setFsize(int fsize) {
             this.fsize = fsize;
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "应用名字:" + name + "版本:" + version + "日志" + changelog;
     }
 }
