@@ -19,6 +19,8 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public class WelcomeActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+    private static final String TAG = "WelcomeActivity";
+
     public static final int PERMISSION = 100;
 
     @Override

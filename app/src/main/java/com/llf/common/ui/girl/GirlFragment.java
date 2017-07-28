@@ -10,6 +10,7 @@ import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonactivity.WebViewActivity;
 import com.llf.basemodel.recycleview.DefaultItemDecoration;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.entity.JcodeEntity;
 import com.llf.common.ui.girl.adapter.GirlAdapter;
@@ -28,6 +29,8 @@ import butterknife.OnClick;
  */
 
 public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, GirlContract.View {
+    private static final String TAG = "GirlFragment";
+
     public static GirlFragment getInstance() {
         GirlFragment girlFragment = new GirlFragment();
         return girlFragment;
@@ -111,6 +114,7 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void showErrorTip(String msg) {
+        LogUtil.d(TAG + msg);
         showErrorHint(msg);
         mRefreshLayout.setRefreshing(false);
     }

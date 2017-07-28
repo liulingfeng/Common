@@ -44,6 +44,8 @@ import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
  */
 
 public class MineFragment extends BaseFragment implements MineContract.View, IUiListener, ShareDialog.OneShare {
+    private static final String TAG = "MineFragment";
+
     @Bind(R.id.avatar)
     CircleImageView mAvatar;
     @Bind(R.id.img_attention)

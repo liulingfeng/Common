@@ -45,6 +45,8 @@ import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
  */
 
 public class VideoDetailActivity extends BaseActivity implements VideoContract.View, ShareDialog.OneShare {
+    private static final String TAG = "VideoDetailActivity";
+
     @Bind(R.id.viewPager)
     VideoPlayer mViewPager;
     @Bind(R.id.toolbar)

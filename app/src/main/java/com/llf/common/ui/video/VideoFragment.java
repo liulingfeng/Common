@@ -31,6 +31,8 @@ import butterknife.OnClick;
  */
 
 public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, VideoContract.View {
+    private static final String TAG = "VideoFragment";
+
     public static VideoFragment getInstance() {
         VideoFragment videoFragment = new VideoFragment();
         return videoFragment;

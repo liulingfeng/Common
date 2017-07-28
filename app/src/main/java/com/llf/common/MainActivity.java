@@ -25,6 +25,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, MainContract.View {
+    private static final String TAG = "MainActivity";
+
     @Bind(R.id.journalism)
     Button mNews;
     @Bind(R.id.video)
@@ -239,7 +241,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 });
             }
         } catch (Exception e) {
-            LogUtil.d("数字转化出错");
+            LogUtil.d(TAG + "数字转化出错");
         }
     }
 }

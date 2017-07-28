@@ -14,6 +14,8 @@ import butterknife.Bind;
  */
 
 public class SettingActivity extends BaseActivity {
+    private static final String TAG = "SettingActivity";
+
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 

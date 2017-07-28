@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
  */
 
 public class AttentionActivity extends AppCompatActivity {
+    private static final String TAG = "AttentionActivity";
+
     @Bind(R.id.container)
     RelativeLayout mContainer;
 

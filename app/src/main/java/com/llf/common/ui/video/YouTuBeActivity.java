@@ -33,6 +33,8 @@ import butterknife.Bind;
 
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class YouTuBeActivity extends BaseActivity implements TextureView.SurfaceTextureListener, VideoContract.View, YouTubeVideoView.Callback, MediaPlayer.OnPreparedListener {
+    private static final String TAG = "YouTuBeActivity";
+
     @Bind(R.id.video_view)
     TextureView mVideoView;
     @Bind(R.id.recyclerView)

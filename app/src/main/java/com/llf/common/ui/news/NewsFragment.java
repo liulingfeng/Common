@@ -18,6 +18,8 @@ import butterknife.OnClick;
  */
 
 public class NewsFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+    private static final String TAG = "NewsFragment";
+
     public static final int ONE = 0;
     public static final int TWO = 1;
     public static final int THREE = 2;

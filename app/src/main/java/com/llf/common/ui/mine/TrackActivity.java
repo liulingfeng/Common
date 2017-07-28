@@ -30,6 +30,8 @@ import butterknife.OnClick;
  */
 
 public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, TrackContract.View {
+    private static final String TAG = "TrackActivity";
+
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.recyclerView)

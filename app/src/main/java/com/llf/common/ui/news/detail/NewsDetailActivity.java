@@ -30,6 +30,8 @@ import butterknife.Bind;
  */
 
 public class NewsDetailActivity extends BaseActivity implements NewsDetailContract.View {
+    private static final String TAG = "NewsDetailActivity";
+
     public static void Launch(Activity mContext, BaseViewHolder holder, NewsEntity entity) {
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("news", entity);
