@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.llf.basemodel.R;
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -20,6 +21,9 @@ public class ImageLoaderUtils {
     private static int errorId = R.drawable.ic_empty_picture;
     /**
      * 加载图片
+     * fallback imageUrl为null显示
+     * priority 设置优先级
+     * asGif 会检查是不是gif图片
      * */
     public static void loadingImg(Context context,ImageView iv, String picUrl){
         Glide.with(context)
@@ -27,6 +31,8 @@ public class ImageLoaderUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(placeholderId)
                 .error(errorId)
+                .fallback(errorId)
+                .priority(Priority.IMMEDIATE)
                 .dontAnimate()
                 .into(iv);
     }
