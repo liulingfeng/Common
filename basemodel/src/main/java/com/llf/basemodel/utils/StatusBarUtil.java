@@ -574,6 +574,7 @@ public class StatusBarUtil {
     /**
      * 设置根布局参数
      */
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private static void setRootView(Activity activity) {
         ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
         for (int i = 0, count = parent.getChildCount(); i < count; i++) {
