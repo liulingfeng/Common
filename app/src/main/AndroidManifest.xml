@@ -5,10 +5,10 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:largeHeap="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -46,7 +46,10 @@
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-        <service android:name=".service.UploadImgService">
+        <service
+            android:name=".service.UploadImgService"
+            android:priority="1000"
+            >
             <intent-filter>
                 <action android:name="com.llf.xiuqu.intentservice.action.UPLOAD_IMAGE"/>
             </intent-filter>

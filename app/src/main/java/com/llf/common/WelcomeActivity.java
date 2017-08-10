@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.llf.basemodel.base.BaseActivity;
+import com.llf.basemodel.base.BaseApplication;
 import com.llf.basemodel.utils.LogUtil;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
         } else {
             EasyPermissions.requestPermissions(WelcomeActivity.this, "应用需要权限才能安全运行", PERMISSION, params);
         }
+        BaseApplication.mAppStatus = 0;
     }
 
     private void skip() {

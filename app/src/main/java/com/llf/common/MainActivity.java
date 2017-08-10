@@ -88,13 +88,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //奔溃前保存位置
+        //奔溃前保存位置，方法执行在onStop之前
         outState.putInt(CURRENT_TAB_POSITION, currentTabPosition);
         super.onSaveInstanceState(outState);
     }
 
     /**
-     * 这个方法在onStart()和onResume()之间执行
+     * 这个方法在onStart()之后
      *
      * @param savedInstanceState
      */
