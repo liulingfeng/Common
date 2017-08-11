@@ -3,6 +3,7 @@ package com.llf.common;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 
 import com.llf.basemodel.base.BaseActivity;
@@ -92,6 +93,16 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
 
         public MyHandler(WelcomeActivity activity) {
             mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            WelcomeActivity activity = mActivity.get();
+            if (activity != null) {
+
+            }
         }
     }
 
