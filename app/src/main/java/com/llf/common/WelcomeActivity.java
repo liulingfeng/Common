@@ -9,6 +9,7 @@ import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.base.BaseApplication;
 import com.llf.basemodel.utils.LogUtil;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -21,8 +22,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class WelcomeActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     private static final String TAG = "WelcomeActivity";
-
     public static final int PERMISSION = 100;
+    private MyHandler sHandler = new MyHandler(this);
 
     @Override
     protected int getLayoutId() {
@@ -44,14 +45,7 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
     }
 
     private void skip() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-                LogUtil.d("最高可用内存:" + maxMemory);
-                startThenKill(MainActivity.class);
-                WelcomeActivity.this.overridePendingTransition(R.anim.scale_in, R.anim.shrink_out);
-            }
-        }, 1000 * 2);
+        sHandler.postDelayed(mRunnable, 1000 * 2);
     }
 
     @Override
@@ -85,4 +79,29 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        sHandler.removeCallbacks(mRunnable);
+    }
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<WelcomeActivity> mActivity;
+
+        public MyHandler(WelcomeActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+    }
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+            LogUtil.d(TAG + "最高可用内存:" + maxMemory);
+            startThenKill(MainActivity.class);
+            WelcomeActivity.this.overridePendingTransition(R.anim.scale_in, R.anim.shrink_out);
+        }
+    };
 }
