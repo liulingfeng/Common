@@ -57,11 +57,13 @@ public class SettingUtil {
 
     /**
      * 缓存相关
+     * apply 是异步的，不会返回提交结果
+     * commit会返回提交结果
      */
     public static void setTagString(Context context, String tag, String value) {
         SharedPreferences.Editor editor = context.getSharedPreferences("cache", Context.MODE_PRIVATE).edit();
         editor.putString(tag, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getTagString(Context context, String tag) {
@@ -75,7 +77,7 @@ public class SettingUtil {
     public static void setTagString(Activity activity, String tag, String value) {
         SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
         editor.putString(tag, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getTagString(Activity activity, String tag) {

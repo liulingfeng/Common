@@ -1,5 +1,6 @@
 package com.llf.common.ui.news;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
@@ -37,6 +38,7 @@ public class NewsFragment extends BaseFragment implements ViewPager.OnPageChange
 
     public static NewsFragment getInstance() {
         NewsFragment newsFragment = new NewsFragment();
+        newsFragment.setArguments(new Bundle());
         return newsFragment;
     }
 

@@ -28,6 +28,9 @@ public class CustomScrollView extends ScrollView {
         super(context, attrs, defStyleAttr);
     }
 
+    {
+        setSaveEnabled(true);
+    }
     @Override
     protected void onFinishInflate() {
         rootView = getChildAt(0);

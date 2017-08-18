@@ -74,6 +74,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        switch (level){
+            case TRIM_MEMORY_UI_HIDDEN:
+                break;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         AppManager.instance.removeActivity(this);
