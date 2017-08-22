@@ -16,8 +16,12 @@ import android.preference.PreferenceManager;
 public class DownloadUtil {
     public static final String DOWNLOAD_APK_ID_PREFS = "download_apk_id";
 
-    public static void downloadApk(Context context, String url,String name,String description, String storeApk) {
-        if (!isDownloadManagerAvailable()||!sdAvailable()) {
+    public static void downloadApk(Context context, String url, String storeApk) {
+        downloadApk(context, url, "标题", "描述", storeApk);
+    }
+
+    public static void downloadApk(Context context, String url, String name, String description, String storeApk) {
+        if (!isDownloadManagerAvailable() || !sdAvailable()) {
             return;
         }
 
@@ -49,7 +53,7 @@ public class DownloadUtil {
         long id = manager.enqueue(request);
         //存储下载的序列号，用于自动更新
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        sp.edit().putLong(DOWNLOAD_APK_ID_PREFS,id).apply();
+        sp.edit().putLong(DOWNLOAD_APK_ID_PREFS, id).apply();
     }
 
     // SDK大于9才能使用DownloadManager
@@ -58,10 +62,10 @@ public class DownloadUtil {
     }
 
     //判断Sd卡是否可用
-    private static boolean sdAvailable(){
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+    private static boolean sdAvailable() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

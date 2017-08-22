@@ -2,6 +2,7 @@ package com.llf.common.ui.mine.presenter;
 
 import android.content.Context;
 
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.data.JcodeDataSource;
 import com.llf.common.data.local.JcodeLocalDataSource;
 import com.llf.common.entity.JcodeEntity;
@@ -44,7 +45,7 @@ public class TrackPresenter implements TrackContract.Presenter {
 
                     @Override
                     public void onDataNotAvailable() {
-
+                        subscriber.onError(new NullPointerException("数据为空"));
                     }
                 });
                 subscriber.onCompleted();
@@ -60,6 +61,7 @@ public class TrackPresenter implements TrackContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        LogUtil.e(e.getMessage());
                         mView.showErrorTip(e.getMessage());
                     }
 

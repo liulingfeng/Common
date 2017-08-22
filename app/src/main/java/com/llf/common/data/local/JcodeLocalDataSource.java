@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.data.JcodeDataSource;
 import com.llf.common.entity.JcodeEntity;
 
@@ -36,22 +37,37 @@ public class JcodeLocalDataSource implements JcodeDataSource {
         return INSTANCE;
     }
 
+    /**
+     * 增加事务，保证数据的安全性，两步操作有一步不对可以回滚
+     *
+     * @param entity
+     * @return
+     */
     @Override
     public long saveJcode(@NonNull JcodeEntity entity) {
+        long rowId = 0;
         checkNotNull(entity);
         SQLiteDatabase sqLiteDatabase = mSqliteOpenHelp.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("imgUrl", entity.getImgUrl());
-        values.put("title", entity.getTitle());
-        values.put("detailUrl", entity.getDetailUrl());
-        values.put("content", entity.getContent());
-        values.put("author", entity.getAuthor());
-        values.put("authorImg", entity.getAuthorImg());
-        values.put("watch", entity.getWatch());
-        values.put("comments", entity.getComments());
-        values.put("like", entity.getLike());
-        long rowId = sqLiteDatabase.insert("jcode", "imgUrl", values);
-        sqLiteDatabase.close();
+        sqLiteDatabase.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("imgUrl", entity.getImgUrl());
+            values.put("title", entity.getTitle());
+            values.put("detailUrl", entity.getDetailUrl());
+            values.put("content", entity.getContent());
+            values.put("author", entity.getAuthor());
+            values.put("authorImg", entity.getAuthorImg());
+            values.put("watch", entity.getWatch());
+            values.put("comments", entity.getComments());
+            values.put("like", entity.getLike());
+            rowId = sqLiteDatabase.insert("jcode", "imgUrl", values);
+            sqLiteDatabase.setTransactionSuccessful();
+        } catch (Exception e) {
+            LogUtil.d("插入数据库出错");
+        } finally {
+            sqLiteDatabase.endTransaction();
+            sqLiteDatabase.close();
+        }
         return rowId;
     }
 
