@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.llf.common">
     <!-- supportsRtl支持设置排列方向 -->
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="25"
+        />
     <application
         android:name=".App"
         android:allowBackup="true"
