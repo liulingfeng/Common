@@ -20,7 +20,7 @@ public class App extends BaseApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            builder.detectFileUriExposure();
+           builder.detectFileUriExposure();
         }
         DebugDB.getAddressLog();
     }

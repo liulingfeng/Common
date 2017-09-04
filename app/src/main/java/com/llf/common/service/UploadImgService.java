@@ -1,6 +1,7 @@
 package com.llf.common.service;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -56,6 +57,7 @@ public class UploadImgService extends IntentService {
     @Override
     public void onCreate() {
         LogUtil.d("UploadImgService onCreate");
+        keepAlive();
         super.onCreate();
     }
 
@@ -63,5 +65,17 @@ public class UploadImgService extends IntentService {
     public void onDestroy() {
         LogUtil.d("UploadImgService onDestroy");
         super.onDestroy();
+    }
+
+    private void keepAlive() {
+        try {
+            Notification notification = new Notification();
+            notification.flags |= Notification.FLAG_NO_CLEAR;
+            notification.flags |= Notification.FLAG_ONGOING_EVENT;
+            // 设置为前台服务避免kill，Android4.3及以上需要设置id为0时通知栏才不显示该通知；
+            startForeground(0, notification);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 }
