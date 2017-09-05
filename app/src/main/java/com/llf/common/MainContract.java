@@ -10,8 +10,8 @@ import com.llf.common.entity.ApplicationEntity;
 
 public interface MainContract {
     interface View extends BaseView {
-        void retureResult(String result);
-        void retureUpdateResult(ApplicationEntity entity);
+        void returnResult(String result);
+        void returnUpdateResult(ApplicationEntity entity);
     }
 
     interface Presenter extends BasePresenter {

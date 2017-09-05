@@ -29,12 +29,12 @@ public class MainPresenter implements MainContract.Presenter {
             public void onSuccess(String response) {
                 LogUtil.d("应用更新:" + response);
                 ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
-                mView.retureUpdateResult(entity);
+                mView.returnUpdateResult(entity);
             }
 
             @Override
             public void onFailure(Exception e) {
-                mView.retureResult(e.getMessage());
+                mView.returnResult(e.getMessage());
             }
         });
     }

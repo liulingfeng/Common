@@ -219,12 +219,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     @Override
-    public void retureResult(String result) {
+    public void returnResult(String result) {
         showToast(result);
     }
 
     @Override
-    public void retureUpdateResult(final ApplicationEntity entity) {
+    public void returnUpdateResult(final ApplicationEntity entity) {
         try {
             if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
                 String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
