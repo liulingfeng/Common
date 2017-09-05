@@ -10,7 +10,7 @@ import com.llf.basemodel.base.BaseView;
 
 public interface MineContract {
     interface View extends BaseView {
-        void retureResult(String result);
+        void returnResult(String result);
     }
 
     interface Presenter extends BasePresenter {

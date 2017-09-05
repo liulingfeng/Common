@@ -176,7 +176,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
     }
 
     @Override
-    public void retureResult(String result) {
+    public void returnResult(String result) {
         showToast(result);
     }
 

@@ -138,7 +138,7 @@ public class TrackActivity extends BaseActivity implements SwipeRefreshLayout.On
     }
 
     @Override
-    public void retureResult(boolean result) {
+    public void returnResult(boolean result) {
         if (result) {
             jcodes.remove(position);
             mAdapter.notifyItemRemoved(position);

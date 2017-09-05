@@ -33,13 +33,13 @@ public class MinePresenter implements MineContract.Presenter {
                 if (AppInfoUtil.getVersionCode(App.instance) < Integer.parseInt(entity.getVersion())) {
                     DownloadUtil.downloadApk(App.instance, entity.getInstall_url(), entity.getName(), entity.getChangelog(), "xiuqu.apk");
                 } else {
-                    mView.retureResult("当前已是最新版本");
+                    mView.returnResult("当前已是最新版本");
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-                mView.retureResult(e.getMessage());
+                mView.returnResult(e.getMessage());
             }
         });
     }

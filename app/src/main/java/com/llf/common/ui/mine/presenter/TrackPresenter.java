@@ -97,7 +97,7 @@ public class TrackPresenter implements TrackContract.Presenter {
 
                     @Override
                     public void onNext(Boolean result) {
-                        mView.retureResult(result);
+                        mView.returnResult(result);
                     }
                 });
     }

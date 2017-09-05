@@ -15,7 +15,7 @@ import java.util.List;
 public interface TrackContract {
     interface View extends BaseView {
         void returnData(List<JcodeEntity> datas);
-        void retureResult(boolean result);
+        void returnResult(boolean result);
     }
 
     interface Presenter extends BasePresenter {
