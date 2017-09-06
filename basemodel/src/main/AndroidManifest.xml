@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!--网络变化-->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
