@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +13,7 @@ import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
+import com.llf.basemodel.utils.DateUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
@@ -114,7 +116,14 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
                 mPresenter.checkUpdate("http://api.fir.im/apps/latest/58f87d50959d6904280005a3?api_token=9f2408863ff25abccca986e5d4d9d6ba");
                 break;
             case R.id.reply:
-                showToast("反馈");
+                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                intent.putExtra(AlarmClock.EXTRA_HOUR, DateUtil.getCurrentHour());
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, 0);
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "设置计划");
+                intent.putExtra(AlarmClock.EXTRA_VIBRATE, true);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
                 break;
             case R.id.avatar:
                 PickPhotoActivity.startActivity(this, new ImgSelConfig.Builder().multiSelect(false).build(), CHANGE_AVATAIR);

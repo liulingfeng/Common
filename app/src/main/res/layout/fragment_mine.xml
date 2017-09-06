@@ -297,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
-            android:text="意见反馈"
+            android:text="设置计划"
             android:textColor="#060606"
             android:textSize="15sp"
             />
