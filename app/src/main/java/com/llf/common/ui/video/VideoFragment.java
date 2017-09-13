@@ -13,6 +13,7 @@ import com.llf.basemodel.recycleview.BaseAdapter;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.recycleview.EndLessOnScrollListener;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.VideoEntity;
@@ -126,6 +127,7 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public void showErrorTip(String msg) {
+        LogUtil.d(TAG + msg);
         showErrorHint(msg);
         mRefreshLayout.setRefreshing(false);
     }
