@@ -103,7 +103,8 @@ public class NewsClassfiFragment extends BaseFragment implements NewsContract.Vi
             @Override
             public void onLoadMore() {
                 pageIndex += Apis.PAZE_SIZE;
-                mAdapter.setFooterVisible(View.VISIBLE);
+                if (newDatas.size() != 0)
+                    mAdapter.setFooterVisible(View.VISIBLE);
                 mPresenter.loadData(type, pageIndex);
             }
         });

@@ -53,6 +53,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //是被强杀的
+        if (App.mAppStatus == -1) {
+            startActivity(WelcomeActivity.class);
+        }
+
         if (savedInstanceState != null) {
             currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
             mViewPager.setCurrentItem(currentTabPosition);

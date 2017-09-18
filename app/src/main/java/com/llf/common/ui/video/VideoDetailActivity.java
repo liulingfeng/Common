@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +23,9 @@ import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.basemodel.utils.LogUtil;
+import com.llf.common.App;
 import com.llf.common.R;
+import com.llf.common.WelcomeActivity;
 import com.llf.common.api.Apis;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.entity.VideoEntity;
@@ -32,11 +36,14 @@ import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXVideoObject;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import llf.videomodel.VideoPlayer;
+
 import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 
 /**
@@ -67,6 +74,16 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
         intent.putExtra("title", title);
         intent.putExtra("pageIndex", pageIndex);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //是被强杀的
+        if (App.mAppStatus == -1) {
+            startActivity(WelcomeActivity.class);
+        }
     }
 
     @Override

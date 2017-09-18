@@ -3,6 +3,8 @@ package com.llf.common.ui.video;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,19 +13,24 @@ import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.widget.ImageView;
+
 import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.recycleview.BaseAdapter;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.common.App;
 import com.llf.common.R;
+import com.llf.common.WelcomeActivity;
 import com.llf.common.api.Apis;
 import com.llf.common.entity.VideoEntity;
 import com.llf.common.ui.video.contract.VideoContract;
 import com.llf.common.ui.video.presenter.VideoPresenter;
 import com.llf.common.widget.YouTubeVideoView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 
 /**
@@ -47,6 +54,16 @@ public class YouTuBeActivity extends BaseActivity implements TextureView.Surface
     private List<VideoEntity.V9LG4CHORBean> videos = new ArrayList<>();
     private VideoContract.Presenter mPresenter;
     private int pageIndex = 0;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //是被强杀的
+        if (App.mAppStatus == -1) {
+            startActivity(WelcomeActivity.class);
+        }
+    }
 
     @Override
     protected int getLayoutId() {

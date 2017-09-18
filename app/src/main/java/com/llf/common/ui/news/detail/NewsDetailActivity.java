@@ -3,6 +3,8 @@ package com.llf.common.ui.news.detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -15,7 +17,9 @@ import com.llf.basemodel.base.BaseActivity;
 import com.llf.basemodel.recycleview.BaseViewHolder;
 import com.llf.basemodel.utils.ImageLoaderUtils;
 import com.llf.basemodel.utils.LogUtil;
+import com.llf.common.App;
 import com.llf.common.R;
+import com.llf.common.WelcomeActivity;
 import com.llf.common.entity.NewsEntity;
 import com.llf.common.ui.news.contract.NewsDetailContract;
 import com.llf.common.ui.news.presenter.NewsDetailPresenter;
@@ -51,6 +55,16 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailContra
 
     private NewsEntity mEntity;//详情数据
     private NewsDetailContract.Presenter mPresenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //是被强杀的
+        if (App.mAppStatus == -1) {
+            startActivity(WelcomeActivity.class);
+        }
+    }
 
     @Override
     protected int getLayoutId() {

@@ -78,7 +78,8 @@ public class GirlFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onLoadMore() {
                 pageIndex++;
-                mAdapter.setFooterVisible(View.VISIBLE);
+                if (jcodes.size() != 0)
+                    mAdapter.setFooterVisible(View.VISIBLE);
                 mPresenter.loadData("http://www.jcodecraeer.com/plus/list.php?tid=18&TotalResult=1801&PageNo=" + pageIndex);
             }
         });

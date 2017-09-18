@@ -21,8 +21,6 @@ public class BaseApplication extends MultiDexApplication {
 
     public static BaseApplication instance;
     private RefWatcher refWatcher;
-    //用于判断应用是否被强杀
-    public static int mAppStatus = -1;
 
     @Override
     public void onCreate() {

@@ -91,7 +91,8 @@ public class VideoFragment extends BaseFragment implements SwipeRefreshLayout.On
             @Override
             public void onLoadMore() {
                 pageIndex++;
-                mAdapter.setFooterVisible(View.VISIBLE);
+                if (videos.size() != 0)
+                    mAdapter.setFooterVisible(View.VISIBLE);
                 mPresenter.loadData(Apis.HOST + Apis.Video + Apis.VIDEO_HOT_ID + "/n/" + pageIndex * 10 + "-10.html");
             }
         });
