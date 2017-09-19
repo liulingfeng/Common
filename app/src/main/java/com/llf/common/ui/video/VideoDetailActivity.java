@@ -248,7 +248,7 @@ public class VideoDetailActivity extends BaseActivity implements VideoContract.V
 
     @Override
     public void qqShare() {
-
+        showToast("敬请期待");
     }
 
     private String buildTransaction(final String type) {

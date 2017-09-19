@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.llf.basemodel.base.BaseFragment;
-import com.llf.basemodel.commonwidget.CircleImageView;
 import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.DateUtil;
@@ -49,7 +48,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
     private static final String TAG = "MineFragment";
 
     @Bind(R.id.avatar)
-    CircleImageView mAvatar;
+    ImageView mAvatar;
     @Bind(R.id.img_attention)
     ImageView mImgAttention;
     @Bind(R.id.img_track)
@@ -140,7 +139,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
         if (requestCode == CHANGE_AVATAIR && resultCode == Activity.RESULT_OK) {
             ArrayList<String> result = data.getStringArrayListExtra(PickPhotoActivity.INTENT_RESULT);
             if (result.size() != 0) {
-                ImageLoaderUtils.loadingImg(getActivity(), mAvatar, result.get(0));
+                ImageLoaderUtils.displayCircle(getActivity(), mAvatar, result.get(0));
             }
         }
 

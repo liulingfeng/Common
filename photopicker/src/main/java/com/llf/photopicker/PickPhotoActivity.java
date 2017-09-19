@@ -149,7 +149,7 @@ public class PickPhotoActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onSingleImageSelected(String path) {
-        LogUtil.e(path);
+        LogUtil.d(path);
         if (config.needCrop) {
             crop(path);
         } else {
