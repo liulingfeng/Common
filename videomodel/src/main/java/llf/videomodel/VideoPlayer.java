@@ -1006,6 +1006,7 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
     public void destroyVideo() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
+            mediaPlayer.reset();
             mediaPlayer.release();// 释放资源
             mediaPlayer = null;
         }
