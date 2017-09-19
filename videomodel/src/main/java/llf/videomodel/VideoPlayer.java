@@ -802,6 +802,11 @@ public class VideoPlayer extends FrameLayout implements View.OnClickListener,
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        if(mediaPlayer==null||!mediaPlayer.isPlaying()){
+            //这里一定要判断，此方法有可能会在mediaPlayer prepare之前执行
+            //会报Attempt to call getDuration in wrong state: mPlayer=0x73dca8a9c0, mCurrentState=4这个错误
+            return;
+        }
         if (percent >= 0 && percent <= 100) {
             int secondProgress = mp.getDuration() * percent / 100;
             mSeekBar.setSecondaryProgress(secondProgress);
