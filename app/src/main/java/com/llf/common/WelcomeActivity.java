@@ -108,8 +108,8 @@ public class WelcomeActivity extends BaseActivity implements EasyPermissions.Per
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-            LogUtil.d(TAG + "最高可用内存:" + maxMemory);
+            int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
+            LogUtil.d(TAG + "最高可用内存:" + maxMemory + "M");
             startThenKill(MainActivity.class);
             WelcomeActivity.this.overridePendingTransition(R.anim.scale_in, R.anim.shrink_out);
         }
