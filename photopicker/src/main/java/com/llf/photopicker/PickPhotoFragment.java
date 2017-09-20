@@ -230,7 +230,7 @@ public class PickPhotoFragment extends Fragment implements View.OnClickListener,
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             tempFile = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator + System.currentTimeMillis() + ".jpg");
             FileUtil.createFile(tempFile);
-            if (Build.VERSION.SDK_INT >= 24) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Uri contentUri = FileProvider.getUriForFile(getActivity(), "com.llf.common.provider666", tempFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
             } else {
