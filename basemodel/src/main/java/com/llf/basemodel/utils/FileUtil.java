@@ -197,4 +197,24 @@ public class FileUtil {
     public static void formatSize(Context context,long number){
         Formatter.formatFileSize(context,number);
     }
+
+    /**
+     * 删除文件
+     */
+    public static void deleteFile(File file){
+        if(file.isFile()){
+            file.delete();
+            return;
+        }
+        if(file.isDirectory()){
+            File[] childFile = file.listFiles();
+            if(childFile == null || childFile.length == 0){
+                file.delete();
+                return;
+            }
+            for(File f : childFile){
+                deleteFile(f);
+            }
+        }
+    }
 }

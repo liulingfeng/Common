@@ -15,6 +15,7 @@ import com.llf.basemodel.base.BaseFragment;
 import com.llf.basemodel.base.BaseFragmentAdapter;
 import com.llf.basemodel.dialog.UpdateDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
+import com.llf.basemodel.utils.FileUtil;
 import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.entity.ApplicationEntity;
 import com.llf.common.ui.girl.GirlFragment;
@@ -73,7 +74,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/xiuqu.apk");
         if (file.exists() && file.length() > 0) {
-            file.deleteOnExit();
+            FileUtil.deleteFile(file);
             showToast("安装包已删除");
         }
     }

@@ -21,7 +21,7 @@ public class DownloadUtil {
     }
 
     public static void downloadApk(Context context, String url, String name, String description, String storeApk) {
-        if (!isDownloadManagerAvailable() || !sdAvailable()) {
+        if (!isDownloadManagerAvailable() || !FileUtil.isSdCardAvailable()) {
             return;
         }
 
@@ -59,14 +59,5 @@ public class DownloadUtil {
     // SDK大于9才能使用DownloadManager
     private static boolean isDownloadManagerAvailable() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
-    }
-
-    //判断Sd卡是否可用
-    private static boolean sdAvailable() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
