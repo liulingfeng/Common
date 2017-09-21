@@ -2,10 +2,12 @@ package com.llf.common.ui.mine;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.AlarmClock;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -106,7 +108,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
                 ShareDialog.show(getActivity(), this);
                 break;
             case R.id.night:
-                showToast("夜间模式");
+                int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                if (mode == Configuration.UI_MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else if (mode == Configuration.UI_MODE_NIGHT_NO) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                getActivity().recreate();
                 break;
             case R.id.service:
                 showToast("客服中心");
@@ -132,6 +140,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
             default:
                 break;
         }
+
     }
 
     @Override

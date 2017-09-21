@@ -72,7 +72,7 @@ dependencies {
     compile project(':videomodel')
     compile files('libs/libammsdk.jar')
     compile files('libs/mta-sdk-1.6.2.jar')
-    compile files('libs/open_sdk_r5793.jar')
+    compile files('libs/open_sdk_r5788.jar')
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
     compile 'com.android.support:support-annotations:22.2.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
