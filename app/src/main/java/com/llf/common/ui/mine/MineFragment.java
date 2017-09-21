@@ -16,6 +16,7 @@ import com.llf.basemodel.dialog.ShareDialog;
 import com.llf.basemodel.utils.AppInfoUtil;
 import com.llf.basemodel.utils.DateUtil;
 import com.llf.basemodel.utils.ImageLoaderUtils;
+import com.llf.basemodel.utils.LogUtil;
 import com.llf.common.R;
 import com.llf.common.constant.AppConfig;
 import com.llf.common.ui.mine.contact.MineContract;
@@ -33,11 +34,14 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.tencent.mm.sdk.platformtools.Util.bmpToByteArray;
 
@@ -149,31 +153,34 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
             ArrayList<String> result = data.getStringArrayListExtra(PickPhotoActivity.INTENT_RESULT);
             if (result.size() != 0) {
                 ImageLoaderUtils.displayCircle(getActivity(), mAvatar, result.get(0));
+
+                final File file = new File(result.get(0));
+                Luban.get(getActivity())
+                        .load(file)                     //传人要压缩的图片
+                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                        .setCompressListener(new OnCompressListener() { //设置回调
+
+                            @Override
+                            public void onStart() {
+                                LogUtil.e("压缩之前的图片大小" + file.length());
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                LogUtil.e("压缩之后的图片大小" + file.length());
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                LogUtil.e("压缩出错了" + e.getMessage());
+                            }
+                        }).launch();    //启动压缩
             }
         }
 
         if (requestCode == Constants.REQUEST_QQ_SHARE) {
             Tencent.onActivityResultData(requestCode, resultCode, data, this);
         }
-//        Luban.get(getActivity())
-//                .load(File)                     //传人要压缩的图片
-//                .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
-//                .setCompressListener(new OnCompressListener() { //设置回调
-//
-//                    @Override
-//                    public void onStart() {
-//                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-//                    }
-//                    @Override
-//                    public void onSuccess(File file) {
-//                        // TODO 压缩成功后调用，返回压缩后的图片文件
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        // TODO 当压缩过去出现问题时调用
-//                    }
-//                }).launch();    //启动压缩
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -194,6 +201,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
     @Override
     public void returnResult(String result) {
+        LogUtil.d(TAG + result);
         showToast(result);
     }
 
