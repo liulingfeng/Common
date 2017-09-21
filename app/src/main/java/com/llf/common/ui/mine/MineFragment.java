@@ -162,17 +162,17 @@ public class MineFragment extends BaseFragment implements MineContract.View, IUi
 
                             @Override
                             public void onStart() {
-                                LogUtil.e("压缩之前的图片大小" + file.length());
+                                LogUtil.d("压缩之前的图片大小" + file.length());
                             }
 
                             @Override
                             public void onSuccess(File file) {
-                                LogUtil.e("压缩之后的图片大小" + file.length());
+                                LogUtil.d("压缩之后的图片大小" + file.length());
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                LogUtil.e("压缩出错了" + e.getMessage());
+                                LogUtil.d("压缩出错了" + e.getMessage());
                             }
                         }).launch();    //启动压缩
             }
