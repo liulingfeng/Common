@@ -5,6 +5,7 @@ import android.os.StrictMode;
 
 import com.amitshekhar.DebugDB;
 import com.llf.basemodel.base.BaseApplication;
+import com.llf.basemodel.utils.AppInfoUtil;
 
 /**
  * Created by llf on 2017/3/10.
@@ -25,7 +26,9 @@ public class App extends BaseApplication {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             builder.detectFileUriExposure();
         }
-        DebugDB.getAddressLog();
+        if (AppInfoUtil.isApkInDebug(this)) {
+            DebugDB.getAddressLog();
+        }
     }
 
     /**

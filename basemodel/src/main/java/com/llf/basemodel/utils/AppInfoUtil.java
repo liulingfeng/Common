@@ -3,6 +3,7 @@ package com.llf.basemodel.utils;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -15,7 +16,8 @@ import java.util.List;
  */
 
 public class AppInfoUtil {
-    private AppInfoUtil() { }
+    private AppInfoUtil() {
+    }
 
 
     /**
@@ -133,6 +135,7 @@ public class AppInfoUtil {
 
     /**
      * 判断微信是否安装
+     *
      * @param context
      * @return
      */
@@ -169,5 +172,19 @@ public class AppInfoUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 判断是不是在debug环境
+     * @param context
+     * @return
+     */
+    public static boolean isApkInDebug(Context context) {
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
