@@ -2,6 +2,7 @@ package com.llf.common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
@@ -20,6 +21,8 @@ import com.llf.common.ui.girl.GirlFragment;
 import com.llf.common.ui.mine.MineFragment;
 import com.llf.common.ui.news.NewsFragment;
 import com.llf.common.ui.video.VideoFragment;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -61,6 +64,17 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         if (savedInstanceState != null) {
             currentTabPosition = savedInstanceState.getInt(CURRENT_TAB_POSITION);
             mViewPager.setCurrentItem(currentTabPosition);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/xiuqu.apk");
+        if (file.exists() && file.length() > 0) {
+            file.deleteOnExit();
+            showToast("安装包已删除");
         }
     }
 
