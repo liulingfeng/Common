@@ -28,8 +28,12 @@ public class MainPresenter implements MainContract.Presenter {
             @Override
             public void onSuccess(String response) {
                 LogUtil.d("应用更新:" + response);
-                ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
-                mView.returnUpdateResult(entity);
+                try {
+                    ApplicationEntity entity = JsonUtils.deserialize(response, ApplicationEntity.class);
+                    mView.returnUpdateResult(entity);
+                }catch (Exception e){
+                    mView.returnResult("System Object");
+                }
             }
 
             @Override
