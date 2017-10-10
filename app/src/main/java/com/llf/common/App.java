@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.StrictMode;
 
 import com.amitshekhar.DebugDB;
+import com.bumptech.glide.Glide;
 import com.llf.basemodel.base.BaseApplication;
 import com.llf.basemodel.utils.AppInfoUtil;
 
@@ -39,6 +40,7 @@ public class App extends BaseApplication {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
+        Glide.get(this).trimMemory(level);
         //1.清理内存中的图片2.清理掉Activity只保留Root Activity
         switch (level) {
             case TRIM_MEMORY_COMPLETE:
@@ -47,6 +49,15 @@ public class App extends BaseApplication {
             case TRIM_MEMORY_RUNNING_CRITICAL:
                 //表示 App 正在正常运行，但是系统已经开始根据 LRU List 的缓存规则杀掉了一部分缓存的进程
                 break;
+            case TRIM_MEMORY_UI_HIDDEN:
+                Glide.get(this).clearMemory();
+                break;
         }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
     }
 }
