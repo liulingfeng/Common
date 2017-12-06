@@ -2,7 +2,7 @@
 **请下载修改的朋友把bugly账号换成自己的，现在所有你们出现的问题都报到我这边了，我自己的问题都区分不了了。
 
 秀趣——文艺的名字下是一款实用的休闲类App。新闻视频和技术应有尽有，不管是学习技术知识还是了解社会国家大事，这款App都会是你的选择。<br>
-[app下载地址](https://fir.im/6s7z)（下载量突破800，直追900）<br>
+[app下载地址](https://fir.im/6s7z)（时时下载量1076）<br>
 ##### 下面是部分截图
 <img src="https://github.com/liulingfeng/Common/blob/master/screenshot/S70425-105042.jpg" width="300" height="530">
 <img src="https://github.com/liulingfeng/Common/blob/master/screenshot/S70425-105106.jpg" width="300" height="530">
